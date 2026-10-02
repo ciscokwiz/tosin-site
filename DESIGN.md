@@ -169,6 +169,15 @@ Kept as they were: the Run of Show section, the word-by-word reveal and the Rang
   - The hero photo parallaxes away as you scroll past it.
   - A three.js "stage dust" field of gold and lilac light runs on the home page only. The camera flies forward through it (z) as the page scrolls, drifting in x and y. It loads lazily after the page is idle and is skipped for reduced motion, data-saver mode or browsers without WebGL.
 
+## Revision 5: themes, one-way pins, Rates and Booking
+
+- **Light by default.** The site opens in light mode for everyone, and dark appears only when a visitor chooses it.
+- **Dark mode is a rich royal purple, not near-black.** The canvas is `#2a1a4d`, surfaces `#34225e`, stage `#46307a` and footer `#2b1b52`, with gold `#e0bd6a`. All text pairs pass AA.
+- **One-way pins.** "Meet the host" and the Range rail pin on the way down. Once you have passed one, or as soon as you scroll up inside it, it releases into a finished, normal-height section: every photo shown, every word lit, and the rail becomes a swipe row. The scroll position is adjusted so nothing jumps, and the way back to the hero is short.
+- **Inner-page header (`PageHero`).** It sits close under the nav and has a slow aurora of purple and gold light behind it, plus its own pocket of three.js stage dust. A photo card tilts toward the mouse, floating glass chips surround it, and the fila seal sits on the card.
+- **Rates.** A sticky segmented control jumps between categories. Each category is a rounded panel of package cards with the price as the hero number and inclusions as tags. Each card has a "Book this" button plus a WhatsApp icon button, and lifts on hover. Extras are compact cards. The estimator sits in rounded glass panels. "Got a date in mind?" is now a single slim pill. Panels arrive with the y-axis depth motion.
+- **Booking.** Contact details are three small glass pills (WhatsApp, phone, email). The form is a rounded card of compact fields (46px tall, 14px radius). The invitation card sets its grand lines in UnifrakturMaguntia, an Old English blackletter, loaded only on the Booking page.
+
 ## Critic loop
 | Axis | Round 1 | Reason | Fix | Round 2 |
 |---|---|---|---|---|

@@ -39,17 +39,14 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#412d63" },
-    { media: "(prefers-color-scheme: dark)", color: "#160e22" },
-  ],
+  themeColor: "#412d63",
   width: "device-width",
   initialScale: 1,
 };
 
-/* Runs before first paint: picks the theme (saved choice → system), turns on
+/* Runs before first paint: picks the theme (light unless the visitor chose dark), turns on
    scroll reveals, and decides whether the once-per-session intro plays. */
-const bootScript = `(function(){var d=document.documentElement;try{var t=localStorage.getItem('tce-theme');if(t!=='light'&&t!=='dark'){t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}d.dataset.theme=t}catch(e){d.dataset.theme='light'}d.classList.add('js');var r=matchMedia('(prefers-reduced-motion: reduce)').matches;try{if(!r&&!sessionStorage.getItem('tce-intro')){d.classList.add('intro');sessionStorage.setItem('tce-intro','1')}}catch(e){}setTimeout(function(){if(!window.__tceMotion){d.classList.remove('js');d.classList.add('intro-over')}},4000)})();`;
+const bootScript = `(function(){var d=document.documentElement;try{var t=localStorage.getItem('tce-theme');if(t!=='dark')t='light';d.dataset.theme=t}catch(e){d.dataset.theme='light'}d.classList.add('js');var r=matchMedia('(prefers-reduced-motion: reduce)').matches;try{if(!r&&!sessionStorage.getItem('tce-intro')){d.classList.add('intro');sessionStorage.setItem('tce-intro','1')}}catch(e){}setTimeout(function(){if(!window.__tceMotion){d.classList.remove('js');d.classList.add('intro-over')}},4000)})();`;
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (

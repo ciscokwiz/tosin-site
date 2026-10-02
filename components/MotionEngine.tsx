@@ -3,6 +3,7 @@
 import { usePathname } from "next/navigation";
 import { useEffect } from "react";
 import { createDepth } from "@/lib/motion/depth";
+import { jumpTo } from "./SmoothScroll";
 
 /* All scroll and pointer motion, driven by ONE requestAnimationFrame loop:
    - [data-reveal]   fades/rises in when scrolled into view
@@ -14,6 +15,10 @@ import { createDepth } from "@/lib/motion/depth";
    - [data-marquee]  client band drifts, and speeds up with scroll
    - [data-depth]    sections arrive in 3D (z / x / y), hero parallax exit
    - [data-magnetic] buttons lean toward a mouse pointer
+   - [data-tilt]     photo cards tilt toward the mouse (page headers)
+   Pinned sections are ONE-WAY: once you have scrolled past one, or start
+   scrolling back up inside it, it releases into a normal, finished section
+   so the way back to the top is quick.
    Reduced motion: everything is shown still, the rail is a native swipe. */
 export function MotionEngine() {
   const pathname = usePathname();
@@ -60,7 +65,7 @@ export function MotionEngine() {
         if (i > 0 && w.dataset.seg !== spans[i - 1].dataset.seg) acc.push(i);
         return acc;
       }, []);
-      return { section, text, n: spans.length, starts, photos: section.querySelector<HTMLElement>(".meet__photos"), active: -1 };
+      return { section, text, n: spans.length, starts, photos: section.querySelector<HTMLElement>(".meet__photos"), active: -1, done: false };
     });
     const rails = Array.from(document.querySelectorAll<HTMLElement>("[data-rail]")).map((rail) => ({
       rail,
@@ -70,6 +75,7 @@ export function MotionEngine() {
       knob: rail.querySelector<HTMLElement>("[data-rail-knob]"),
       overflow: 0,
       pinned: false,
+      done: false,
     }));
     const marquees = Array.from(document.querySelectorAll<HTMLElement>("[data-marquee]")).map((el) => ({ el, x: 0, paused: false }));
     marquees.forEach((m) => {
@@ -85,6 +91,7 @@ export function MotionEngine() {
     function measure() {
       const wide = window.innerWidth >= 900;
       for (const r of rails) {
+        if (r.done) continue;
         r.track.style.transform = "";
         r.rail.classList.toggle("is-pinned", wide);
         const cs = getComputedStyle(r.viewport);
@@ -99,6 +106,18 @@ export function MotionEngine() {
     window.addEventListener("resize", measure);
     document.fonts?.ready.then(measure);
 
+    /* Release a pinned block, keeping what is on screen still:
+       - already above the viewport → shift scroll by the height it lost
+       - on screen (user scrolling up inside it) → land on its top */
+    function release(el: HTMLElement, undo: () => void) {
+      const before = el.getBoundingClientRect();
+      const y = window.scrollY;
+      undo();
+      const after = el.getBoundingClientRect();
+      const target = before.bottom <= 0 ? y - (before.height - after.height) : y + before.top;
+      jumpTo(Math.max(0, target));
+    }
+
     let lastY = window.scrollY;
     let velocity = 0;
     let raf = 0;
@@ -109,8 +128,10 @@ export function MotionEngine() {
       last = now;
       const y = window.scrollY;
       const vh = window.innerHeight;
-      velocity = velocity * 0.9 + (y - lastY) * 0.1;
+      const delta = y - lastY;
+      velocity = velocity * 0.9 + delta * 0.1;
       lastY = y;
+      const goingUp = delta < -1;
 
       // words light up between 85% and 35% of the viewport
       for (const el of words) {
@@ -122,7 +143,16 @@ export function MotionEngine() {
       // pinned "meet the host": progress through the section drives the words,
       // and the lit frontier decides which photo is showing
       for (const sc of scrollies) {
+        if (sc.done) continue;
         const r = sc.section.getBoundingClientRect();
+        if (r.bottom <= 0 || (goingUp && r.top < -4)) {
+          sc.done = true;
+          release(sc.section, () => {
+            sc.section.classList.remove("is-scrolly");
+            sc.text.style.removeProperty("--f");
+          });
+          continue;
+        }
         const travel = Math.max(1, r.height - vh);
         const p = clamp(-r.top / travel / 0.85, 0, 1);
         // each part of the sentence gets an equal share of the scroll,
@@ -144,8 +174,20 @@ export function MotionEngine() {
       // pinned rail
       for (const r of rails) {
         let p: number;
-        if (r.pinned) {
-          const top = r.rail.getBoundingClientRect().top;
+        if (r.pinned && !r.done) {
+          const box = r.rail.getBoundingClientRect();
+          if (box.bottom <= 0 || (goingUp && box.top < -4)) {
+            r.done = true;
+            r.pinned = false;
+            release(r.rail, () => {
+              r.rail.classList.remove("is-pinned");
+              r.rail.classList.add("is-done");
+              r.rail.style.height = "";
+              r.track.style.transform = "";
+            });
+            continue;
+          }
+          const top = box.top;
           p = clamp(-top / Math.max(1, r.overflow), 0, 1);
           r.track.style.transform = `translate3d(${-p * r.overflow}px,0,0)`;
         } else {
@@ -169,9 +211,18 @@ export function MotionEngine() {
     }
     raf = requestAnimationFrame(frame);
 
-    // ---- magnetic buttons (mouse only) ----
+    // ---- magnetic buttons + tilting photo cards (mouse only) ----
+    const tilts = Array.from(document.querySelectorAll<HTMLElement>("[data-tilt]"));
     function onMove(e: PointerEvent) {
       if (e.pointerType !== "mouse") return;
+      for (const t of tilts) {
+        const r = t.getBoundingClientRect();
+        if (r.bottom < 0 || r.top > window.innerHeight) continue;
+        const dx = (e.clientX - (r.left + r.width / 2)) / window.innerWidth;
+        const dy = (e.clientY - (r.top + r.height / 2)) / window.innerHeight;
+        t.style.setProperty("--ry", `${(dx * 14).toFixed(2)}deg`);
+        t.style.setProperty("--rx", `${(-dy * 10).toFixed(2)}deg`);
+      }
       const btn = (e.target as Element | null)?.closest?.<HTMLElement>("[data-magnetic]");
       document.querySelectorAll<HTMLElement>("[data-magnetic].is-pulled").forEach((b) => {
         if (b !== btn) { b.classList.remove("is-pulled"); b.style.transform = ""; }

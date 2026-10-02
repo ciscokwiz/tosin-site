@@ -8,9 +8,11 @@
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type Three = any;
 
-export function startStageDust(THREE: Three, canvas: HTMLCanvasElement) {
+export function startStageDust(THREE: Three, canvas: HTMLCanvasElement, opts: { contained?: boolean } = {}) {
+  // contained: fills its parent section (page headers) instead of the window
+  const contained = !!opts.contained;
   const small = window.innerWidth < 760;
-  const COUNT = small ? 260 : 620;
+  const COUNT = contained ? (small ? 140 : 300) : small ? 260 : 620;
   const DEPTH = 90;
 
   const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: false, powerPreference: "low-power" });
@@ -66,7 +68,9 @@ export function startStageDust(THREE: Three, canvas: HTMLCanvasElement) {
   const t0 = performance.now();
 
   function resize() {
-    const w = window.innerWidth, h = window.innerHeight;
+    const box = contained && canvas.parentElement ? canvas.parentElement.getBoundingClientRect() : null;
+    const w = box ? Math.max(1, box.width) : window.innerWidth;
+    const h = box ? Math.max(1, box.height) : window.innerHeight;
     renderer.setSize(w, h, false);
     camera.aspect = w / h;
     camera.updateProjectionMatrix();

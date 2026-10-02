@@ -6,7 +6,7 @@ import { startStageDust } from "@/lib/motion/stageDust";
 /* Home page only: the three.js "stage dust" layer (see lib/motion/stageDust).
    Loaded lazily after the page is idle; skipped for reduced motion,
    data-saver mode, or browsers without WebGL. */
-export function StageDust() {
+export function StageDust({ contained = false }: { contained?: boolean }) {
   const ref = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
@@ -21,9 +21,12 @@ export function StageDust() {
     let lastY = window.scrollY;
 
     function onScroll() {
-      const max = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
       const y = window.scrollY;
-      dust?.setScroll(y / max, y - lastY);
+      // contained: progress through its own section; otherwise the whole page
+      const max = contained
+        ? Math.max(1, canvas!.parentElement?.getBoundingClientRect().height ?? window.innerHeight)
+        : Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
+      dust?.setScroll(Math.min(1, y / max), y - lastY);
       lastY = y;
     }
 
@@ -37,7 +40,7 @@ export function StageDust() {
       try {
         const THREE = await import("three");
         if (cancelled) return;
-        dust = startStageDust(THREE, canvas);
+        dust = startStageDust(THREE, canvas, { contained });
         canvas.classList.add("is-on");
         onScroll();
         window.addEventListener("scroll", onScroll, { passive: true });
@@ -53,5 +56,5 @@ export function StageDust() {
     };
   }, []);
 
-  return <canvas ref={ref} className="stage-dust" aria-hidden="true" />;
+  return <canvas ref={ref} className={contained ? "stage-dust stage-dust--contained" : "stage-dust"} aria-hidden="true" />;
 }
