@@ -17,7 +17,8 @@ Everything you'd normally change lives in the **`data/`** folder. Open a file, c
 
 | What to change | File |
 |---|---|
-| Phone, WhatsApp, email, Instagram, bio, stats, client names, photos | `data/site.ts` |
+| Phone, WhatsApp, email, Instagram, bio, stats, client names | `data/site.ts` |
+| Event photos for the "On stage" gallery (hidden until added) | `data/gallery.ts` |
 | Prices, packages, extras, booking terms | `data/rates.ts` |
 | Event formats in "The Range Master" section | `data/range.ts` |
 | Booking steps ("How a booking runs") | `data/process.ts` |
@@ -28,16 +29,16 @@ Everything you'd normally change lives in the **`data/`** folder. Open a file, c
 In `data/rates.ts`, write prices as plain numbers with no commas: `price: 1500000` shows as **₦1,500,000**. For "price on request" write `price: null`.
 **The current prices are samples.** When the real ones are in, set `ratesAreSamples = false` at the top of the file. That removes every "Sample rate" badge.
 
-### Photos
-1. Put the photo in `public/images/` (for example `public/images/tosin-hero.webp`). Use a **portrait 3:4** crop, about **840 × 1120 px**, saved as WebP or JPG.
-2. In `data/site.ts`, set `images.hero: "/images/tosin-hero.webp"`. Do the same for `images.about`.
-3. Until a photo is set, the site shows a labelled "Photo placeholder" frame.
+### The fila & tuxedo mark
+Tosin's mark lives in `brand/thecorporatemc-tux-mark.svg`. The site uses it in eleven places: logo, loader, page transitions, hero, client band, Range rail, programme card, booking invitation, theme toggle, footer and favicon. `DESIGN.md` lists them all.
 
-### The tux-mark
-The tux-mark is drawn in `components/TuxMark.tsx`. **I couldn't find the tux-mark .svg you mentioned in the repository** (it was empty when the build started), so this is an original stand-in drawn in the same spirit. To use your file:
-1. Open your `.svg` in a text editor and copy its `<path …/>` elements.
-2. Paste them into `components/TuxMark.tsx`, replacing the shapes there. Add `className="tux-jacket"` to the jacket shape and `className="tux-tie"` to the bow tie so the colours and animations still work. If your viewBox isn't `0 0 64 64`, update `TUX_VIEWBOX`.
-3. Replace `public/tux-mark.svg` and `app/icon.svg` (the browser-tab icon) with your file.
+If the artwork changes:
+1. Replace `brand/thecorporatemc-tux-mark.svg` and `public/mark.svg`.
+2. Regenerate `components/MarkSprite.tsx` from it, or ask a developer to. Each part (fila, lapels, bow tie, studs) is a separate group so it can be recoloured and animated.
+3. Update the browser-tab icons `app/icon.svg` and `app/apple-icon.png`, and the share image `public/og.png`.
+
+### Event photos
+There's an "On stage" gallery on the home page that stays hidden until you add photos to `data/gallery.ts`. Real event photos are the single biggest upgrade still available to this site.
 
 ---
 
@@ -85,9 +86,8 @@ The site handles the technical side: page titles written the way people search (
 
 ## What's still placeholder or unverified
 
-- **Tux-mark**: an original stand-in until your `.svg` is added (see above).
-- **Photos**: there are none yet; the site shows labelled placeholder frames.
-- **Prices and booking terms**: these are samples and are marked "Sample" on the site.
+- **Photos**: none yet. The gallery stays hidden until `data/gallery.ts` has entries.
+- **Prices and booking terms**: these are samples, flagged by a single notice on the Rates page.
 - **Client names, stats (500+ events, 3+ countries, 98%), bio and contact details**: taken from public search listings of thecorporatemcee.com. The original site couldn't be opened from the build environment, so please confirm every client name before launch.
 - **Testimonials**: none were available, so the section stays hidden until real quotes are added.
 - **Copy** (headlines, section text): drafted from Tosin's own bio. Edit freely.

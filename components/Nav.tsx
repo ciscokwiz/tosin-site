@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { nav, site } from "@/data/site";
 import { whatsappLink } from "@/lib/format";
-import { TuxMark } from "./TuxMark";
+import { Mark } from "./Mark";
 import { ThemeToggle } from "./ThemeToggle";
 import { WhatsAppIcon } from "./Icons";
 
@@ -36,7 +36,7 @@ export function Nav() {
       <header className="nav">
         <div className="nav__bar">
           <Link href="/" className="brand" aria-label={`${site.brand} — home`}>
-            <TuxMark className="brand__mark" />
+            <Mark className="brand__mark" />
             <span className="brand__name">
               {site.brand}
               <small>{site.person}</small>
@@ -90,7 +90,7 @@ export function Nav() {
           <a className="btn btn--ghost" href={`mailto:${site.contact.email}`}>Email</a>
         </div>
         <div className="sheet__foot">
-          <span>Lights up or down</span>
+          <span>House lights</span>
           <ThemeToggle />
         </div>
       </div>

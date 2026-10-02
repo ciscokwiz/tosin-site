@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { nav, site } from "@/data/site";
 import { telLink, whatsappLink } from "@/lib/format";
-import { TuxMark } from "./TuxMark";
+import { Mark } from "./Mark";
 import { LagosClock } from "./LagosClock";
 import { InstagramIcon, LinkedInIcon, TikTokIcon, WhatsAppIcon, YouTubeIcon } from "./Icons";
 
@@ -19,10 +19,12 @@ export function Footer() {
 
   return (
     <footer className="footer stage" aria-labelledby="footer-title">
-      <TuxMark className="footer__ghost" />
       <div className="wrap">
+        <figure className="footer__figure" aria-hidden="true">
+          <Mark />
+        </figure>
         <div className="footer__wrap-head">
-          <div style={{ display: "grid", gap: 20 }}>
+          <div className="footer__headline">
             <p className="eyebrow">Closing remarks</p>
             <h2 id="footer-title">
               And that&rsquo;s a <em>wrap.</em>
@@ -51,7 +53,7 @@ export function Footer() {
           <section className="order" aria-labelledby="order-title">
             <div className="order__head">
               <h3 id="order-title">Order of Proceedings</h3>
-              <span className="small muted">Programme subject to the MC&rsquo;s discretion</span>
+              <span className="small muted">Tonight&rsquo;s programme</span>
             </div>
             <ol>
               {nav.map((item) => (
@@ -59,7 +61,8 @@ export function Footer() {
                   <Link href={item.href}>
                     <time className="num">{item.time}</time>
                     <strong>{item.label}</strong>
-                    <small className="leader">{item.programme}</small>
+                    <span className="leader" />
+                    <small>{item.programme}</small>
                   </Link>
                 </li>
               ))}
@@ -67,7 +70,8 @@ export function Footer() {
                 <a href="#vote-of-thanks">
                   <time className="num">21:45</time>
                   <strong>Vote of thanks</strong>
-                  <small className="leader">Contact &amp; socials</small>
+                  <span className="leader" />
+                  <small>Contact &amp; socials</small>
                 </a>
               </li>
             </ol>

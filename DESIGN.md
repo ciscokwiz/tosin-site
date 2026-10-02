@@ -2,7 +2,19 @@
 > A black-tie room at 6:58 pm: house lights dimming to aubergine, one gold spotlight, and a voice about to say "Ladies and gentlemen…"
 
 **Theme:** dual. Reading sections flip between lilac-white and aubergine-black. Stage sections (hero, credibility band, CTA band, footer) are always deep purple — the "stage" never turns the lights on.
-**Signature:** the **tux-mark** — a tuxedo front with a gold bow tie. It appears as: logo mark, first-visit loader, page-transition curtain ("Up next: Rates"), theme toggle (the bow tie flips), section seal on the booking invitation card, and the footer's oversized lapel silhouette. Nowhere else. It is never used as a background pattern or bullet.
+**Signature:** Tosin's own mark (`brand/thecorporatemc-tux-mark.svg`) — a **Yoruba fila floating above a tuxedo and bow tie**, no face. The fila is to Tosin what the fedora is to Theo Olayanju: the one object that is unmistakably him. It is split into parts (fila, lapels, bow, studs) in `components/MarkSprite.tsx` so it can be recoloured and animated, and it appears as:
+1. **Logo** — full mark beside the wordmark; the fila tips on hover
+2. **First-visit loader** — the curtain *is* the mark at screen scale: the panels are his lapels, the fila drops onto the tuxedo, the bow tie pops, then the lapels part
+3. **Page transitions** — same lapels close, "Up next: The rate card", the fila tips as they open
+4. **Home hero** — the mark as the cover subject: "The Corporate" behind it, the fila overlapping the masthead, "Emcee" crossing the lapels
+5. **Client marquee** — the fila separates client names
+6. **Range rail** — the bow tie is the knob on the boardroom→dance-floor meter
+7. **Run of Show programme card, booking invitation** — the mark as the printed seal
+8. **Rates** — the bow tie marks "Most booked"; the mark watermarks the page headers
+9. **Theme toggle ("house lights")** — the fila tips as the lights change
+10. **Section rule** — the fila between two hairlines
+11. **Footer** — the full mark tips its fila as a farewell; also the favicon, share image and 404 page
+It is never tiled as a pattern, never distorted, and its proportions are never changed.
 **Lineage:** Entertainment/creator lane (bold type, motion as an asset) held back by fintech restraint, because his buyers are corporate event planners at Coca-Cola, KPMG and USAID — they book the person who looks like he already runs on time.
 
 Rejected first idea: a black-and-gold "luxury events" template (black canvas, gold script font, champagne glitter). Every Lagos MC and planner site already wears it, and it reads wedding-first. Tosin's name is literally *The Corporate Emcee*, so the brand's purple (#412D63) leads, gold is demoted to an accent you earn, and the typography is a black-tie Bodoni rather than a script — formalwear, not party wear.
@@ -122,6 +134,15 @@ Optical sizing: display/H1/H2 `auto` in light theme; pinned `"opsz" 52` for big 
 - **Wedding structure:** booking form distinguishes Traditional/Engagement vs. White Wedding reception vs. both days — these are different days in Nigeria.
 - **Register:** formal-but-warm English.
 
+## Revision 2 — client feedback
+
+The first build was rated 1/10 by the client: a stand-in clip-art tux, pill-and-rounded-card UI everywhere, a bento of big-number tiles and visible "photo placeholder" frames read as a template, not as a premium host. Kept: the purple/gold palette and the loader motion. Changed:
+- Every graphic now comes from the client's fila & tuxedo artwork (eleven placements above).
+- Home became a magazine cover (masthead behind the subject), a scroll-lit manifesto, a pinned horizontal rail, a printed Run of Show card — editorial devices instead of SaaS cards.
+- Radii dropped from 28px to 2–4px; cards gave way to hairline rules; the rate card is set like a printed menu with dotted leaders.
+- No visible placeholders: the gallery and testimonials stay hidden until real content exists; sample prices carry one notice instead of a badge on every card.
+- Motion follows the Theo playbook: one rAF engine, pinned rail, scroll-velocity marquee, word-by-word reveal, magnetic buttons (mouse only), all off under reduced motion.
+
 ## Critic loop
 | Axis | Round 1 | Reason | Fix | Round 2 |
 |---|---|---|---|---|
@@ -132,6 +153,15 @@ Optical sizing: display/H1/H2 `auto` in light theme; pinned `"opsz" 52` for big 
 | Brief fit | 4 | Home/Rates/Booking all covered; "2026 feel" via variable width axis, bento grid, floating pill nav, spotlight, view-curtain; MC identity via programme/run-of-show language | Kept mark usage to six placements per "don't overdo it" | 4 |
 
 Gate passed: every axis ≥ 4.
+
+Round 3 (after client feedback):
+| Axis | Score | Reason |
+|---|---|---|
+| Distinctiveness | 5 | The fila-and-tux mark is the cover, the curtain and the seal; no other Lagos MC site can look like this |
+| Authenticity | 5 | The fila is his own symbol, drawn by him — cultural specificity from the client, not borrowed textile |
+| Accessibility | 4 | Contrast measured; motion has a full reduced-motion mode; the black tuxedo is lifted a shade on the night canvas |
+| Feasibility | 4 | Static export; the mark is one inline sprite reused by `<use>`, so 30KB of trace is sent once |
+| Brief fit | 4 | Real photos and confirmed prices are still the gap between this and 10/10 |
 
 ## Quick start — CSS custom properties
 See `app/globals.css` — the `:root` block there is the single source of truth and mirrors every token above.

@@ -4,6 +4,7 @@ import { site } from "@/data/site";
 import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
 import { Curtain } from "@/components/Curtain";
+import { MarkSprite } from "@/components/MarkSprite";
 import { MotionEngine } from "@/components/MotionEngine";
 import { JsonLd } from "@/components/JsonLd";
 import { personLd, serviceLd } from "@/lib/seo";
@@ -58,6 +59,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <JsonLd data={serviceLd} />
       </head>
       <body>
+        <MarkSprite />
         <a className="skip-link" href="#main">Skip to content</a>
         <Curtain />
         <Nav />

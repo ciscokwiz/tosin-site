@@ -4,6 +4,7 @@ import { mailtoLink, telLink, whatsappLink } from "@/lib/format";
 import { breadcrumbLd } from "@/lib/seo";
 import { BookingForm } from "@/components/BookingForm";
 import { JsonLd } from "@/components/JsonLd";
+import { Mark } from "@/components/Mark";
 
 export const metadata: Metadata = {
   title: "Book an MC in Lagos — Check The Corporate Emcee's Availability",
@@ -19,6 +20,7 @@ export default function BookingPage() {
       <JsonLd data={breadcrumbLd("Booking", "/booking/")} />
 
       <section className="page-hero stage" aria-labelledby="booking-title">
+        <Mark className="page-hero__mark" />
         <div className="wrap" style={{ display: "grid", gap: 40 }}>
           <div className="page-hero__grid hero-in">
             <div style={{ display: "grid", gap: 22 }}>

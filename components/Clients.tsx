@@ -1,20 +1,27 @@
 import { site } from "@/data/site";
+import { Mark } from "./Mark";
 
 /* Credibility band directly under the hero. Names are set in type (not
-   scraped logos) so the claim is honest, readable and theme-proof. */
+   scraped logos) so the claim is honest, readable and theme-proof. The
+   fila separates the names; MotionEngine speeds the band up with scroll. */
 export function Clients() {
-  const list = site.clients;
+  const row = (hidden?: boolean) => (
+    <ul aria-hidden={hidden || undefined}>
+      {site.clients.map((c) => (
+        <li key={c}>
+          <span>{c}</span>
+          <Mark variant="fila" />
+        </li>
+      ))}
+    </ul>
+  );
   return (
     <section className="clients stage" aria-labelledby="clients-title">
       <h2 id="clients-title" className="clients__label">Trusted on stage by teams at</h2>
       <div className="clients__fade">
-        <div className="marquee">
-          <ul>
-            {list.map((c) => <li key={c}>{c}</li>)}
-          </ul>
-          <ul aria-hidden="true">
-            {list.map((c) => <li key={c}>{c}</li>)}
-          </ul>
+        <div className="marquee" data-marquee>
+          {row()}
+          {row(true)}
         </div>
       </div>
     </section>

@@ -1,12 +1,13 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { BowTie } from "./TuxMark";
+import { Mark } from "./Mark";
 
-/* The bow tie flips when the theme changes. The real theme is applied by
-   the inline script in app/layout.tsx before the first paint. */
+/* House lights. The fila tips as the lights change. The theme itself is
+   applied by the inline script in app/layout.tsx before the first paint. */
 export function ThemeToggle() {
   const [dark, setDark] = useState<boolean | null>(null);
+  const [tip, setTip] = useState(0);
 
   useEffect(() => {
     setDark(document.documentElement.dataset.theme === "dark");
@@ -17,6 +18,7 @@ export function ThemeToggle() {
     document.documentElement.dataset.theme = next;
     try { localStorage.setItem("tce-theme", next); } catch { /* private mode */ }
     setDark(next === "dark");
+    setTip((t) => t + 1);
   }
 
   return (
@@ -25,10 +27,11 @@ export function ThemeToggle() {
       className="theme-toggle"
       onClick={toggle}
       aria-pressed={dark ?? undefined}
-      aria-label={dark ? "Switch to light theme" : "Switch to dark theme"}
+      aria-label={dark ? "Turn the house lights up (light theme)" : "Dim the house lights (dark theme)"}
       title={dark ? "Lights up" : "Lights down"}
+      data-tip={tip ? (tip % 2 ? "a" : "b") : undefined}
     >
-      <BowTie />
+      <Mark variant="fila" />
     </button>
   );
 }

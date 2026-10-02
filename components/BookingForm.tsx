@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { packages, rateCategories } from "@/data/rates";
 import { site } from "@/data/site";
 import { formatNaira, mailtoLink, whatsappLink } from "@/lib/format";
-import { TuxMark } from "./TuxMark";
+import { Mark } from "./Mark";
 import { WhatsAppIcon } from "./Icons";
 
 /* Booking enquiry. Nothing is stored: the form writes a tidy message and
@@ -277,7 +277,7 @@ export function BookingForm() {
       <aside className="invite-wrap" aria-label="Preview of your booking">
         <p className="small muted">Your booking, as an invitation</p>
         <div className="invite">
-          <TuxMark />
+          <Mark className="invite__seal" />
           <p className="invite__small">The pleasure of the company of</p>
           <p className="invite__name">The Corporate <em>Emcee</em></p>
           <p className="invite__small">is requested to host</p>

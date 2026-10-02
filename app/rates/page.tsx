@@ -9,6 +9,7 @@ import { Estimator } from "@/components/Estimator";
 import { Faq } from "@/components/Faq";
 import { JsonLd } from "@/components/JsonLd";
 import { WhatsAppIcon } from "@/components/Icons";
+import { Mark } from "@/components/Mark";
 
 export const metadata: Metadata = {
   title: "MC Rates & Packages in Lagos — Corporate, Wedding & Launch Hosting",
@@ -26,6 +27,7 @@ export default function RatesPage() {
       <JsonLd data={breadcrumbLd("Rates", "/rates/")} />
 
       <section className="page-hero stage" aria-labelledby="rates-title">
+        <Mark className="page-hero__mark" />
         <div className="wrap page-hero__grid hero-in">
           <div style={{ display: "grid", gap: 22 }}>
             <p className="eyebrow">The rate card &middot; 2026 / 27</p>
@@ -38,8 +40,7 @@ export default function RatesPage() {
             </p>
             {ratesAreSamples && (
               <p className="notice">
-                <span aria-hidden="true">✎</span>
-                <span><b>Sample rates.</b> These prices are placeholders for the new site and will be replaced with Tosin&rsquo;s confirmed rates.</span>
+                <span><b>Sample rates.</b> Placeholder prices until Tosin confirms his rate card.</span>
               </p>
             )}
           </div>
@@ -60,70 +61,69 @@ export default function RatesPage() {
             if (!list.length) return null;
             return (
               <section key={c.id} id={c.id} className="rate-cat" aria-labelledby={`${c.id}-title`}>
-                <div className="rate-cat__head" data-reveal>
+                <div className="rate-cat__head">
                   <h2 id={`${c.id}-title`} className="h2">{c.label}</h2>
                   <p>{c.blurb}</p>
                 </div>
-                <div className="rate-grid">
-                  {list.map((p, i) => (
-                    <article key={p.id} className={`rate${p.featured ? " rate--featured" : ""}`} data-reveal={String((i % 3) + 1)} aria-labelledby={`${p.id}-name`}>
-                      <div className="rate__top">
-                        <h3 id={`${p.id}-name`} className="h4">{p.name}</h3>
-                        {p.featured && <span className="rate__ribbon">Most booked</span>}
+                <ul className="menu">
+                  {list.map((p) => (
+                    <li key={p.id} className="menu__item">
+                      <div className="menu__row">
+                        <h3 className="menu__name">{p.name}</h3>
+                        <span className="leader" aria-hidden="true" />
+                        <div className="menu__price">
+                          {p.price === null ? (
+                            <span className="price">On request</span>
+                          ) : (
+                            <span className="price" aria-label={`From ${formatNaira(p.price)}`}>
+                              <span className="from">from</span><span className="cur">₦</span>{formatNumber(p.price)}
+                            </span>
+                          )}
+                          <span className="menu__per">{p.per}</span>
+                        </div>
                       </div>
-                      <div className="rate__price">
-                        {p.price === null ? (
-                          <p className="price price--text">On request</p>
-                        ) : (
-                          <>
-                            <span className="from">From</span>
-                            <p className="price" aria-label={`From ${formatNaira(p.price)}`}>
-                              <span className="cur">₦</span>{formatNumber(p.price)}
-                            </p>
-                          </>
+                      <p className="menu__summary">{p.summary}</p>
+                      <p className="menu__includes">Includes: {p.includes.join(" · ")}</p>
+                      <div className="menu__actions">
+                        {p.featured && (
+                          <span className="menu__featured"><Mark variant="bow" /> Most booked</span>
                         )}
-                        <span className="rate__per">{p.per}</span>
-                        {ratesAreSamples && p.price !== null && <span className="badge-sample" style={{ width: "fit-content", marginTop: 6 }}>Sample rate</span>}
-                      </div>
-                      <div style={{ display: "grid", gap: 16, alignContent: "start" }}>
-                        <p className="rate__summary">{p.summary}</p>
-                        <ul className="checks">
-                          {p.includes.map((x) => <li key={x}>{x}</li>)}
-                        </ul>
-                      </div>
-                      <div className="rate__actions">
-                        <Link className="btn btn--sm" href={`/booking/?package=${p.id}`}>Book this</Link>
+                        <Link className="text-link" href={`/booking/?package=${p.id}`}>Book this</Link>
                         <a
-                          className="btn btn--sm btn--ghost"
+                          className="text-link"
                           href={whatsappLink(`Hello ${site.brand}, I'm interested in the "${p.name}" package. Is my date available?`)}
                           target="_blank"
                           rel="noopener"
-                          aria-label={`Ask about ${p.name} on WhatsApp`}
                         >
-                          <WhatsAppIcon /> Ask
+                          Ask on WhatsApp<span className="visually-hidden"> about {p.name}</span>
                         </a>
                       </div>
-                    </article>
+                    </li>
                   ))}
-                </div>
+                </ul>
               </section>
             );
           })}
 
           <section className="rate-cat" aria-labelledby="addons-title">
-            <div className="rate-cat__head" data-reveal>
+            <div className="rate-cat__head">
               <h2 id="addons-title" className="h2">Extras</h2>
               <p>Add to any package.</p>
             </div>
-            <div className="addons" data-reveal>
+            <ul className="menu">
               {addOns.map((a) => (
-                <div className="addon" key={a.id}>
-                  <b>{a.name}</b>
-                  <span>{a.note}</span>
-                  <span className="num">{a.price === null ? "At cost" : `+${formatNaira(a.price)}`}</span>
-                </div>
+                <li className="menu__item" key={a.id}>
+                  <div className="menu__row">
+                    <h3 className="menu__name">{a.name}</h3>
+                    <span className="leader" aria-hidden="true" />
+                    <div className="menu__price">
+                      <span className="price">{a.price === null ? "At cost" : <><span className="cur">+₦</span>{formatNumber(a.price)}</>}</span>
+                    </div>
+                  </div>
+                  <p className="menu__includes">{a.note}</p>
+                </li>
               ))}
-            </div>
+            </ul>
           </section>
         </div>
       </section>
@@ -148,7 +148,7 @@ export default function RatesPage() {
           <div className="section-head" data-reveal>
             <p className="eyebrow">Good to know</p>
             <h2 id="terms-title" className="h2">Booking <em>terms.</em></h2>
-            {ratesAreSamples && <span className="badge-sample" style={{ width: "fit-content" }}>Sample terms &middot; to be confirmed</span>}
+            {ratesAreSamples && <p className="small muted">Sample terms, to be confirmed by Tosin.</p>}
           </div>
           <div style={{ display: "grid", gap: 48 }} data-reveal="2">
             <ol className="terms">

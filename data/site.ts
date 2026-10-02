@@ -71,16 +71,6 @@ export const site = {
     "Chapel Hill Denham",
     "Oraimo",
   ],
-
-  // PHOTOS. Put image files in /public/images and write their path here,
-  // e.g. "/images/tosin-hero.webp". Leave "" to show the branded
-  // "Photo placeholder" frame. Best size: 840 x 1120 (portrait 3:4), WebP.
-  images: {
-    hero: "",
-    heroAlt: "Oluwatosin Aina, The Corporate Emcee, on stage in a tuxedo",
-    about: "",
-    aboutAlt: "Tosin hosting a corporate conference in Lagos",
-  },
 } as const;
 
 /* Main navigation. `time` is the programme time shown in the footer's
