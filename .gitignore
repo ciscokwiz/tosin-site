@@ -6,3 +6,4 @@ next-env.d.ts
 qa-shots/
 .DS_Store
 .env*.local
+.DS_Store

@@ -42,29 +42,32 @@ export function Nav() {
               <small>{site.person}</small>
             </span>
           </Link>
-          <nav aria-label="Main">
-            <ul className="nav__links">
-              {nav.map((item) => (
-                <li key={item.href}>
-                  <Link href={item.href} aria-current={isCurrent(pathname, item.href) ? "page" : undefined}>
-                    {item.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </nav>
-          <ThemeToggle />
-          <Link href="/booking/" className="btn btn--sm">Book</Link>
-          <button
-            type="button"
-            className="nav__menu"
-            aria-expanded={open}
-            aria-controls="programme-sheet"
-            aria-label={open ? "Close menu" : "Open menu"}
-            onClick={() => setOpen((v) => !v)}
-          >
-            <span />
-          </button>
+          {/* House lights sit in the centre of the bar */}
+          <div className="nav__center"><ThemeToggle /></div>
+          <div className="nav__end">
+            <nav aria-label="Main">
+              <ul className="nav__links">
+                {nav.filter((item) => item.href !== "/booking/").map((item) => (
+                  <li key={item.href}>
+                    <Link href={item.href} aria-current={isCurrent(pathname, item.href) ? "page" : undefined}>
+                      {item.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+            <Link href="/booking/" className="btn btn--sm nav__book" aria-current={isCurrent(pathname, "/booking/") ? "page" : undefined}>Book Tosin</Link>
+            <button
+              type="button"
+              className="nav__menu"
+              aria-expanded={open}
+              aria-controls="programme-sheet"
+              aria-label={open ? "Close menu" : "Open menu"}
+              onClick={() => setOpen((v) => !v)}
+            >
+              <span />
+            </button>
+          </div>
         </div>
       </header>
 
@@ -88,10 +91,6 @@ export function Nav() {
             <WhatsAppIcon /> WhatsApp
           </a>
           <a className="btn btn--ghost" href={`mailto:${site.contact.email}`}>Email</a>
-        </div>
-        <div className="sheet__foot">
-          <span>House lights</span>
-          <ThemeToggle />
         </div>
       </div>
     </>

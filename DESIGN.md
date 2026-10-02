@@ -143,6 +143,16 @@ The first build was rated 1/10 by the client: a stand-in clip-art tux, pill-and-
 - No visible placeholders: the gallery and testimonials stay hidden until real content exists; sample prices carry one notice instead of a badge on every card.
 - Motion follows the Theo playbook: one rAF engine, pinned rail, scroll-velocity marquee, word-by-word reveal, magnetic buttons (mouse only), all off under reduced motion.
 
+## Revision 3 — home page, client feedback
+
+Kept as they were: the Run of Show section, the word-by-word reveal and the Range rail.
+- **Hero:** the photo leads. Tosin faces a full banquet hall in his fila. The hero is exactly one screen tall (`100svh`). The title is set at roughly a third of its previous size and left-aligned over the darker side of the photo. The buttons are normal size, and the stats sit bottom-right.
+- **Nav:** there is one booking route, the gold "Book Tosin" button. The "Booking" link is gone. The house-lights toggle sits in the exact centre of the bar.
+- **Meet the host:** the section is pinned while you scroll. The sentence is in three parts, and each part reveals its own photo in a three-photo grid (tall, near-square, wide). Earlier photos step back so the current one is in focus. Each part gets an equal share of the scroll, however many words it has. The text is set in Instrument Sans with gold Bodoni italic accents.
+- **Range cards:** 28px radius. On hover a card lifts out of the deck.
+- **Why it works → Video testimonials:** dark cards. Mouse users get a muted preview after resting on a card for 450ms. A click opens the player, and nothing loads from YouTube until then.
+- **Footer:** cut down to the brand and a call to action, three short columns, and the base line.
+
 ## Critic loop
 | Axis | Round 1 | Reason | Fix | Round 2 |
 |---|---|---|---|---|

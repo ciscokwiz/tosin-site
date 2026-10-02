@@ -7,6 +7,8 @@ import { useEffect } from "react";
    - [data-reveal]   fades/rises in when scrolled into view
    - [data-count]    counts up to its number once visible
    - [data-words]    words light up as the paragraph crosses the screen
+   - [data-scrolly]  pinned section: scroll lights the words AND switches
+                     photos at each sentence segment (Meet the host)
    - [data-rail]     pinned horizontal rail (wide screens); meter on phones
    - [data-marquee]  client band drifts, and speeds up with scroll
    - .hero           gold spotlight follows the mouse
@@ -47,7 +49,18 @@ export function MotionEngine() {
     counts.forEach((el) => io.observe(el));
 
     // ---- elements for the frame loop ----
-    const words = Array.from(document.querySelectorAll<HTMLElement>("[data-words]"));
+    const words = Array.from(document.querySelectorAll<HTMLElement>("[data-words]")).filter((el) => !el.closest("[data-scrolly]"));
+    const scrollies = Array.from(document.querySelectorAll<HTMLElement>("[data-scrolly]")).map((section) => {
+      section.classList.add("is-scrolly");
+      const text = section.querySelector<HTMLElement>("[data-words]")!;
+      const spans = Array.from(text.querySelectorAll<HTMLElement>("[data-seg]"));
+      // index of the first word of each segment after the first
+      const starts = spans.reduce<number[]>((acc, w, i) => {
+        if (i > 0 && w.dataset.seg !== spans[i - 1].dataset.seg) acc.push(i);
+        return acc;
+      }, []);
+      return { section, text, n: spans.length, starts, photos: section.querySelector<HTMLElement>(".meet__photos"), active: -1 };
+    });
     const rails = Array.from(document.querySelectorAll<HTMLElement>("[data-rail]")).map((rail) => ({
       rail,
       viewport: rail.querySelector<HTMLElement>("[data-rail-viewport]")!,
@@ -98,6 +111,26 @@ export function MotionEngine() {
         const r = el.getBoundingClientRect();
         const p = clamp((vh * 0.85 - r.top) / (vh * 0.5 + r.height * 0.6), 0, 1);
         el.style.setProperty("--p", p.toFixed(3));
+      }
+
+      // pinned "meet the host": progress through the section drives the words,
+      // and the lit frontier decides which photo is showing
+      for (const sc of scrollies) {
+        const r = sc.section.getBoundingClientRect();
+        const travel = Math.max(1, r.height - vh);
+        const p = clamp(-r.top / travel / 0.85, 0, 1);
+        // each part of the sentence gets an equal share of the scroll,
+        // however many words it has, so every photo is on screen as long
+        const bounds = [0, ...sc.starts, sc.n];
+        const parts = bounds.length - 1;
+        const k = Math.min(parts - 1, Math.floor(p * parts));
+        const local = p * parts - k;
+        const frontier = p >= 1 ? sc.n + 1 : bounds[k] + local * (bounds[k + 1] - bounds[k]) + 0.6;
+        sc.text.style.setProperty("--f", frontier.toFixed(3));
+        if (k !== sc.active && sc.photos) {
+          sc.active = k;
+          sc.photos.dataset.active = String(k);
+        }
       }
 
       // pinned rail
@@ -159,6 +192,7 @@ export function MotionEngine() {
       window.removeEventListener("resize", measure);
       document.removeEventListener("pointermove", onMove);
       rails.forEach((r) => { r.rail.style.height = ""; r.track.style.transform = ""; });
+      scrollies.forEach((sc) => sc.section.classList.remove("is-scrolly"));
     };
   }, [pathname]);
 

@@ -23,7 +23,8 @@ Everything you'd normally change lives in the **`data/`** folder. Open a file, c
 | Event formats in "The Range Master" section | `data/range.ts` |
 | Booking steps ("How a booking runs") | `data/process.ts` |
 | Frequently asked questions | `data/faq.ts` |
-| Testimonials (hidden until you add one) | `data/testimonials.ts` |
+| Hero photo and the three "Meet the host" photos | `data/photos.ts` |
+| Video testimonials (YouTube links or MP4s) | `data/videos.ts` |
 
 ### Prices
 In `data/rates.ts`, write prices as plain numbers with no commas: `price: 1500000` shows as **₦1,500,000**. For "price on request" write `price: null`.
@@ -37,8 +38,17 @@ If the artwork changes:
 2. Regenerate `components/MarkSprite.tsx` from it, or ask a developer to. Each part (fila, lapels, bow tie, studs) is a separate group so it can be recoloured and animated.
 3. Update the browser-tab icons `app/icon.svg` and `app/apple-icon.png`, and the share image `public/og.png`.
 
-### Event photos
-There's an "On stage" gallery on the home page that stays hidden until you add photos to `data/gallery.ts`. Real event photos are the single biggest upgrade still available to this site.
+### Photos
+1. Put the original photo in `assets/`. Any size of JPG or PNG is fine.
+2. Run `npm run images`. This writes web-sized copies to `public/images/` (`<name>-800.webp` and `<name>-1600.webp`).
+3. In `data/photos.ts`, point the hero or a "Meet the host" slot at `"/images/<name>"`. Set `focus` to keep his face in frame when the photo is cropped.
+
+The hero photo currently on the site (`hero1.jpg`) is only 1280px wide, so a larger original will look sharper on big screens.
+
+The "On stage" gallery (`data/gallery.ts`) stays hidden until you add photos to it.
+
+### Video testimonials
+`data/videos.ts` holds three **sample** cards, labelled "Sample" on the site. For each real testimonial, add either a YouTube id or an MP4 placed in `public/videos/`, a poster photo, and the client's name and role. Then delete `sample: true`. Get the client's permission before publishing their name or video.
 
 ---
 
@@ -89,7 +99,7 @@ The site handles the technical side: page titles written the way people search (
 - **Photos**: none yet. The gallery stays hidden until `data/gallery.ts` has entries.
 - **Prices and booking terms**: these are samples, flagged by a single notice on the Rates page.
 - **Client names, stats (500+ events, 3+ countries, 98%), bio and contact details**: taken from public search listings of thecorporatemcee.com. The original site couldn't be opened from the build environment, so please confirm every client name before launch.
-- **Testimonials**: none were available, so the section stays hidden until real quotes are added.
+- **Video testimonials**: the three cards are samples until real videos are added in `data/videos.ts`.
 - **Copy** (headlines, section text): drafted from Tosin's own bio. Edit freely.
 
 ## Tech notes for a developer
