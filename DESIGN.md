@@ -91,8 +91,8 @@ Body text is 17px and does not shrink on phones. The scale is a major third (1.2
 - **Rate card:** surface card, category tag, package name (serif step-3), "From ₦X" (opsz 10, tabular), includes list with hairline checks, "Sample rate" badge visible while prices are placeholders.
 - **Estimate builder:** package select + add-on checkboxes → live total → "Send this estimate on WhatsApp".
 - **Invitation preview (booking):** a card styled as an event invitation that fills live as the form is typed: "The Corporate Emcee is requested at…" with tux-mark seal. Purely presentational; the form is the source of truth.
-- **Loader:** first visit per session only, ≤1.1s, tux-mark draws in, bow tie drops, lights up. Skipped entirely with reduced motion.
-- **Page curtain:** two lapel-shaped panels close from left/right to a V, mark + "Up next: {page}" in the gap, ~450ms close / ~350ms open; safety timeout 1.6s.
+- **Loader:** first visit per session only, about 2.7s. The left front swings on, then the right; the fila settles, the bow tie and studs follow, and the fronts part one after the other. Skipped entirely with reduced motion.
+- **Page curtain:** two lapel-shaped panels close from left/right to a V, mark + "Up next: {page}" in the gap, ~640ms close (right front 120ms behind the left) / ~760ms open.
 - **Theme toggle:** button with the bow tie; it flips 180° on toggle; `aria-pressed`, label states the action.
 - **Footer ("Closing Remarks"):** see Layout.
 
@@ -129,7 +129,7 @@ Body text is 17px and does not shrink on phones. The scale is a major third (1.2
 - **Currency & numerals:** ₦ with comma thousands (`Intl.NumberFormat('en-NG')`), tabular lining figures; international = "On request" (quoted in USD/GBP on enquiry).
 - **Contact channels:** WhatsApp primary (+234 803 406 4395) surfaced in nav sheet, hero, every rate card, booking page and footer; phone and email (thecorporateemcee00@gmail.com) secondary. Booking form composes a WhatsApp message (or email fallback) — no backend.
 - **Trust signals:** named corporate clients directly under the hero; 500+ events / 3+ countries / 98% satisfaction; OAU Psychology degree + emotional-intelligence and product-management training; a clear process timeline (planners fear the MC who shows up without the run-sheet).
-- **Connectivity:** static export, ~2 font files, no third-party scripts, images lazy and sized, motion CSS-first. Works on throttled 3G; loader never blocks content longer than 1.1s and is skipped after first view.
+- **Connectivity:** static export, ~2 font files, no third-party scripts, images lazy and sized, motion CSS-first. Works on throttled 3G; the loader runs once per session (about 2.7s) and is skipped after that.
 - **Wedding structure:** booking form distinguishes Traditional/Engagement vs. White Wedding reception vs. both days — these are different days in Nigeria.
 - **Register:** formal-but-warm English.
 
@@ -176,7 +176,17 @@ Kept as they were: the Run of Show section, the word-by-word reveal and the Rang
 - **One-way pins.** "Meet the host" and the Range rail pin on the way down. Once you have passed one, or as soon as you scroll up inside it, it releases into a finished, normal-height section: every photo shown, every word lit, and the rail becomes a swipe row. The scroll position is adjusted so nothing jumps, and the way back to the hero is short.
 - **Inner-page header (`PageHero`).** It sits close under the nav and has a slow aurora of purple and gold light behind it, plus its own pocket of three.js stage dust. A photo card tilts toward the mouse, floating glass chips surround it, and the fila seal sits on the card.
 - **Rates.** A sticky segmented control jumps between categories. Each category is a rounded panel of package cards with the price as the hero number and inclusions as tags. Each card has a "Book this" button plus a WhatsApp icon button, and lifts on hover. Extras are compact cards. The estimator sits in rounded glass panels. "Got a date in mind?" is now a single slim pill. Panels arrive with the y-axis depth motion.
-- **Booking.** Contact details are three small glass pills (WhatsApp, phone, email). The form is a rounded card of compact fields (46px tall, 14px radius). The invitation card sets its grand lines in UnifrakturMaguntia, an Old English blackletter, loaded only on the Booking page.
+- **Booking.** Contact details are three small glass pills (WhatsApp, phone, email). The form is a rounded card of compact fields (46px tall, 14px radius). The invitation card sets its grand lines in an Old English blackletter, loaded only on the Booking page (Grenze Gotisch since revision 6).
+
+## Revision 6: loader, mobile fixes, legibility
+
+- **Loader with texture.** The blazer fronts carry a fine twill weave, a soft fall-off of light and a satin sheen on the lapels, outlined by a gold pick-stitch. The shirt behind them has thin vertical pleats. The fronts arrive like a blazer being put on: left first, then right, eased in and out rather than snapped. The fila is drawn smaller, at 74% of the artwork. The first-visit intro now runs about 2.7s, and page transitions close in about 640ms and open in about 760ms.
+- **Mobile "Meet the host".** The credentials list is hidden on phones, so the sentence and photos carry the section.
+- **Range meter.** The bow tie travels inside the track and stops at its end, clear of the "Dance floor" label.
+- **Rates reveals.** Package cards glide in. Each card eases toward its scroll position instead of tracking it frame by frame, and neighbouring cards are staggered slightly.
+- **Nav.** The bar shows only Rates and "Book Tosin". Home is the logo, and the mobile menu still lists every page.
+- **Invitation font.** Grenze Gotisch replaces UnifrakturMaguntia. It is still Old English in character but far easier to read at small sizes.
+- **Form.** The date and time icons are drawn in brand purple (gold in dark mode) at full opacity.
 
 ## Critic loop
 | Axis | Round 1 | Reason | Fix | Round 2 |

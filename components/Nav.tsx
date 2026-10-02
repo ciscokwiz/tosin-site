@@ -50,7 +50,7 @@ export function Nav() {
           <div className="nav__end">
             <nav aria-label="Main">
               <ul className="nav__links">
-                {nav.filter((item) => item.href !== "/booking/").map((item) => (
+                {nav.filter((item) => item.href !== "/booking/" && item.href !== "/").map((item) => (
                   <li key={item.href}>
                     <Link href={item.href} aria-current={isCurrent(pathname, item.href) ? "page" : undefined}>
                       {item.label}

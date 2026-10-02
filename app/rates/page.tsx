@@ -57,14 +57,15 @@ export default function RatesPage() {
               const list = packages.filter((p) => p.category === c.id);
               if (!list.length) return null;
               return (
-                <section key={c.id} id={c.id} className="rpanel" aria-labelledby={`${c.id}-title`} data-depth="y">
+                <section key={c.id} id={c.id} className="rpanel" aria-labelledby={`${c.id}-title`}>
                   <header className="rpanel__head">
                     <h2 id={`${c.id}-title`} className="rpanel__title">{c.label}</h2>
                     <p>{c.blurb}</p>
                   </header>
                   <ul className="rpanel__grid">
-                    {list.map((p) => (
-                      <li key={p.id} className={`pkg${p.featured ? " pkg--featured" : ""}`}>
+                    {list.map((p, i) => (
+                      <li key={p.id} data-depth="y" data-depth-lag={i % 3}>
+                      <article className={`pkg${p.featured ? " pkg--featured" : ""}`}>
                         {p.featured && <span className="pkg__badge"><Mark variant="bow" /> Most booked</span>}
                         <h3 className="pkg__name">{p.name}</h3>
                         <p className="pkg__price">
@@ -94,6 +95,7 @@ export default function RatesPage() {
                             <WhatsAppIcon />
                           </a>
                         </div>
+                      </article>
                       </li>
                     ))}
                   </ul>
@@ -101,14 +103,14 @@ export default function RatesPage() {
               );
             })}
 
-            <section className="rpanel" aria-labelledby="addons-title" data-depth="y">
+            <section className="rpanel" aria-labelledby="addons-title">
               <header className="rpanel__head">
                 <h2 id="addons-title" className="rpanel__title">Extras</h2>
                 <p>Add to any package.</p>
               </header>
               <ul className="extras">
-                {addOns.map((a) => (
-                  <li key={a.id}>
+                {addOns.map((a, i) => (
+                  <li key={a.id} data-depth="y" data-depth-lag={i % 3}>
                     <strong>{a.name}</strong>
                     <span className="extras__price">{a.price === null ? "At cost" : `+₦${formatNumber(a.price)}`}</span>
                     <small>{a.note}</small>

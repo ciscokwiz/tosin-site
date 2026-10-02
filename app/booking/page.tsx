@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import "@fontsource/unifrakturmaguntia/latin-400.css";
+import "@fontsource-variable/grenze-gotisch/wght.css";
 import { site } from "@/data/site";
 import { meetPhotos } from "@/data/photos";
 import { mailtoLink, telLink, whatsappLink } from "@/lib/format";

@@ -355,68 +355,94 @@ button, input, select, textarea { font: inherit; color: inherit; }
    artwork); the fila, bow tie and studs sit on top. Driven by data-state
    from components/Curtain.tsx; the first-visit intro is pure CSS.
    ===================================================================== */
-.curtain { position: fixed; inset: 0; z-index: 100; pointer-events: none; overflow: hidden; }
-.curtain__shirt { position: absolute; inset: 0; background: #f3eef8; opacity: 0; transition: opacity 0.2s 0.1s; }
+.curtain { position: fixed; inset: 0; z-index: 100; pointer-events: none; overflow: hidden; --cur-ease: cubic-bezier(0.65, 0, 0.35, 1); --cur-out: cubic-bezier(0.22, 1, 0.36, 1); }
+/* the shirt: soft ivory with fine vertical pleats */
+.curtain__shirt {
+  position: absolute; inset: 0; opacity: 0; transition: opacity 0.35s 0.1s;
+  background:
+    repeating-linear-gradient(90deg, rgba(65, 45, 99, 0.05) 0 1px, transparent 1px 14px),
+    radial-gradient(60% 70% at 50% 35%, #fbf8ff, #ece4f6);
+}
 .curtain__panel {
   position: absolute; top: 0; height: 100%; width: calc(50% + 1px);
-  transition: transform 0.42s var(--ease-in); will-change: transform;
+  transition: transform 0.62s var(--cur-ease); will-change: transform;
+  filter: drop-shadow(0 0 28px rgba(17, 11, 26, 0.45));
 }
-.curtain__panel--l { left: 0; transform: translateX(-102%); }
-.curtain__panel--r { right: 0; transform: translateX(102%); }
+.curtain__panel--l { left: 0; transform: translateX(-104%); transform-origin: 100% 0; }
+.curtain__panel--r { right: 0; transform: translateX(104%); transform-origin: 0 0; }
 .curtain__cloth { fill: var(--purple); }
-.curtain__lapel { fill: var(--purple-deep); }
+.curtain__stitch { fill: none; stroke: rgba(216, 178, 92, 0.35); stroke-width: 0.35; stroke-dasharray: 1.2 1.1; }
 .curtain__ornaments {
-  position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; transition: opacity 0.2s;
+  position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; transition: opacity 0.3s;
   --m-bow: var(--gold); --m-stud: var(--purple); --m-line: #2b1d44;
 }
+/* the fila sits a little smaller than in the artwork */
+.c-fila { transform-box: view-box; transform-origin: 76px 98px; transform: scale(0.74); }
 .curtain__text {
   position: absolute; left: 0; right: 0; bottom: max(4vh, 24px); text-align: center; color: #f3eef8;
   display: grid; gap: 10px; justify-items: center; opacity: 0; transform: translateY(8px);
-  transition: opacity 0.25s, transform 0.4s var(--ease); padding-inline: var(--gutter);
+  transition: opacity 0.35s, transform 0.5s var(--cur-out); padding-inline: var(--gutter);
 }
-.curtain__kicker { font-size: var(--step--2); font-weight: 600; letter-spacing: 0.08em; color: var(--gold-stage); }
+.curtain__kicker { font-size: var(--step--2); font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold-stage); }
 .curtain__title { font-family: var(--font-display); font-weight: 800; font-size: var(--step-4); line-height: 1; letter-spacing: -0.04em; }
 
+/* page transitions: left front, then right front (like putting on a blazer) */
 .curtain[data-state="closing"], .curtain[data-state="closed"] { pointer-events: auto; }
 .curtain[data-state="closing"] .curtain__panel,
 .curtain[data-state="closed"] .curtain__panel { transform: none; }
-.curtain[data-state="closing"] .curtain__shirt,
+.curtain[data-state="closing"] .curtain__panel--r { transition-delay: 0.12s; }
+.curtain[data-state="closing"] .curtain__shirt { opacity: 1; transition-delay: 0s; }
 .curtain[data-state="closing"] .curtain__ornaments,
-.curtain[data-state="closing"] .curtain__text { opacity: 1; transform: none; transition-delay: 0.16s; }
+.curtain[data-state="closing"] .curtain__text { opacity: 1; transform: none; transition-delay: 0.42s; }
 .curtain[data-state="closed"] .curtain__shirt,
 .curtain[data-state="closed"] .curtain__ornaments,
 .curtain[data-state="closed"] .curtain__text { opacity: 1; transform: none; }
-.curtain[data-state="opening"] .curtain__panel { transition: transform 0.48s var(--ease); }
-.curtain[data-state="opening"] .curtain__shirt,
+.curtain[data-state="opening"] .curtain__panel { transition: transform 0.66s var(--cur-ease); }
+.curtain[data-state="opening"] .curtain__panel--r { transition-delay: 0.1s; }
+.curtain[data-state="opening"] .curtain__shirt { opacity: 0; transition-delay: 0.3s; }
 .curtain[data-state="opening"] .curtain__ornaments,
-.curtain[data-state="opening"] .curtain__text { opacity: 0; transition-duration: 0.14s; transition-delay: 0s; }
-.curtain[data-state="opening"] .c-fila { transform: translateY(-10px) rotate(-10deg); transition: transform 0.3s var(--ease); }
+.curtain[data-state="opening"] .curtain__text { opacity: 0; transition-duration: 0.22s; transition-delay: 0s; }
+.curtain[data-state="opening"] .c-fila { transform: translate(-2px, -12px) rotate(-12deg) scale(0.74); transition: transform 0.4s var(--cur-out); }
 
-/* first-visit intro: the fila drops onto the tuxedo, then the lapels part */
-:root.intro:not(.intro-over) .curtain { pointer-events: auto; animation: intro-gate 1.7s linear forwards; }
-:root.intro:not(.intro-over) .curtain__panel--l { animation: intro-l 1.7s var(--ease) forwards; }
-:root.intro:not(.intro-over) .curtain__panel--r { animation: intro-r 1.7s var(--ease) forwards; }
-:root.intro:not(.intro-over) .curtain__shirt { animation: intro-fade 1.7s forwards; }
-:root.intro:not(.intro-over) .curtain__ornaments { animation: intro-fade 1.7s forwards; }
-:root.intro:not(.intro-over) .c-fila { animation: intro-fila 1.7s var(--ease) forwards; }
-:root.intro:not(.intro-over) .c-bow { animation: intro-bow 1.7s var(--ease) forwards; }
-:root.intro:not(.intro-over) .c-studs { animation: intro-studs 1.7s var(--ease) forwards; }
-:root.intro:not(.intro-over) .curtain__text { animation: intro-text 1.7s var(--ease) forwards; }
-@keyframes intro-gate { 0%, 82% { visibility: visible; } 100% { visibility: hidden; } }
-@keyframes intro-l { 0%, 66% { transform: none; } 100% { transform: translateX(-102%); } }
-@keyframes intro-r { 0%, 66% { transform: none; } 100% { transform: translateX(102%); } }
-@keyframes intro-fade { 0%, 62% { opacity: 1; } 74%, 100% { opacity: 0; } }
-@keyframes intro-fila {
-  0% { transform: translateY(-120px) rotate(-8deg); opacity: 0; }
-  18% { transform: translateY(4px) rotate(1deg); opacity: 1; }
+/* first visit: shirt → left front swings on → right front → fila settles
+   → bow tie and studs → name → the fronts part, one after the other */
+:root.intro:not(.intro-over) .curtain { pointer-events: auto; animation: intro-gate 2.7s linear forwards; }
+:root.intro:not(.intro-over) .curtain__shirt { animation: intro-shirt 2.7s var(--cur-ease) forwards; }
+:root.intro:not(.intro-over) .curtain__panel--l { animation: intro-l 2.7s linear forwards; }
+:root.intro:not(.intro-over) .curtain__panel--r { animation: intro-r 2.7s linear forwards; }
+:root.intro:not(.intro-over) .curtain__ornaments { animation: intro-orn 2.7s linear forwards; }
+:root.intro:not(.intro-over) .c-fila { animation: intro-fila 2.7s linear forwards; }
+:root.intro:not(.intro-over) .c-bow { animation: intro-bow 2.7s linear forwards; }
+:root.intro:not(.intro-over) .c-studs { animation: intro-studs 2.7s linear forwards; }
+:root.intro:not(.intro-over) .curtain__text { animation: intro-text 2.7s linear forwards; }
+@keyframes intro-gate { 0%, 96% { visibility: visible; } 100% { visibility: hidden; } }
+@keyframes intro-shirt { 0%, 78% { opacity: 1; } 92%, 100% { opacity: 0; } }
+@keyframes intro-l {
+  0% { transform: translateX(-104%) rotate(-3deg); animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1); }
   26% { transform: none; }
-  58% { transform: none; }
-  70% { transform: translate(-2px, -14px) rotate(-14deg); }
-  100% { transform: translate(-2px, -14px) rotate(-14deg); }
+  77% { transform: none; animation-timing-function: cubic-bezier(0.65, 0, 0.35, 1); }
+  97%, 100% { transform: translateX(-104%); }
 }
-@keyframes intro-bow { 0%, 20% { transform: scale(0); } 30% { transform: scale(1.12); } 36%, 100% { transform: none; } }
-@keyframes intro-studs { 0%, 26% { opacity: 0; } 38%, 100% { opacity: 1; } }
-@keyframes intro-text { 0%, 18% { opacity: 0; transform: translateY(10px); } 32%, 60% { opacity: 1; transform: none; } 72%, 100% { opacity: 0; } }
+@keyframes intro-r {
+  0%, 9% { transform: translateX(104%) rotate(3deg); animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1); }
+  35% { transform: none; }
+  80% { transform: none; animation-timing-function: cubic-bezier(0.65, 0, 0.35, 1); }
+  100% { transform: translateX(104%); }
+}
+@keyframes intro-orn { 0%, 30% { opacity: 0; } 36%, 78% { opacity: 1; } 88%, 100% { opacity: 0; } }
+@keyframes intro-fila {
+  0%, 33% { transform: translateY(-110px) rotate(-6deg) scale(0.74); opacity: 0; animation-timing-function: cubic-bezier(0.33, 1, 0.68, 1); }
+  46% { transform: translateY(3px) rotate(1deg) scale(0.74); opacity: 1; animation-timing-function: cubic-bezier(0.37, 0, 0.63, 1); }
+  52%, 77% { transform: scale(0.74); opacity: 1; animation-timing-function: cubic-bezier(0.37, 0, 0.63, 1); }
+  88%, 100% { transform: translate(-2px, -12px) rotate(-12deg) scale(0.74); }
+}
+@keyframes intro-bow { 0%, 44% { transform: scale(0); animation-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1); } 56%, 100% { transform: none; } }
+@keyframes intro-studs { 0%, 50% { opacity: 0; } 60%, 100% { opacity: 1; } }
+@keyframes intro-text {
+  0%, 46% { opacity: 0; transform: translateY(12px); animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1); }
+  58%, 76% { opacity: 1; transform: none; }
+  86%, 100% { opacity: 0; transform: none; }
+}
 
 /* =====================================================================
    HERO — the photo does the talking; exactly one screen tall
@@ -545,6 +571,9 @@ button, input, select, textarea { font: inherit; color: inherit; }
 @media (min-width: 900px) {
   .meet__grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
 }
+@media (max-width: 767px) {
+  .meet .creds { display: none; }
+}
 @media (max-width: 899px) {
   .meet__photos { height: clamp(220px, 36svh, 360px); }
   .meet__track.is-scrolly .meet__sticky { align-items: start; padding-top: 92px; }
@@ -593,7 +622,7 @@ button, input, select, textarea { font: inherit; color: inherit; }
 .rail__meter { display: grid; grid-template-columns: auto 1fr auto; gap: 18px; align-items: center; font-size: 14px; font-weight: 500; color: var(--muted); }
 .meter { position: relative; height: 1px; background: var(--line-strong); }
 .meter__fill { position: absolute; inset: 0; background: var(--accent-text); transform: scaleX(0); transform-origin: left; display: block; }
-.meter__knob { position: absolute; top: 50%; left: 0; width: 34px; transform: translate(-50%, -50%); --m-tux: var(--accent-text); }
+.meter__knob { position: absolute; top: 50%; left: 0; width: 34px; transform: translateY(-50%); --m-tux: var(--accent-text); }
 .meter__knob .mark { width: 34px; }
 
 /* =====================================================================
@@ -819,6 +848,7 @@ button, input, select, textarea { font: inherit; color: inherit; }
 .rpanel__title { font-size: var(--step-3); font-weight: 800; letter-spacing: -0.035em; line-height: 1.1; }
 .rpanel__head p { font-size: 15px; color: var(--muted); max-width: 30ch; }
 .rpanel__grid { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); }
+.rpanel__grid > li { display: grid; }
 .pkg {
   position: relative; display: grid; gap: 12px; align-content: start; padding: 22px;
   border-radius: 24px; background: var(--canvas); border: 1px solid var(--line);
@@ -890,6 +920,15 @@ button, input, select, textarea { font: inherit; color: inherit; }
   transition: border-color 0.2s, box-shadow 0.2s;
 }
 .textarea { min-height: 108px; resize: vertical; }
+/* date & time pickers: a clearly visible brand-coloured icon */
+.input::-webkit-calendar-picker-indicator {
+  opacity: 1; cursor: pointer; width: 18px; height: 18px; padding: 2px; border-radius: 6px;
+  background: no-repeat center / 18px var(--picker-icon);
+}
+.input[type="date"] { --picker-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23412d63' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3' y='4.5' width='18' height='16.5' rx='3'/%3E%3Cpath d='M3 9.5h18M8 2.5v4M16 2.5v4'/%3E%3C/svg%3E"); }
+.input[type="time"] { --picker-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23412d63' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='9'/%3E%3Cpath d='M12 7v5l3 2'/%3E%3C/svg%3E"); }
+:root[data-theme="dark"] .input[type="date"] { --picker-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23e0bd6a' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3' y='4.5' width='18' height='16.5' rx='3'/%3E%3Cpath d='M3 9.5h18M8 2.5v4M16 2.5v4'/%3E%3C/svg%3E"); }
+:root[data-theme="dark"] .input[type="time"] { --picker-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23e0bd6a' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='9'/%3E%3Cpath d='M12 7v5l3 2'/%3E%3C/svg%3E"); }
 .select {
   appearance: none; -webkit-appearance: none; padding-right: 48px;
   background-image: linear-gradient(45deg, transparent 50%, var(--ink) 50%), linear-gradient(135deg, var(--ink) 50%, transparent 50%);
@@ -943,9 +982,9 @@ fieldset { border: 0; margin: 0; padding: 0; min-width: 0; }
 .invite__seal { height: 84px; width: auto; }
 .invite:hover .mark__fila { animation: fila-tip 1s var(--ease); }
 .invite__small { font-size: 13px; letter-spacing: 0.06em; color: #6a5f7c; font-weight: 500; font-style: italic; }
-.invite__name { font-family: "UnifrakturMaguntia", "Old English Text MT", var(--font-display); font-weight: 400; font-size: clamp(32px, 3.4vw, 42px); line-height: 1.1; color: #1a1226; letter-spacing: 0; }
+.invite__name { font-family: "Grenze Gotisch Variable", "Old English Text MT", var(--font-display); font-weight: 600; font-size: clamp(32px, 3.4vw, 42px); line-height: 1.1; color: #1a1226; letter-spacing: 0; }
 .invite__name em { color: #7a5a14; font-style: normal; }
-.invite__field { font-family: "UnifrakturMaguntia", "Old English Text MT", var(--font-display); font-weight: 400; font-size: clamp(22px, 2.2vw, 27px); line-height: 1.3; color: #1a1226; max-width: 22ch; overflow-wrap: anywhere; }
+.invite__field { font-family: "Grenze Gotisch Variable", "Old English Text MT", var(--font-display); font-weight: 500; font-size: clamp(23px, 2.3vw, 28px); line-height: 1.3; color: #1a1226; max-width: 22ch; overflow-wrap: anywhere; }
 .invite__field[data-empty="true"] { color: #8d82a0; opacity: 0.7; }
 .invite__field .t { display: block; font-size: 0.86em; }
 .invite__rule { width: 48px; height: 1px; background: #c9a04a; margin: 4px 0; }
@@ -1001,7 +1040,7 @@ html.lenis, html.lenis body { height: auto; }
 .lenis.lenis-smooth { scroll-behavior: auto !important; }
 .lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
 .lenis.lenis-stopped { overflow: clip; }
-[data-depth] { overflow-x: clip; }
+section[data-depth], div[data-depth] { overflow-x: clip; }
 .stage-dust {
   position: fixed; inset: 0; width: 100%; height: 100%; z-index: 4; pointer-events: none;
   opacity: 0; transition: opacity 1.6s var(--ease);
@@ -1017,9 +1056,9 @@ html.lenis, html.lenis body { height: auto; }
 .hero-in { animation: rise 0.9s var(--ease) backwards 0.15s; }
 @keyframes rise { from { opacity: 0; transform: translateY(18px); } }
 .hero__stats.hero-in { animation-delay: 0.35s; }
-:root.intro .hero-in { animation-delay: 1.2s; }
-:root.intro .hero__stats.hero-in { animation-delay: 1.4s; }
-:root.intro .hero__img { animation-delay: 1s; }
+:root.intro .hero-in { animation-delay: 2.25s; }
+:root.intro .hero__stats.hero-in { animation-delay: 2.45s; }
+:root.intro .hero__img { animation-delay: 2s; }
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: 0.001ms !important; animation-delay: 0s !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; transition-delay: 0s !important; }

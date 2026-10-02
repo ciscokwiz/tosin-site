@@ -8,8 +8,8 @@ import { jumpTo } from "./SmoothScroll";
 
 type State = "idle" | "closing" | "closed" | "opening";
 
-const CLOSE_MS = 420;
-const OPEN_MS = 480;
+const CLOSE_MS = 640;
+const OPEN_MS = 760;
 const HOLD_MS = 220; // long enough to read "Up next: …"
 const SAFETY_MS = 1600;
 
@@ -57,7 +57,7 @@ export function Curtain() {
   useEffect(() => {
     const root = document.documentElement;
     if (!root.classList.contains("intro")) return;
-    const t = window.setTimeout(() => root.classList.add("intro-over"), 1550);
+    const t = window.setTimeout(() => root.classList.add("intro-over"), 2750);
     return () => clearTimeout(t);
   }, []);
 
@@ -110,14 +110,49 @@ export function Curtain() {
     <div className="curtain" data-state={state} aria-hidden="true">
       <div className="curtain__shirt" />
       {/* The two halves of the curtain are Tosin's lapels at screen scale.
-          Both use the artwork's own coordinates, centred on the seam (x = 82). */}
+          Both use the artwork's own coordinates, centred on the seam (x = 82).
+          Texture: a fine twill on the cloth, light falling off toward the
+          outer edges, satin sheen and a stitched edge on the lapels. */}
       <svg className="curtain__panel curtain__panel--l" viewBox="-400 0 482 290" preserveAspectRatio="xMaxYMid slice">
+        <defs>
+          <pattern id="cur-twill" width="2.4" height="2.4" patternUnits="userSpaceOnUse" patternTransform="rotate(38)">
+            <rect width="0.9" height="2.4" fill="rgba(255,255,255,0.055)" />
+          </pattern>
+          <linearGradient id="cur-falloff-l" gradientUnits="userSpaceOnUse" x1="-400" y1="0" x2="82" y2="0">
+            <stop offset="0" stopColor="#120a20" stopOpacity="0.55" />
+            <stop offset="0.75" stopColor="#120a20" stopOpacity="0.05" />
+            <stop offset="1" stopColor="#120a20" stopOpacity="0.25" />
+          </linearGradient>
+          <linearGradient id="cur-falloff-r" gradientUnits="userSpaceOnUse" x1="564" y1="0" x2="82" y2="0">
+            <stop offset="0" stopColor="#120a20" stopOpacity="0.55" />
+            <stop offset="0.75" stopColor="#120a20" stopOpacity="0.05" />
+            <stop offset="1" stopColor="#120a20" stopOpacity="0.25" />
+          </linearGradient>
+          <linearGradient id="cur-satin-l" gradientUnits="userSpaceOnUse" x1="14" y1="110" x2="82" y2="270">
+            <stop offset="0" stopColor="#24173b" />
+            <stop offset="0.42" stopColor="#4a3672" />
+            <stop offset="0.55" stopColor="#2f2049" />
+            <stop offset="1" stopColor="#1d1230" />
+          </linearGradient>
+          <linearGradient id="cur-satin-r" gradientUnits="userSpaceOnUse" x1="150" y1="110" x2="82" y2="270">
+            <stop offset="0" stopColor="#24173b" />
+            <stop offset="0.42" stopColor="#4a3672" />
+            <stop offset="0.55" stopColor="#2f2049" />
+            <stop offset="1" stopColor="#1d1230" />
+          </linearGradient>
+        </defs>
         <path className="curtain__cloth" d="M-400 0H82V112H48C54 165 68 212 82 240V290H-400Z" />
-        <path className="curtain__lapel" d={MARK_GEOMETRY.LAPEL_L} />
+        <path fill="url(#cur-twill)" d="M-400 0H82V112H48C54 165 68 212 82 240V290H-400Z" />
+        <path fill="url(#cur-falloff-l)" d="M-400 0H82V112H48C54 165 68 212 82 240V290H-400Z" />
+        <path fill="url(#cur-satin-l)" d={MARK_GEOMETRY.LAPEL_L} />
+        <path className="curtain__stitch" d={MARK_GEOMETRY.LAPEL_L} />
       </svg>
       <svg className="curtain__panel curtain__panel--r" viewBox="82 0 482 290" preserveAspectRatio="xMinYMid slice">
         <path className="curtain__cloth" d="M82 0H564V290H82V240C96 212 110 165 116 112H82Z" />
-        <path className="curtain__lapel" d={MARK_GEOMETRY.LAPEL_R} />
+        <path fill="url(#cur-twill)" d="M82 0H564V290H82V240C96 212 110 165 116 112H82Z" />
+        <path fill="url(#cur-falloff-r)" d="M82 0H564V290H82V240C96 212 110 165 116 112H82Z" />
+        <path fill="url(#cur-satin-r)" d={MARK_GEOMETRY.LAPEL_R} />
+        <path className="curtain__stitch" d={MARK_GEOMETRY.LAPEL_R} />
       </svg>
       <svg className="curtain__ornaments" viewBox="-400 0 964 290" preserveAspectRatio="xMidYMid slice">
         <use href="#m-studs" className="c-studs" />

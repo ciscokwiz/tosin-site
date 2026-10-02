@@ -191,10 +191,13 @@ export function MotionEngine() {
           p = clamp(-top / Math.max(1, r.overflow), 0, 1);
           r.track.style.transform = `translate3d(${-p * r.overflow}px,0,0)`;
         } else {
-          p = r.overflow ? r.viewport.scrollLeft / r.overflow : 0;
+          // swipe mode: progress from the real scroll range, clamped
+          const range = r.viewport.scrollWidth - r.viewport.clientWidth;
+          p = range > 0 ? clamp(r.viewport.scrollLeft / range, 0, 1) : 0;
         }
         if (r.fill) r.fill.style.transform = `scaleX(${p.toFixed(4)})`;
-        if (r.knob) r.knob.style.left = `${(p * 100).toFixed(2)}%`;
+        // the knob travels inside the track, never past its ends
+        if (r.knob) r.knob.style.left = `calc(${p.toFixed(4)} * (100% - 34px))`;
       }
 
       // marquee: base drift + scroll velocity, direction follows scroll
