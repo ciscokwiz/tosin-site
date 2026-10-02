@@ -81,6 +81,8 @@ export function Curtain() {
       later(() => {
         set("closed");
         closedAt.current = performance.now();
+        // the first-visit intro is long over: new pages enter without its delay
+        document.documentElement.classList.remove("intro");
         pendingHash.current = url.hash.slice(1);
         // We scroll ourselves while the lapels are closed (see below).
         router.push(url.pathname + url.search + url.hash, { scroll: false });
