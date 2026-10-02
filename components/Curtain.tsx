@@ -4,6 +4,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { nav, site } from "@/data/site";
 import { MARK_GEOMETRY } from "./MarkSprite";
+import { jumpTo } from "./SmoothScroll";
 
 type State = "idle" | "closing" | "closed" | "opening";
 
@@ -94,8 +95,7 @@ export function Curtain() {
   useEffect(() => {
     if (stateRef.current === "closed") {
       const target = pendingHash.current && document.getElementById(pendingHash.current);
-      if (target) target.scrollIntoView({ behavior: "instant" as ScrollBehavior });
-      else window.scrollTo({ top: 0, left: 0, behavior: "instant" as ScrollBehavior });
+      jumpTo(target || 0);
       const wait = Math.max(0, HOLD_MS - (performance.now() - closedAt.current));
       later(() => requestAnimationFrame(open), wait);
     }

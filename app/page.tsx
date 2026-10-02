@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { faq } from "@/data/faq";
 import { faqLd } from "@/lib/seo";
-import { FilaRule } from "@/components/Mark";
 import { Hero } from "@/components/Hero";
 import { Clients } from "@/components/Clients";
 import { MeetHost } from "@/components/MeetHost";
@@ -11,11 +10,15 @@ import { Programme } from "@/components/Programme";
 import { Gallery } from "@/components/Gallery";
 import { Faq } from "@/components/Faq";
 import { JsonLd } from "@/components/JsonLd";
+import { StageDust } from "@/components/StageDust";
 
 export default function Home() {
+  const homeFaq = faq.filter((f) => f.home);
+
   return (
     <>
-      <JsonLd data={faqLd(faq)} />
+      <JsonLd data={faqLd(homeFaq)} />
+      <StageDust />
 
       <Hero />
       <Clients />
@@ -23,16 +26,16 @@ export default function Home() {
       <RangeRail />
       <VideoTestimonials />
 
-      {/* ---------------- RUN OF SHOW ---------------- */}
-      <section className="section stage show" aria-labelledby="show-title">
+      {/* ---------------- HOW BOOKING WORKS ---------------- */}
+      <section className="section stage show" aria-labelledby="show-title" data-depth>
         <div className="wrap show__grid">
           <div className="show__head">
             <p className="eyebrow">From first message to final applause</p>
-            <h2 id="show-title" className="h2">How a booking <em>runs.</em></h2>
-            <p className="lead">No surprises on the night. Every booking follows the same programme, so your planner always knows what happens next.</p>
+            <h2 id="show-title" className="h2">How booking <em>works.</em></h2>
+            <p className="lead">Five clear steps, so you and your planner always know what comes next.</p>
             <div className="btn-row">
-              <Link href="/booking/" className="btn" data-magnetic>Start with an enquiry</Link>
-              <Link href="/rates/" className="btn btn--ghost">See the rate card</Link>
+              <Link href="/booking/" className="btn btn--sm" data-magnetic>Start an enquiry</Link>
+              <Link href="/rates/" className="btn btn--sm btn--ghost">See rates</Link>
             </div>
           </div>
           <Programme />
@@ -42,17 +45,14 @@ export default function Home() {
       <Gallery />
 
       {/* ---------------- FAQ ---------------- */}
-      <section className="section" aria-labelledby="faq-title">
-        <div className="wrap">
-          <FilaRule />
-          <div className="faq-layout">
-            <div className="section-head">
-              <p className="eyebrow">Questions</p>
-              <h2 id="faq-title" className="h2">Before you <em>book.</em></h2>
-              <p>Still unsure? Ask on WhatsApp. It&rsquo;s the fastest way to reach Tosin.</p>
-            </div>
-            <Faq items={faq} />
+      <section className="section faq-section" aria-labelledby="faq-title" data-depth="y">
+        <div className="wrap faq-layout">
+          <div className="section-head">
+            <p className="eyebrow">FAQ</p>
+            <h2 id="faq-title" className="h2">Quick <em>answers.</em></h2>
+            <p>Anything else? <Link href="/booking/">Send a message</Link> and Tosin will reply.</p>
           </div>
+          <Faq items={homeFaq} />
         </div>
       </section>
     </>

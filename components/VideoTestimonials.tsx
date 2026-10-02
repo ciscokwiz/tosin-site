@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { videos, type VideoTestimonial } from "@/data/videos";
+import { lockScroll } from "./SmoothScroll";
 
 /* Video testimonials. Motion is asked for, never assumed:
    - mouse: rest on a card ~450ms and a muted preview plays (MP4 only)
@@ -16,19 +17,20 @@ export function VideoTestimonials() {
     if (!d) return;
     if (open && !d.open) d.showModal();
     if (!open && d.open) d.close();
+    lockScroll(!!open);
   }, [open]);
 
   if (!videos.length) return null;
 
   return (
-    <section className="section videos stage" aria-labelledby="videos-title">
+    <section className="section videos" aria-labelledby="videos-title" data-depth="x">
       <div className="wrap">
         <div className="split-head">
           <div style={{ display: "grid", gap: 16 }}>
             <p className="eyebrow">Video testimonials</p>
             <h2 id="videos-title" className="h2">In their <em>words.</em></h2>
           </div>
-          <p className="lead">Planners, brands and couples on what it is like to hand Tosin the mic.</p>
+          <p className="lead">What planners, brands and couples say after the mic goes down.</p>
         </div>
         <ul className="videos__grid">
           {videos.map((v, i) => (

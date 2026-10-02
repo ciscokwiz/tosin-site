@@ -104,4 +104,4 @@ The site handles the technical side: page titles written the way people search (
 
 ## Tech notes for a developer
 
-Next.js 16 (App Router), TypeScript and plain CSS custom properties, exported as a static site (`output: "export"`). Fonts are self-hosted through Fontsource: Bodoni Moda Variable and Instrument Sans Variable. The site has no backend and no third-party scripts. Design tokens are in `app/globals.css`, and the two theme layers (reading and stage) are explained in `DESIGN.md`.
+Next.js 16 (App Router), TypeScript and plain CSS custom properties, exported as a static site (`output: "export"`). Fonts are self-hosted through Fontsource: Plus Jakarta Sans for headings and Inter for body text. Motion comes from Lenis (smooth scrolling) and three.js (the home page "stage dust", loaded lazily), with the framework-free motion code in `lib/motion/`. The site has no backend and no third-party scripts. Design tokens are in `app/globals.css`, and the two theme layers (reading and stage) are explained in `DESIGN.md`.

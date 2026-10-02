@@ -53,25 +53,24 @@ Rules:
 - Gold text on light canvas is always the deep `#7A5A14` — bright gold on white fails.
 
 ## Typography
-- **Display:** Bodoni Moda Variable (400–900, opsz 6–96). A didone is the typeface equivalent of a dinner jacket: high stroke contrast, vertical stress, formal. Self-hosted via Fontsource.
-- **UI / body:** Instrument Sans Variable (400–700, wdth 75–100). A clean contemporary grotesque that contrasts structurally (monoline vs. high-contrast), with a width axis used for condensed, tracked labels — the 2026 detail.
-- Budget: 2 variable woff2 files (Latin subset), ~95KB. `font-display: swap`.
+Two families, site-wide (revision 4, chosen by the client from a shortlist of Inter, IBM Plex Sans, Source Serif 4 and Plus Jakarta Sans):
+- **Headings:** Plus Jakarta Sans Variable, weights 600 to 800, with tight tracking (−0.03 to −0.045em) on large sizes. It is geometric but warm, so it reads as a person rather than a corporation. Its italic, set in gold, carries the one emphasised phrase in a headline.
+- **Body and UI:** Inter Variable, weights 400 to 600. It is built for screens and stays legible at 13px on phones. Labels are set uppercase with 0.08–0.1em tracking.
+- Both are self-hosted through Fontsource, as Latin variable woff2 files.
 
-Base **18px**, ratio **1.25** (major third); display steps fluid between 360px and 1440px.
+Body text is 17px and does not shrink on phones. The scale is a major third (1.25), with display sizes fluid between 360px and 1440px:
 
-| Token | Size | Weight | LH | Tracking | Use |
-|---|---|---|---|---|---|
-| `--step--2` | 14px | 500 | 1.45 | +0.06em (labels) | Eyebrows, tags, meta |
-| `--step--1` | 16px | 400 | 1.5 | +0.01em | Captions, form help |
-| `--step-0` | 18px | 400 | 1.6 | 0 | Body |
-| `--step-1` | 20→23px | 500 | 1.4 | -0.005em | Lead paragraphs |
-| `--step-2` | 22→28px | 500 | 1.3 | -0.01em | Card titles (serif, opsz 16) |
-| `--step-3` | 26→35px | 500 | 1.2 | -0.015em | H3, prices |
-| `--step-4` | 32→55px | 500 | 1.08 | -0.02em | H2 |
-| `--step-5` | 40→88px | 500 | 1.0 | -0.025em | Page H1 |
-| `--step-6` | 52→150px | 500 | 0.9 | -0.035em | Home hero, footer wordmark |
-
-Optical sizing: display/H1/H2 `auto` in light theme; pinned `"opsz" 52` for big headings in dark theme (hairlines survive light-on-dark). Prices pinned to `"opsz" 10` with `lining-nums tabular-nums` so ₦1,500,000's commas never read as decimals. Italic Bodoni is reserved for one emphasised word per headline.
+| Token | Size | Use |
+|---|---|---|
+| `--step--2` | 13px | Labels, eyebrows |
+| `--step--1` | 15px | Captions, small UI |
+| `--step-0` | 17px | Body |
+| `--step-1` | 18→21px | Lead paragraphs |
+| `--step-2` | 20→26px | Small headings |
+| `--step-3` | 24→32px | H3, prices |
+| `--step-4` | 30→48px | H2 |
+| `--step-5` | 36→68px | Page H1, footer statement |
+| Hero H1 | 34→60px (capped at 8vh) | "Every room has a rhythm." |
 
 ## Spacing and shape
 - Base 8px; scale 4 / 8 / 12 / 16 / 24 / 32 / 48 / 64 / 96 / 128.
@@ -152,6 +151,23 @@ Kept as they were: the Run of Show section, the word-by-word reveal and the Rang
 - **Range cards:** 28px radius. On hover a card lifts out of the deck.
 - **Why it works → Video testimonials:** dark cards. Mouse users get a muted preview after resting on a card for 450ms. A click opens the player, and nothing loads from YouTube until then.
 - **Footer:** cut down to the brand and a call to action, three short columns, and the base line.
+
+## Revision 4 — copy, typography and motion
+
+- **Typography:** Plus Jakarta Sans for headings and Inter for body text (see Typography above). Bodoni and Instrument Sans are removed, along with the glyph workaround that existed only because of Bodoni's hairlines.
+- **Copy:** the hero is the client's own: "Every room has a rhythm. I know how to lead it." The H1 is that line, and the label above it carries the search phrase "Corporate MC & Event Host in Lagos". All home-page copy is shorter, and section ledes name the event types people search for. The page title is "Corporate MC & Event Host in Lagos, Nigeria". The home FAQ is trimmed to four questions, and only those are sent as FAQ structured data.
+- **Nav:** a 50px bar with 36–38px controls. The current page is no longer highlighted.
+- **Client band and video testimonials:** both use the lighter lilac surface, and the client band is about half its previous height.
+- **Hero:** the mouse-following gold spotlight is removed.
+- **Range rail:** the travel now accounts for the viewport's padding, so the last card always ends fully in view.
+- **Run of Show card:** on hover it pivots from its bottom edge and the top floats left (−14px, −4.5°).
+- **FAQ:** rounded accordion cards that animate open where the browser supports it.
+- **Footer:** one statement, one button, and one row of brand, pages, contact and socials.
+- **Motion:**
+  - Lenis smooth scrolling for wheel and trackpad; touch keeps native scrolling.
+  - 3D section entrances: "How booking works" rises from depth on z, the video section turns in on x, and the FAQ lifts on y.
+  - The hero photo parallaxes away as you scroll past it.
+  - A three.js "stage dust" field of gold and lilac light runs on the home page only. The camera flies forward through it (z) as the page scrolls, drifting in x and y. It loads lazily after the page is idle and is skipped for reduced motion, data-saver mode or browsers without WebGL.
 
 ## Critic loop
 | Axis | Round 1 | Reason | Fix | Round 2 |

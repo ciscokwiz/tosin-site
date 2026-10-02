@@ -16,8 +16,8 @@ export function Clients() {
     </ul>
   );
   return (
-    <section className="clients stage" aria-labelledby="clients-title">
-      <h2 id="clients-title" className="clients__label">Trusted on stage by teams at</h2>
+    <section className="clients" aria-labelledby="clients-title">
+      <h2 id="clients-title" className="clients__label">Trusted by teams at</h2>
       <div className="clients__fade">
         <div className="marquee" data-marquee>
           {row()}

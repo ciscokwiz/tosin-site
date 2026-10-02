@@ -8,6 +8,7 @@ import { whatsappLink } from "@/lib/format";
 import { Mark } from "./Mark";
 import { ThemeToggle } from "./ThemeToggle";
 import { WhatsAppIcon } from "./Icons";
+import { lockScroll } from "./SmoothScroll";
 
 function isCurrent(pathname: string, href: string) {
   const clean = (p: string) => (p.endsWith("/") ? p : `${p}/`);
@@ -25,9 +26,11 @@ export function Nav() {
     const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
     document.addEventListener("keydown", onKey);
     document.body.style.overflow = "hidden";
+    lockScroll(true);
     return () => {
       document.removeEventListener("keydown", onKey);
       document.body.style.overflow = "";
+      lockScroll(false);
     };
   }, [open]);
 

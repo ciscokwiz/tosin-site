@@ -14,11 +14,10 @@ export function RangeRail() {
         <div className="wrap rail__head">
           <div style={{ display: "grid", gap: 16 }}>
             <p className="eyebrow">{site.nickname}</p>
-            <h2 id="range-title" className="h2">From the summit stage to the <em>dance</em> floor.</h2>
+            <h2 id="range-title" className="h2">From the summit stage to the <em>dance floor.</em></h2>
           </div>
           <p className="lead">
-            The same host moderates a high-level summit on Thursday and energises a student crowd on Saturday.
-            That range is where the nickname comes from.
+            One host for every room: conferences, galas, product launches, award nights and weddings in Lagos and beyond.
           </p>
         </div>
         <div className="rail__viewport" data-rail-viewport tabIndex={0} aria-label="Event formats, scroll sideways">

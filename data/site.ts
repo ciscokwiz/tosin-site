@@ -22,7 +22,7 @@ export const site = {
 
   // One-line description used by Google and link previews.
   description:
-    "Oluwatosin Aina — The Corporate Emcee — is a Lagos-based event host and MC for corporate galas, conferences, product launches, award ceremonies, retreats and weddings across Nigeria and internationally.",
+    "Lagos MC and event host Oluwatosin Aina, The Corporate Emcee, for conferences, corporate galas, product launches, award nights and weddings across Nigeria.",
 
   // His own words, from thecorporatemcee.com. Shown in the home hero.
   bio: "A master communicator, event host and convener of unforgettable moments. With a degree in Psychology from OAU and training in emotional intelligence and product management, Tosin brings more than charisma — he delivers impact.",

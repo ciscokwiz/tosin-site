@@ -2,6 +2,7 @@
 
 import { usePathname } from "next/navigation";
 import { useEffect } from "react";
+import { createDepth } from "@/lib/motion/depth";
 
 /* All scroll and pointer motion, driven by ONE requestAnimationFrame loop:
    - [data-reveal]   fades/rises in when scrolled into view
@@ -11,7 +12,7 @@ import { useEffect } from "react";
                      photos at each sentence segment (Meet the host)
    - [data-rail]     pinned horizontal rail (wide screens); meter on phones
    - [data-marquee]  client band drifts, and speeds up with scroll
-   - .hero           gold spotlight follows the mouse
+   - [data-depth]    sections arrive in 3D (z / x / y), hero parallax exit
    - [data-magnetic] buttons lean toward a mouse pointer
    Reduced motion: everything is shown still, the rail is a native swipe. */
 export function MotionEngine() {
@@ -79,11 +80,16 @@ export function MotionEngine() {
       m.el.addEventListener("focusout", () => (m.paused = false));
     });
 
+    const depth = createDepth(document);
+
     function measure() {
       const wide = window.innerWidth >= 900;
       for (const r of rails) {
         r.track.style.transform = "";
-        r.overflow = Math.max(0, r.track.scrollWidth - r.viewport.clientWidth);
+        r.rail.classList.toggle("is-pinned", wide);
+        const cs = getComputedStyle(r.viewport);
+        const inner = r.viewport.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight);
+        r.overflow = Math.max(0, r.track.scrollWidth - inner);
         r.pinned = wide && r.overflow > 0;
         r.rail.classList.toggle("is-pinned", r.pinned);
         r.rail.style.height = r.pinned ? `${window.innerHeight + r.overflow}px` : "";
@@ -133,6 +139,8 @@ export function MotionEngine() {
         }
       }
 
+      depth.update();
+
       // pinned rail
       for (const r of rails) {
         let p: number;
@@ -161,17 +169,9 @@ export function MotionEngine() {
     }
     raf = requestAnimationFrame(frame);
 
-    // ---- hero spotlight + magnetic buttons (mouse only) ----
-    const hero = document.querySelector<HTMLElement>(".hero");
+    // ---- magnetic buttons (mouse only) ----
     function onMove(e: PointerEvent) {
       if (e.pointerType !== "mouse") return;
-      if (hero) {
-        const r = hero.getBoundingClientRect();
-        if (e.clientY < r.bottom) {
-          hero.style.setProperty("--sx", `${((e.clientX - r.left) / r.width) * 100}%`);
-          hero.style.setProperty("--sy", `${((e.clientY - r.top) / r.height) * 100}%`);
-        }
-      }
       const btn = (e.target as Element | null)?.closest?.<HTMLElement>("[data-magnetic]");
       document.querySelectorAll<HTMLElement>("[data-magnetic].is-pulled").forEach((b) => {
         if (b !== btn) { b.classList.remove("is-pulled"); b.style.transform = ""; }
@@ -193,6 +193,7 @@ export function MotionEngine() {
       document.removeEventListener("pointermove", onMove);
       rails.forEach((r) => { r.rail.style.height = ""; r.track.style.transform = ""; });
       scrollies.forEach((sc) => sc.section.classList.remove("is-scrolly"));
+      depth.reset();
     };
   }, [pathname]);
 

@@ -6,13 +6,14 @@ import { Footer } from "@/components/Footer";
 import { Curtain } from "@/components/Curtain";
 import { MarkSprite } from "@/components/MarkSprite";
 import { MotionEngine } from "@/components/MotionEngine";
+import { SmoothScroll } from "@/components/SmoothScroll";
 import { JsonLd } from "@/components/JsonLd";
 import { personLd, serviceLd } from "@/lib/seo";
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: {
-    default: `Corporate Event Host & MC in Lagos | ${site.brand} — ${site.person}`,
+    default: `Corporate MC & Event Host in Lagos, Nigeria | ${site.brand}`,
     template: `%s | ${site.brand}`,
   },
   description: site.description,
@@ -66,6 +67,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <main id="main">{children}</main>
         <Footer />
         <MotionEngine />
+        <SmoothScroll />
       </body>
     </html>
   );

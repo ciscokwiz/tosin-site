@@ -5,10 +5,11 @@ import { Mark } from "./Mark";
 import { LagosClock } from "./LagosClock";
 import { InstagramIcon, LinkedInIcon, TikTokIcon, WhatsAppIcon, YouTubeIcon } from "./Icons";
 
-/* A short sign-off: who, one call to action, three tidy columns, the base line. */
+/* One statement, one button, one tidy row of links. */
 export function Footer() {
   const year = new Date().getFullYear();
   const socials = [
+    { href: whatsappLink(), label: "WhatsApp", icon: <WhatsAppIcon /> },
     { href: site.social.instagram, label: "Instagram", icon: <InstagramIcon /> },
     { href: site.social.linkedin, label: "LinkedIn", icon: <LinkedInIcon /> },
     { href: site.social.youtube, label: "YouTube", icon: <YouTubeIcon /> },
@@ -17,54 +18,39 @@ export function Footer() {
 
   return (
     <footer className="footer stage" aria-labelledby="footer-title">
-      <div className="wrap footer__top">
-        <div className="footer__brand">
-          <Mark className="footer__mark" />
-          <div>
-            <h2 id="footer-title" className="footer__name">The Corporate <em>Emcee</em></h2>
-            <p className="footer__tag">And that&rsquo;s a wrap. Thank you for your time.</p>
-          </div>
-        </div>
-        <div className="btn-row">
-          <Link href="/booking/" className="btn" data-magnetic>Check your date</Link>
-          <a className="btn btn--ghost" href={whatsappLink(`Hello ${site.brand}, I'd like to check your availability.`)} target="_blank" rel="noopener">
-            <WhatsAppIcon /> WhatsApp
-          </a>
-        </div>
-      </div>
-
-      <div className="wrap footer__cols">
-        <nav aria-label="Footer">
-          <h3>Pages</h3>
-          <ul>
-            {nav.map((item) => (
-              <li key={item.href}><Link href={item.href}>{item.label}</Link></li>
-            ))}
-          </ul>
-        </nav>
-        <div>
-          <h3>Contact</h3>
-          <ul>
-            <li><a href={telLink}>{site.contact.phoneDisplay}</a></li>
-            <li><a href={`mailto:${site.contact.email}`}>{site.contact.email}</a></li>
-            <li>{site.city}, {site.country} &middot; hosting worldwide</li>
-          </ul>
-        </div>
-        {socials.length > 0 && (
-          <div>
-            <h3>Follow</h3>
-            <div className="socials">
-              {socials.map((s) => (
-                <a key={s.label} href={s.href} target="_blank" rel="noopener" aria-label={`${site.brand} on ${s.label}`}>
-                  {s.icon}
-                </a>
-              ))}
-            </div>
-          </div>
-        )}
+      <div className="wrap footer__cta" data-depth>
+        <h2 id="footer-title" className="footer__title">
+          Let&rsquo;s make your event <em>one to remember.</em>
+        </h2>
+        <Link href="/booking/" className="btn" data-magnetic>Book Tosin</Link>
       </div>
 
       <div className="wrap">
+        <div className="footer__bar">
+          <Link href="/" className="footer__brand" aria-label={`${site.brand} — home`}>
+            <Mark className="footer__mark" />
+            <span>
+              <strong>{site.brand}</strong>
+              <small>MC &amp; event host, {site.city}</small>
+            </span>
+          </Link>
+          <nav aria-label="Footer" className="footer__links">
+            {nav.map((item) => (
+              <Link key={item.href} href={item.href}>{item.label}</Link>
+            ))}
+          </nav>
+          <div className="footer__contact">
+            <a href={telLink}>{site.contact.phoneDisplay}</a>
+            <a href={`mailto:${site.contact.email}`}>{site.contact.email}</a>
+          </div>
+          <div className="socials">
+            {socials.map((s) => (
+              <a key={s.label} href={s.href} target="_blank" rel="noopener" aria-label={`${site.brand} on ${s.label}`}>
+                {s.icon}
+              </a>
+            ))}
+          </div>
+        </div>
         <div className="footer__base">
           <span>&copy; {year} {site.brand} &middot; {site.person}</span>
           <LagosClock />

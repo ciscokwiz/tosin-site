@@ -9,7 +9,7 @@ import { Words } from "./Words";
    Without JavaScript or with reduced motion it is a normal, still section. */
 export function MeetHost() {
   return (
-    <section className="meet" aria-labelledby="meet-title">
+    <section className="meet" id="meet" aria-labelledby="meet-title">
       <div className="meet__track" data-scrolly>
       <div className="meet__sticky">
         <div className="wrap meet__grid">

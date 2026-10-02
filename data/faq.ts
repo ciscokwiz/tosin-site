@@ -3,38 +3,35 @@
    ---------------------------------------------------------------------
    Shown on the home page and sent to Google as FAQ data. Answer the
    questions people actually ask on WhatsApp. Keep answers factual.
-   `rates: true` also shows that question on the Rates page.
+   `home: true` shows it on the home page (keep it to about four);
+   `rates: true` shows it on the Rates page.
    ===================================================================== */
 
-export const faq: { q: string; a: string; rates?: boolean }[] = [
+export const faq: { q: string; a: string; home?: boolean; rates?: boolean }[] = [
   {
-    q: "Where is The Corporate Emcee based?",
-    a: "Tosin is based in Lagos, Nigeria, and hosts events across Nigeria and internationally — over 500 events in more than three countries so far.",
+    q: "What events does The Corporate Emcee host?",
+    a: "Corporate conferences and summits, galas, product launches, award ceremonies, retreats and weddings — over 500 events so far.",
+    home: true,
   },
   {
-    q: "What kinds of events does Tosin host?",
-    a: "Corporate conferences and summits, galas and end-of-year dinners, retreats, product launches and brand activations, award ceremonies, and weddings — both traditional and white-wedding receptions.",
+    q: "Where is Tosin based? Does he travel?",
+    a: "Tosin is based in Lagos and hosts across Nigeria and internationally. Travel outside Lagos is quoted separately.",
+    home: true,
+    rates: true,
+  },
+  {
+    q: "How much does it cost to book an MC in Lagos?",
+    a: "It depends on the event, its length and the location. The Rates page shows starting prices; send your date for an exact quote.",
+    home: true,
+    rates: true,
   },
   {
     q: "How do I check if my date is available?",
-    a: "Send the date, city and type of event on WhatsApp, or fill in the booking form on this site. The form writes the message for you, so it takes about a minute.",
+    a: "Send your date, venue and event type on WhatsApp or through the booking form. You get a quick reply.",
+    home: true,
   },
   {
-    q: "How much does it cost to book Tosin as MC?",
-    a: "It depends on the type of event, its length and the location. The Rates page lists starting prices for each package and lets you build an estimate you can send straight to WhatsApp.",
-    rates: true,
-  },
-  {
-    q: "Do you travel outside Lagos and Nigeria?",
-    a: "Yes. Events in other Nigerian states add travel and accommodation at cost. International events are quoted per brief.",
-    rates: true,
-  },
-  {
-    q: "Will Tosin work with our event planner and run-of-show?",
-    a: "Yes. Every booking includes a brief call, and Tosin works from your planner's run-of-show, returning his transitions and notes before the event.",
-  },
-  {
-    q: "What makes a psychology background useful for an MC?",
-    a: "Tosin holds a degree in Psychology from Obafemi Awolowo University (OAU) and has trained in emotional intelligence. Reading a room — when to lift it, when to slow it down — is the job.",
+    q: "Will Tosin work with our planner's run-of-show?",
+    a: "Yes. Every booking includes a brief call, and Tosin returns his notes and transitions before the event.",
   },
 ];
