@@ -8,12 +8,15 @@ export function Hero() {
   return (
     <section className="hero stage" aria-labelledby="hero-title" data-hero>
       <div className="hero__media">
-        <Photo photo={heroPhoto} sizes="100vw" priority className="hero__img" />
+        {/* object-fit: cover on a 33:20 photo: whenever the screen is narrower
+            than that (phones, tablets, most laptops) the photo is drawn at
+            165vh wide, not 100vw — tell the browser so it picks a sharp file */}
+        <Photo photo={heroPhoto} sizes="(max-aspect-ratio: 33/20) 165vh, 100vw" priority xl className="hero__img" />
       </div>
       <div className="hero__shade" aria-hidden="true" />
       <div className="wrap hero__inner">
         <div className="hero__copy hero-in">
-          <p className="hero__kicker">{site.brand} &middot; Corporate MC &amp; Event Host in {site.city}</p>
+          <p className="hero__kicker"><span className="hero__kicker-brand">{site.brand} &middot; </span>Corporate MC &amp; Event Host in {site.city}</p>
           <h1 id="hero-title" className="hero__title">
             Every room has a rhythm. <em>I know how to lead it.</em>
           </h1>

@@ -27,7 +27,7 @@ export default function Home() {
       <VideoTestimonials />
 
       {/* ---------------- HOW BOOKING WORKS ---------------- */}
-      <section className="section stage show" aria-labelledby="show-title" data-depth>
+      <section className="section stage show" aria-labelledby="show-title" data-depth data-depth-sm="off">
         <div className="wrap show__grid">
           <div className="show__head">
             <p className="eyebrow">From first message to final applause</p>
