@@ -8,6 +8,10 @@
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type Three = any;
 
+/** Window event a video player sends with detail true/false while it plays,
+    so the dust stops drawing and the video gets the device's attention. */
+export const MEDIA_EVENT = "tce:media";
+
 export function startStageDust(THREE: Three, canvas: HTMLCanvasElement, opts: { contained?: boolean } = {}) {
   // contained: fills its parent section (page headers) instead of the window
   const contained = !!opts.contained;
@@ -65,6 +69,7 @@ export function startStageDust(THREE: Three, canvas: HTMLCanvasElement, opts: { 
   let mx = 0, my = 0, tx = 0, ty = 0;
   let raf = 0;
   let running = true;
+  let held = false; // a testimonial video is playing: give it the GPU
   const t0 = performance.now();
 
   function resize() {
@@ -83,12 +88,18 @@ export function startStageDust(THREE: Three, canvas: HTMLCanvasElement, opts: { 
     ty = (e.clientY / window.innerHeight - 0.5) * 2;
   }
   function onVisibility() {
-    running = !document.hidden;
-    if (running) raf = requestAnimationFrame(frame);
+    const was = running;
+    running = !document.hidden && !held;
+    if (running && !was) raf = requestAnimationFrame(frame);
+  }
+  function onMedia(e: Event) {
+    held = !!(e as CustomEvent<boolean>).detail;
+    onVisibility();
   }
   window.addEventListener("resize", resize);
   window.addEventListener("pointermove", onPointer, { passive: true });
   document.addEventListener("visibilitychange", onVisibility);
+  window.addEventListener(MEDIA_EVENT, onMedia);
 
   function frame(now: number) {
     if (!running) return;
@@ -119,6 +130,7 @@ export function startStageDust(THREE: Three, canvas: HTMLCanvasElement, opts: { 
       window.removeEventListener("resize", resize);
       window.removeEventListener("pointermove", onPointer);
       document.removeEventListener("visibilitychange", onVisibility);
+      window.removeEventListener(MEDIA_EVENT, onMedia);
       geometry.dispose(); material.dispose(); map.dispose(); renderer.dispose();
     },
   };

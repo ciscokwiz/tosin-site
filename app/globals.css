@@ -505,7 +505,7 @@ button, input, select, textarea { font: inherit; color: inherit; }
    ===================================================================== */
 .clients { padding-block: 18px 20px; overflow: hidden; background: var(--surface-2); border-bottom: 1px solid var(--line); }
 .clients__label { text-align: center; margin: 0 0 10px; font-family: var(--font-sans); font-size: 12px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
-.marquee { display: flex; width: max-content; animation: marquee 40s linear infinite; will-change: transform; }
+.marquee { display: flex; width: max-content; animation: marquee 110s linear infinite; will-change: transform; }
 .marquee.is-driven { animation: none; }
 .marquee:hover, .marquee:focus-within { animation-play-state: paused; }
 .marquee ul { display: flex; align-items: center; margin: 0; padding: 0; list-style: none; }
@@ -659,18 +659,38 @@ button, input, select, textarea { font: inherit; color: inherit; }
   font-size: 12px; font-weight: 700; letter-spacing: 0.05em;
   background: rgba(17, 11, 26, 0.6); border: 1px dashed rgba(243, 238, 248, 0.5); color: #f3eef8;
 }
+.vcard__time {
+  position: absolute; top: 22px; left: 18px; padding: 5px 10px; border-radius: var(--r-pill);
+  font-size: 12px; font-weight: 600; letter-spacing: 0.04em; font-variant-numeric: tabular-nums;
+  background: rgba(17, 11, 26, 0.55); color: #f3eef8;
+}
+/* the empty slot after the clips: an invitation, not a gap */
+.vnext {
+  position: relative; display: grid; align-content: end; justify-items: start; gap: 12px; height: 100%;
+  aspect-ratio: 4 / 5; padding: 26px; border-radius: 26px; overflow: hidden; isolation: isolate;
+  background: radial-gradient(120% 80% at 80% 0%, color-mix(in srgb, var(--gold-stage) 22%, transparent), transparent 60%), var(--stage-bg);
+  color: var(--stage-head);
+}
+.vnext__mark { position: absolute; top: 26px; right: 22px; width: 92px; opacity: 0.9; z-index: -1; --m-tux: #1a1226; --m-bow: var(--gold-stage); }
+.vnext__title { font-family: var(--font-display); font-weight: 700; font-size: clamp(1.5rem, 1.2rem + 1vw, 2rem); line-height: 1.1; letter-spacing: -0.03em; color: var(--stage-head); }
+.vnext__title em { font-style: normal; color: var(--gold-stage); }
+.vnext__body { color: var(--stage-text); font-size: 15px; line-height: 1.5; max-width: 26ch; }
 .vcard__text { position: absolute; left: 22px; right: 22px; bottom: 22px; display: grid; gap: 6px; }
 .vcard__quote { font-family: var(--font-display); font-weight: 600; font-size: clamp(1.125rem, 1rem + 0.5vw, 1.375rem); line-height: 1.3; letter-spacing: -0.02em; color: #fff; margin-bottom: 8px; }
 .vcard__name { font-weight: 600; font-size: 16px; }
 .vcard__role { font-size: 14px; color: rgba(243, 238, 248, 0.75); }
 .player { width: min(92vw, 1100px); max-height: 90vh; padding: 0; border: 0; border-radius: 18px; background: #0b0b10; color: #f3eef8; overflow: visible; }
-.player::backdrop { background: rgba(17, 11, 26, 0.84); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); }
+/* no backdrop blur: a static dim is free, a blur behind a playing video is not */
+.player::backdrop { background: rgba(17, 11, 26, 0.9); }
 .player__inner { position: relative; }
 .player iframe, .player video { display: block; width: 100%; aspect-ratio: 16 / 9; border: 0; border-radius: 18px; background: #000; }
 .player__close {
   position: absolute; top: -56px; right: 0; width: 44px; height: 44px; border-radius: 50%; cursor: pointer;
   border: 1px solid rgba(243, 238, 248, 0.4); background: transparent; color: #f3eef8; font-size: 26px; line-height: 1;
 }
+/* portrait phone clips: the player takes the clip's own shape */
+.player--clip { width: fit-content; max-width: 92vw; background: transparent; }
+.player--clip video { width: min(92vw, calc(min(84vh, 960px) * var(--ratio, 3 / 4))); height: auto; aspect-ratio: var(--ratio, 3 / 4); object-fit: contain; }
 .player__empty { display: grid; gap: 10px; place-content: center; text-align: center; aspect-ratio: 16 / 9; padding: 32px; }
 .player__empty .h4 { color: #f3eef8; }
 .player__empty code { color: var(--gold-stage); }

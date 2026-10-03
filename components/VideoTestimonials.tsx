@@ -1,13 +1,18 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Link from "next/link";
 import { videos, type VideoTestimonial } from "@/data/videos";
+import { MEDIA_EVENT } from "@/lib/motion/stageDust";
+import { Mark } from "./Mark";
 import { lockScroll } from "./SmoothScroll";
 
 /* Video testimonials. Motion is asked for, never assumed:
    - mouse: rest on a card ~450ms and a muted preview plays (MP4 only)
    - click / tap / Enter: the video opens in a player with sound
-   Nothing loads from YouTube until a video is opened. */
+   Nothing heavy loads with the page: posters are lazy WebP stills, clips
+   are preload="none", and nothing loads from YouTube until a video is
+   opened. While the player is open the three.js dust stops drawing. */
 export function VideoTestimonials() {
   const [open, setOpen] = useState<VideoTestimonial | null>(null);
   const dialog = useRef<HTMLDialogElement>(null);
@@ -18,6 +23,7 @@ export function VideoTestimonials() {
     if (open && !d.open) d.showModal();
     if (!open && d.open) d.close();
     lockScroll(!!open);
+    window.dispatchEvent(new CustomEvent(MEDIA_EVENT, { detail: !!open }));
   }, [open]);
 
   if (!videos.length) return null;
@@ -38,10 +44,23 @@ export function VideoTestimonials() {
               <VideoCard video={v} onOpen={() => setOpen(v)} />
             </li>
           ))}
+          {videos.length % 3 !== 0 && (
+            <li>
+              <div className="vnext stage">
+                <Mark variant="full" className="vnext__mark" />
+                <p className="vnext__title">Your guests could be <em>next.</em></p>
+                <p className="vnext__body">Tell Tosin about the room and he will hold the date.</p>
+                <Link href="/booking/" className="btn btn--sm">Book Tosin</Link>
+              </div>
+            </li>
+          )}
         </ul>
       </div>
 
-      <dialog ref={dialog} className="player" onClose={() => setOpen(null)} aria-label={open ? `${open.name} video` : "Video"}>
+      <dialog
+        ref={dialog}
+        className={`player${open?.file && !open.youtube ? " player--clip" : ""}`}
+        style={open?.ratio ? ({ "--ratio": open.ratio } as React.CSSProperties) : undefined} onClose={() => setOpen(null)} aria-label={open ? `${open.name} video` : "Video"}>
         {open && (
           <div className="player__inner">
             <button type="button" className="player__close" onClick={() => setOpen(null)} aria-label="Close video">
@@ -55,7 +74,7 @@ export function VideoTestimonials() {
                 allowFullScreen
               />
             ) : open.file ? (
-              <video src={open.file} poster={`${open.poster}-1600.webp`} controls autoPlay playsInline />
+              <video src={open.file} poster={`${open.poster}-1600.webp`} controls autoPlay playsInline preload="auto" />
             ) : (
               <div className="player__empty">
                 <p className="h4">This is a sample slot.</p>
@@ -92,6 +111,7 @@ function VideoCard({ video, onOpen }: { video: VideoTestimonial; onOpen: () => v
       {video.file && <video ref={ref} src={video.file} muted loop playsInline preload="none" aria-hidden="true" />}
       <span className="vcard__shade" aria-hidden="true" />
       {video.sample && <span className="vcard__sample">Sample</span>}
+      {video.duration && <span className="vcard__time">{video.duration}</span>}
       <span className="vcard__play" aria-hidden="true">
         <svg viewBox="0 0 24 24"><path d="M8 5.5v13l11-6.5z" /></svg>
       </span>
