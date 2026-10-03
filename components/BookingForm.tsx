@@ -27,6 +27,11 @@ type Form = {
   notes: string;
 };
 
+/* Longest answer each field accepts (characters). */
+const LIMITS: Partial<Record<keyof Form, number>> = {
+  name: 80, org: 120, phone: 24, email: 120, eventName: 120, venue: 160, notes: 1000,
+};
+
 const EMPTY: Form = { name: "", org: "", phone: "", email: "", pkg: "", eventName: "", date: "", time: "", venue: "", guests: "", notes: "" };
 
 const REQUIRED: { key: keyof Form; message: string }[] = [
@@ -80,7 +85,9 @@ export function BookingForm() {
   }, [sent]);
 
   const update = (key: keyof Form) => (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
-    const value = e.target.value;
+    // keep every answer a sensible length (the whole message travels in a
+    // WhatsApp or mailto link) and drop invisible control characters
+    const value = e.target.value.replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F\u007F]/g, "").slice(0, LIMITS[key] ?? 200);
     setForm((f) => ({ ...f, [key]: value }));
     if (errors[key]) setErrors((er) => ({ ...er, [key]: undefined }));
   };
@@ -189,24 +196,24 @@ export function BookingForm() {
           <div className="form__row">
             <div className="field">
               <label htmlFor="f-name">Your name <span className="req">*</span></label>
-              <input className="input" type="text" autoComplete="name" value={form.name} onChange={update("name")} {...a11y("name")} />
+              <input className="input" type="text" autoComplete="name" maxLength={LIMITS.name} value={form.name} onChange={update("name")} {...a11y("name")} />
               {err("name")}
             </div>
             <div className="field">
               <label htmlFor="f-org">Company or family <span className="hint">(optional)</span></label>
-              <input className="input" type="text" autoComplete="organization" value={form.org} onChange={update("org")} {...a11y("org")} />
+              <input className="input" type="text" autoComplete="organization" maxLength={LIMITS.org} value={form.org} onChange={update("org")} {...a11y("org")} />
             </div>
           </div>
 
           <div className="form__row">
             <div className="field">
               <label htmlFor="f-phone">Phone / WhatsApp <span className="req">*</span></label>
-              <input className="input" type="tel" inputMode="tel" autoComplete="tel" placeholder="+234…" value={form.phone} onChange={update("phone")} {...a11y("phone")} />
+              <input className="input" type="tel" inputMode="tel" autoComplete="tel" placeholder="+234…" maxLength={LIMITS.phone} value={form.phone} onChange={update("phone")} {...a11y("phone")} />
               {err("phone")}
             </div>
             <div className="field">
               <label htmlFor="f-email">Email <span className="hint">(optional)</span></label>
-              <input className="input" type="email" autoComplete="email" value={form.email} onChange={update("email")} {...a11y("email")} />
+              <input className="input" type="email" autoComplete="email" maxLength={LIMITS.email} value={form.email} onChange={update("email")} {...a11y("email")} />
               {err("email")}
             </div>
           </div>
@@ -229,7 +236,7 @@ export function BookingForm() {
 
           <div className="field">
             <label htmlFor="f-eventName">Event name <span className="hint">(optional — e.g. &ldquo;Annual Leadership Summit&rdquo;)</span></label>
-            <input className="input" type="text" value={form.eventName} onChange={update("eventName")} {...a11y("eventName")} />
+            <input className="input" type="text" maxLength={LIMITS.eventName} value={form.eventName} onChange={update("eventName")} {...a11y("eventName")} />
           </div>
 
           <div className="form__row">
@@ -246,7 +253,7 @@ export function BookingForm() {
 
           <div className="field">
             <label htmlFor="f-venue">Venue or city <span className="req">*</span></label>
-            <input className="input" type="text" autoComplete="address-level2" placeholder="e.g. Eko Hotel, Victoria Island" value={form.venue} onChange={update("venue")} {...a11y("venue")} />
+            <input className="input" type="text" autoComplete="address-level2" placeholder="e.g. Eko Hotel, Victoria Island" maxLength={LIMITS.venue} value={form.venue} onChange={update("venue")} {...a11y("venue")} />
             {err("venue")}
           </div>
 
@@ -264,7 +271,7 @@ export function BookingForm() {
 
           <div className="field">
             <label htmlFor="f-notes">Anything else? <span className="hint">(optional — audience, dress code, VIPs, languages)</span></label>
-            <textarea className="textarea" value={form.notes} onChange={update("notes")} {...a11y("notes")} />
+            <textarea className="textarea" maxLength={LIMITS.notes} value={form.notes} onChange={update("notes")} {...a11y("notes")} />
           </div>
 
           <div className="form__actions">

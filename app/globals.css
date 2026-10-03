@@ -493,6 +493,21 @@ button, input, select, textarea { font: inherit; color: inherit; }
   .hero__inner { grid-template-columns: minmax(0, 1fr) auto; }
   .hero__stats { justify-content: end; }
 }
+/* phones: the photo leads, the copy is compact and reads in one glance */
+@media (max-width: 599px) {
+  .hero { padding-bottom: max(18px, env(safe-area-inset-bottom)); }
+  .hero__inner { gap: 18px; }
+  .hero__copy { gap: 12px; }
+  .hero__kicker { font-size: 11.5px; letter-spacing: 0.09em; }
+  .hero__kicker-brand { display: none; }
+  .hero__title { font-size: min(1.875rem, 4.6vh); line-height: 1.08; letter-spacing: -0.035em; }
+  .hero__lede { font-size: 15px; line-height: 1.55; max-width: 34ch; }
+  .hero .btn { min-height: 42px; padding: 0 18px; font-size: 14px; }
+  .hero__stats { gap: 10px; }
+  .hero__stats div { padding-left: 10px; }
+  .hero__stats dd { font-size: 1.375rem; }
+  .hero__stats dt { font-size: 11.5px; }
+}
 @media (max-width: 899px) {
   .hero__shade {
     background:
@@ -507,7 +522,7 @@ button, input, select, textarea { font: inherit; color: inherit; }
 .clients__label { text-align: center; margin: 0 0 10px; font-family: var(--font-sans); font-size: 12px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
 .marquee { display: flex; width: max-content; animation: marquee 110s linear infinite; will-change: transform; }
 .marquee.is-driven { animation: none; }
-.marquee:hover, .marquee:focus-within { animation-play-state: paused; }
+.marquee:hover, .marquee:focus-within, .marquee:active { animation-play-state: paused; }
 .marquee ul { display: flex; align-items: center; margin: 0; padding: 0; list-style: none; }
 .marquee li { display: inline-flex; align-items: center; gap: clamp(20px, 3vw, 36px); padding-right: clamp(20px, 3vw, 36px); }
 .marquee li span {
@@ -540,12 +555,21 @@ button, input, select, textarea { font: inherit; color: inherit; }
 .meet__photo--1 { grid-column: 1; grid-row: 1 / 3; }   /* tall */
 .meet__photo--2 { grid-column: 2; grid-row: 1; }       /* near-square */
 .meet__photo--3 { grid-column: 2; grid-row: 2; }       /* wide */
-/* while pinned: photos wait behind a clip until their part of the sentence is read */
-.is-scrolly .meet__photo { clip-path: inset(100% 0 0 0 round 22px); transition: clip-path 1s var(--ease), opacity 0.6s; }
-.is-scrolly .meet__photo img { transform: scale(1.14); }
-.is-scrolly [data-active="0"] .meet__photo--1,
-.is-scrolly [data-active="1"] .meet__photo--1, .is-scrolly [data-active="1"] .meet__photo--2,
-.is-scrolly [data-active="2"] .meet__photo { clip-path: inset(0 0 0 0 round 22px); }
+/* while pinned: each frame waits as a soft, empty tile with the fila in
+   it, and its photo wipes up into it when that part of the sentence is read */
+.is-scrolly .meet__photo {
+  background: color-mix(in srgb, var(--accent-text) 7%, var(--surface-2));
+  box-shadow: inset 0 0 0 1px var(--line);
+}
+.is-scrolly .meet__photo::before {
+  content: ""; position: absolute; inset: 0; margin: auto; width: 44px; height: 44px; opacity: 0.22;
+  background: var(--accent-text);
+  -webkit-mask: url("/mark.svg") center / contain no-repeat; mask: url("/mark.svg") center / contain no-repeat;
+}
+.is-scrolly .meet__photo img { position: relative; z-index: 1; clip-path: inset(100% 0 0 0); transform: scale(1.14); transition: clip-path 1s var(--ease), transform 1.4s var(--ease), filter 0.8s var(--ease); }
+.is-scrolly [data-active="0"] .meet__photo--1 img,
+.is-scrolly [data-active="1"] .meet__photo--1 img, .is-scrolly [data-active="1"] .meet__photo--2 img,
+.is-scrolly [data-active="2"] .meet__photo img { clip-path: inset(0 0 0 0); }
 .is-scrolly [data-active="0"] .meet__photo--1 img,
 .is-scrolly [data-active="1"] .meet__photo--1 img, .is-scrolly [data-active="1"] .meet__photo--2 img,
 .is-scrolly [data-active="2"] .meet__photo img { transform: none; }
@@ -568,13 +592,17 @@ button, input, select, textarea { font: inherit; color: inherit; }
 .creds div { padding: 18px 20px 0 0; display: grid; gap: 6px; }
 .creds dt { font-size: 14px; font-weight: 600; letter-spacing: 0.04em; color: var(--accent-text); }
 .creds dd { margin: 0; color: var(--ink); font-size: var(--step-0); line-height: 1.4; }
-@media (min-width: 900px) {
+@media (min-width: 700px) {
   .meet__grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
 }
 @media (max-width: 767px) {
   .meet .creds { display: none; }
 }
-@media (max-width: 899px) {
+@media (min-width: 700px) and (max-width: 899px) {
+  .meet__photos { height: clamp(300px, 46svh, 520px); }
+}
+@media (max-width: 699px) {
+  .meet__track.is-scrolly { height: 230vh; } /* shorter read on a phone */
   .meet__photos { height: clamp(220px, 36svh, 360px); }
   .meet__track.is-scrolly .meet__sticky { align-items: start; padding-top: 92px; }
   .meet__copy { gap: 14px; }
@@ -606,14 +634,27 @@ button, input, select, textarea { font: inherit; color: inherit; }
   box-shadow: 0 1px 0 rgba(255, 255, 255, 0.5) inset, 0 10px 24px -18px rgba(29, 19, 48, 0.35);
   transition: transform 0.55s var(--ease), box-shadow 0.55s var(--ease), border-color 0.3s;
 }
-/* hover / focus: the card lifts up out of the deck */
-.rail__card:hover, .rail__card:focus-within {
+/* the card lifts up out of the deck: on hover with a mouse, on keyboard
+   focus, and on touch screens when it snaps into view (.is-up, set by
+   lib/motion/railSwipe.ts) — a tap no longer does it */
+.rail__card:focus-within, .rail__card.is-up {
   transform: translateY(-18px) rotate(-0.6deg);
   border-color: color-mix(in srgb, var(--gold) 55%, transparent);
   box-shadow: 0 1px 0 rgba(255, 255, 255, 0.5) inset, 0 40px 60px -28px rgba(29, 19, 48, 0.55);
 }
-.rail__card:nth-child(even):hover, .rail__card:nth-child(even):focus-within { transform: translateY(-18px) rotate(0.6deg); }
+.rail__card:nth-child(even):focus-within, .rail__card:nth-child(even).is-up { transform: translateY(-18px) rotate(0.6deg); }
+@media (hover: hover) and (pointer: fine) {
+  .rail__card:hover {
+    transform: translateY(-18px) rotate(-0.6deg);
+    border-color: color-mix(in srgb, var(--gold) 55%, transparent);
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.5) inset, 0 40px 60px -28px rgba(29, 19, 48, 0.55);
+  }
+  .rail__card:nth-child(even):hover { transform: translateY(-18px) rotate(0.6deg); }
+}
 .rail__track { padding-block: 24px 8px; }
+/* swipe mode scrolls in x, which clips in y: leave room for a lifted card's
+   shadow so it fades out instead of ending in a hard band */
+.rail:not(.is-pinned) .rail__viewport { padding-bottom: 40px; margin-bottom: -28px; }
 .rail__label { font-size: 12px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent-text); }
 .rail__title { font-size: clamp(1.375rem, 1.2rem + 0.6vw, 1.75rem); font-weight: 700; line-height: 1.15; letter-spacing: -0.03em; }
 .rail__body { color: var(--body); font-size: 16px; line-height: 1.6; }
@@ -644,16 +685,16 @@ button, input, select, textarea { font: inherit; color: inherit; }
   border-radius: 26px; overflow: hidden; background: #0b0b10; color: #fff; text-align: left; font: inherit;
   transition: transform 0.5s var(--ease), box-shadow 0.5s var(--ease);
 }
-.vcard:hover { transform: translateY(-6px); box-shadow: 0 30px 60px -30px rgba(0, 0, 0, 0.8); }
+@media (hover: hover) and (pointer: fine) { .vcard:hover { transform: translateY(-6px); box-shadow: 0 30px 60px -30px rgba(0, 0, 0, 0.8); } }
 .vcard img, .vcard video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; max-width: none; transition: transform 1.2s var(--ease); }
-.vcard:hover img { transform: scale(1.05); }
+@media (hover: hover) and (pointer: fine) { .vcard:hover img { transform: scale(1.05); } }
 .vcard__shade { position: absolute; inset: 0; background: linear-gradient(0deg, rgba(17, 11, 26, 0.96) 0%, rgba(17, 11, 26, 0.7) 38%, rgba(17, 11, 26, 0.1) 66%, rgba(17, 11, 26, 0) 80%); }
 .vcard__play {
   position: absolute; top: 18px; right: 18px; width: 56px; height: 56px; border-radius: 50%;
   background: var(--gold-stage); display: grid; place-items: center; transition: transform 0.4s var(--ease);
 }
 .vcard__play svg { width: 22px; height: 22px; fill: #1a1226; margin-left: 3px; }
-.vcard:hover .vcard__play { transform: scale(1.1); }
+@media (hover: hover) and (pointer: fine) { .vcard:hover .vcard__play { transform: scale(1.1); } }
 .vcard__sample {
   position: absolute; top: 22px; left: 18px; padding: 5px 10px; border-radius: var(--r-pill);
   font-size: 12px; font-weight: 700; letter-spacing: 0.05em;
@@ -713,9 +754,9 @@ button, input, select, textarea { font: inherit; color: inherit; }
 }
 .programme-card::before { content: ""; position: absolute; inset: 12px; border: 1px solid rgba(201, 160, 74, 0.65); pointer-events: none; }
 .programme-card__mark { height: 72px; width: auto; }
-.programme-card:hover .mark__fila { animation: fila-tip 1s var(--ease) 0.2s; }
+@media (hover: hover) and (pointer: fine) { .programme-card:hover .mark__fila { animation: fila-tip 1s var(--ease) 0.2s; } }
 /* hover: the top of the card floats off to the left */
-.programme-card:hover { transform: translateX(-14px) rotate(-4.5deg); box-shadow: 30px 50px 90px -40px rgba(17, 11, 26, 0.8), 0 2px 0 rgba(255, 255, 255, 0.4) inset; }
+@media (hover: hover) and (pointer: fine) { .programme-card:hover { transform: translateX(-14px) rotate(-4.5deg); box-shadow: 30px 50px 90px -40px rgba(17, 11, 26, 0.8), 0 2px 0 rgba(255, 255, 255, 0.4) inset; } }
 .programme-card__kicker { font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: #7a5a14; margin-top: 6px; }
 .programme-card__title { font-family: var(--font-display); font-weight: 800; font-size: clamp(1.75rem, 1.4rem + 1.4vw, 2.5rem); color: #1a1226; letter-spacing: -0.04em; line-height: 1; }
 .programme-card__list { list-style: none; margin: 18px 0 0; padding: 0; width: 100%; display: grid; gap: 18px; text-align: left; }
@@ -724,6 +765,21 @@ button, input, select, textarea { font: inherit; color: inherit; }
 .programme-card__row time { font-size: 13px; font-weight: 600; color: #7a5a14; white-space: nowrap; font-variant-numeric: tabular-nums; }
 .programme-card__list p { font-size: 15px; line-height: 1.55; color: #4d4361; margin-top: 2px; max-width: 52ch; }
 .programme-card__foot { margin-top: 14px; font-style: italic; color: #6a5f7c; font-size: 14px; }
+@media (max-width: 959px) {
+  .programme-card { transform: none; transition: none; }
+}
+@media (max-width: 599px) {
+  .programme-card { padding: 30px 20px 26px; gap: 8px; }
+  .programme-card::before { inset: 8px; }
+  .programme-card__mark { height: 56px; }
+  .programme-card__title { font-size: 1.75rem; }
+  .programme-card__list { gap: 14px; margin-top: 12px; }
+  .programme-card__row { gap: 8px; }
+  .programme-card__item { font-size: 1rem; }
+  .programme-card__row time { font-size: 12px; }
+  .programme-card__list p { font-size: 14px; line-height: 1.5; }
+  .programme-card__foot { font-size: 13px; }
+}
 .leader { flex: 1; min-width: 24px; border-bottom: 1.5px dotted currentColor; opacity: 0.45; transform: translateY(-4px); }
 
 /* =====================================================================
@@ -874,7 +930,7 @@ button, input, select, textarea { font: inherit; color: inherit; }
   border-radius: 24px; background: var(--canvas); border: 1px solid var(--line);
   transition: transform 0.45s var(--ease), box-shadow 0.45s var(--ease), border-color 0.3s;
 }
-.pkg:hover { transform: translateY(-6px); border-color: var(--line-strong); box-shadow: 0 26px 50px -30px rgba(29, 19, 48, 0.5); }
+@media (hover: hover) and (pointer: fine) { .pkg:hover { transform: translateY(-6px); border-color: var(--line-strong); box-shadow: 0 26px 50px -30px rgba(29, 19, 48, 0.5); } }
 .pkg--featured { border-color: color-mix(in srgb, var(--gold) 60%, transparent); background: linear-gradient(180deg, color-mix(in srgb, var(--gold) 12%, var(--canvas)), var(--canvas) 60%); }
 .pkg__badge {
   position: absolute; top: -12px; right: 18px; display: inline-flex; align-items: center; gap: 6px;
@@ -963,6 +1019,15 @@ button, input, select, textarea { font: inherit; color: inherit; }
 .checkrow span { color: var(--ink); font-weight: 500; }
 .checkrow small { display: block; color: var(--muted); font-size: 14px; font-weight: 400; }
 .checkrow .num { color: var(--ink); font-weight: 600; font-size: 16px; }
+/* phones: the price sits under the extra's name, so the name gets the full width */
+@media (max-width: 599px) {
+  .checkrow { grid-template-columns: 22px 1fr; gap: 4px 12px; align-items: start; padding: 12px 0; }
+  .checkrow input { margin-top: 2px; }
+  .checkrow span { font-size: 15px; line-height: 1.35; }
+  .checkrow small { font-size: 13px; line-height: 1.4; margin-top: 2px; }
+  .checkrow .num { grid-column: 2; font-size: 15px; color: var(--accent-text); }
+  .estimator__grid .select { font-size: 15px; }
+}
 fieldset { border: 0; margin: 0; padding: 0; min-width: 0; }
 .chips { display: flex; flex-wrap: wrap; gap: 8px; }
 .chip { position: relative; }
@@ -990,7 +1055,7 @@ fieldset { border: 0; margin: 0; padding: 0; min-width: 0; }
 
 /* the invitation preview */
 .invite-wrap { position: sticky; top: 104px; display: grid; gap: 14px; }
-.invite {
+.invite { overflow-wrap: anywhere;
   position: relative; text-align: center; padding: clamp(32px, 4vw, 48px) clamp(22px, 3vw, 36px);
   background: var(--paper); color: #3d3350; border-radius: 2px;
   box-shadow: 0 30px 60px -30px rgba(17, 11, 26, 0.45), 0 0 0 1px rgba(65, 45, 99, 0.1);
@@ -1084,9 +1149,11 @@ section[data-depth], div[data-depth] { overflow-x: clip; }
   *, *::before, *::after { animation-duration: 0.001ms !important; animation-delay: 0s !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; transition-delay: 0s !important; }
   :root.js [data-reveal] { opacity: 1; transform: none; }
   .curtain { display: none; }
-  .marquee { animation: none; flex-wrap: wrap; width: auto; }
-  .marquee ul[aria-hidden="true"] { display: none; }
-  .marquee ul { flex-wrap: wrap; justify-content: center; row-gap: 16px; padding-inline: var(--gutter); }
+  /* the client band stays a single moving row — a slow, even drift with no
+     scroll boost (it pauses on touch, hover or keyboard focus) — instead of
+     collapsing into a block of names */
+  .marquee, .marquee.is-driven { animation: marquee 180s linear infinite !important; }
+  .marquee:hover, .marquee:focus-within, .marquee:active { animation-play-state: paused !important; }
   .meet__text .w { opacity: 1; }
 }
 

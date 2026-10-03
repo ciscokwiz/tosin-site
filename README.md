@@ -40,10 +40,10 @@ If the artwork changes:
 
 ### Photos
 1. Put the original photo in `assets/`. Any size of JPG or PNG is fine.
-2. Run `npm run images`. This writes web-sized copies to `public/images/` (`<name>-800.webp` and `<name>-1600.webp`).
+2. Run `npm run images`. This writes web-sized copies to `public/images/` (`<name>-800.webp` and `<name>-1600.webp`, plus `-2400.webp` for the hero).
 3. In `data/photos.ts`, point the hero or a "Meet the host" slot at `"/images/<name>"`. Set `focus` to keep his face in frame when the photo is cropped.
 
-The hero photo currently on the site (`hero1.jpg`) is only 1280px wide, so a larger original will look sharper on big screens.
+The original hero photo was only 1280px wide. `assets/hero1.jpg` is now a 2560px version made with an AI super-resolution model (EDSR), which looks noticeably sharper on phones and Retina screens. A larger original from the photographer would still be better: drop it in as `assets/hero1.jpg` and run `npm run images`.
 
 The "On stage" gallery (`data/gallery.ts`) stays hidden until you add photos to it.
 
@@ -82,6 +82,15 @@ The site builds to plain files with no server, so hosting is free.
 3. Under **Settings → Domains**, add `thecorporatemcee.com` and follow the DNS instructions.
 
 **Anywhere else (Netlify, cPanel, etc.):** run `npm run build` and upload the contents of the `out/` folder.
+
+**Security headers.** These are set by `vercel.json` (Vercel) and `public/_headers` (Netlify and Cloudflare Pages); keep the two in step:
+- a Content Security Policy that allows only the site's own files plus the YouTube player
+- HTTPS-only (HSTS)
+- no framing by other sites
+- no camera, microphone or location access
+- a one-week cache for photos and videos
+
+On cPanel or another host, ask for the same headers to be added in the server settings.
 
 If the domain ever changes, update `url` in `data/site.ts` so Google and link previews point to the right place.
 

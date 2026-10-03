@@ -3,6 +3,7 @@
 import { usePathname } from "next/navigation";
 import { useEffect } from "react";
 import { createDepth } from "@/lib/motion/depth";
+import { bindRailSwipe, setMeter } from "@/lib/motion/railSwipe";
 import { jumpTo } from "./SmoothScroll";
 
 /* All scroll and pointer motion, driven by ONE requestAnimationFrame loop:
@@ -19,7 +20,8 @@ import { jumpTo } from "./SmoothScroll";
    Pinned sections are ONE-WAY: once you have scrolled past one, or start
    scrolling back up inside it, it releases into a normal, finished section
    so the way back to the top is quick.
-   Reduced motion: everything is shown still, the rail is a native swipe. */
+   Reduced motion: everything is shown still and the rail is a native swipe
+   (its meter and card lift still follow the swipe: lib/motion/railSwipe). */
 export function MotionEngine() {
   const pathname = usePathname();
 
@@ -31,10 +33,13 @@ export function MotionEngine() {
     const reveals = Array.from(document.querySelectorAll<HTMLElement>("[data-reveal]:not(.is-in)"));
     const counts = Array.from(document.querySelectorAll<HTMLElement>("[data-count]"));
 
+    // swipe feedback on the Range rail: on in every mode
+    const unbindRails = Array.from(document.querySelectorAll<HTMLElement>("[data-rail]")).map(bindRailSwipe);
+
     if (reduce || !("IntersectionObserver" in window)) {
       reveals.forEach((el) => el.classList.add("is-in"));
       root.classList.add("still");
-      return;
+      return () => unbindRails.forEach((u) => u());
     }
     root.classList.remove("still");
 
@@ -171,9 +176,8 @@ export function MotionEngine() {
 
       depth.update();
 
-      // pinned rail
+      // pinned rail (swipe mode is handled by bindRailSwipe)
       for (const r of rails) {
-        let p: number;
         if (r.pinned && !r.done) {
           const box = r.rail.getBoundingClientRect();
           if (box.bottom <= 0 || (goingUp && box.top < -4)) {
@@ -185,19 +189,13 @@ export function MotionEngine() {
               r.rail.style.height = "";
               r.track.style.transform = "";
             });
+            r.viewport.dispatchEvent(new Event("scroll")); // meter → swipe position
             continue;
           }
-          const top = box.top;
-          p = clamp(-top / Math.max(1, r.overflow), 0, 1);
+          const p = clamp(-box.top / Math.max(1, r.overflow), 0, 1);
           r.track.style.transform = `translate3d(${-p * r.overflow}px,0,0)`;
-        } else {
-          // swipe mode: progress from the real scroll range, clamped
-          const range = r.viewport.scrollWidth - r.viewport.clientWidth;
-          p = range > 0 ? clamp(r.viewport.scrollLeft / range, 0, 1) : 0;
+          setMeter(r.fill, r.knob, p);
         }
-        if (r.fill) r.fill.style.transform = `scaleX(${p.toFixed(4)})`;
-        // the knob travels inside the track, never past its ends
-        if (r.knob) r.knob.style.left = `calc(${p.toFixed(4)} * (100% - 34px))`;
       }
 
       // marquee: base drift + scroll velocity, direction follows scroll
@@ -241,6 +239,7 @@ export function MotionEngine() {
     if (fine) document.addEventListener("pointermove", onMove, { passive: true });
 
     return () => {
+      unbindRails.forEach((u) => u());
       io.disconnect();
       cancelAnimationFrame(raf);
       window.removeEventListener("resize", measure);
