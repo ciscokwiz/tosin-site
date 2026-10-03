@@ -1,0 +1,16 @@
+# Security and cache headers for Netlify / Cloudflare Pages (Vercel reads vercel.json).
+# Keep the two files in step. See README → Publishing it.
+/*
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data:; media-src 'self'; connect-src 'self'; frame-src https://www.youtube-nocookie.com; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests
+  Strict-Transport-Security: max-age=63072000; includeSubDomains
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: DENY
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=()
+  Cross-Origin-Opener-Policy: same-origin-allow-popups
+
+/images/*
+  Cache-Control: public, max-age=604800, stale-while-revalidate=86400
+
+/videos/*
+  Cache-Control: public, max-age=604800, stale-while-revalidate=86400

@@ -195,6 +195,23 @@ Kept as they were: the Run of Show section, the word-by-word reveal and the Rang
 - **The third slot is an invitation**, "Your guests could be next", with the full mark and a Book button, so two clips never leave a gap.
 - **Trusted by** now lists 29 names. Household names are spread through the list, and the CSS fallback loop was slowed so the longer band keeps the same pace.
 
+## Revision 8: phones, Reduce Motion, sharper hero, security
+
+- **Reduce Motion is respected without breaking anything.** With the phone's Reduce Motion setting on, the site had switched off everything, including feedback the visitor triggers. Now:
+  - The client band stays a single moving row, at a slower 180s loop with no scroll boost. It pauses on touch, hover or focus.
+  - The Range meter's bow tie and the card lift follow the swipe in every mode (`lib/motion/railSwipe.ts`).
+- **Range cards on touch screens** lift when they snap into view, not when tapped. Hover lifts are limited to mouse users, as are the video card, Run-of-Show and package hovers. A tap no longer leaves a card stuck in its "hovered" state. Swipe mode leaves room for the lifted card's shadow.
+- **Run of Show** sits straight on phones and tablets, with a compact layout below 600px. Its section skips the scroll-in motion on phones (`data-depth-sm="off"`).
+- **Gentler depth motion on phones.** Below 768px every `data-depth` mode is a short 28px lift. 3D tilts warped tall sections on small screens.
+- **Hero.** On phones the headline, kicker, intro, buttons and stats are smaller, so the photo leads. The photo was upscaled 2× with EDSR super-resolution and gets a 2400px file. The `sizes` hint now reflects that a landscape photo with `object-fit: cover` is drawn about 165vh wide on portrait screens, so phones fetch the sharp file.
+- **Meet the host.** Photos that haven't been revealed yet show as soft frames with the fila, so the grid never looks broken. Tablets get the two-column layout from 700px. The phone pin is shorter (230vh).
+- **Estimator on phones.** Each extra's price sits under its name.
+- **Security.**
+  - Added a CSP and other security headers (`vercel.json`, `public/_headers`); every page was tested under the policy with no violations.
+  - Booking fields are capped in length and stripped of control characters.
+  - JSON-LD output escapes `<`.
+  - `npm audit` reports 0 vulnerabilities.
+
 ## Critic loop
 | Axis | Round 1 | Reason | Fix | Round 2 |
 |---|---|---|---|---|
