@@ -188,6 +188,13 @@ Kept as they were: the Run of Show section, the word-by-word reveal and the Rang
 - **Invitation font.** Grenze Gotisch replaces UnifrakturMaguntia. It is still Old English in character but far easier to read at small sizes.
 - **Form.** The date and time icons are drawn in brand purple (gold in dark mode) at full opacity.
 
+## Revision 7: real video testimonials, a longer client list
+
+- **Two real clips** replace the sample cards. Both were phone recordings: 400–500px wide, at a variable frame rate. Each was denoised, upscaled to 960px tall with lanczos and contrast-adaptive sharpening, given a light colour lift and locked to 30fps. A mouse pointer burned into the second clip was masked out. Audio was cleaned with a rumble cut, FFT noise reduction and gentle compression, and normalised to -16 LUFS. The clips are 1.2MB and 3.9MB as H.264 MP4s with fast start.
+- **Nothing heavy on load.** Posters are lazy WebP stills of about 35KB. Clips are `preload="none"` and load only when hovered (desktop) or opened. The player takes the clip's own portrait shape, the backdrop no longer blurs, and the three.js dust stops drawing while the player is open (the `tce:media` event).
+- **The third slot is an invitation**, "Your guests could be next", with the full mark and a Book button, so two clips never leave a gap.
+- **Trusted by** now lists 29 names. Household names are spread through the list, and the CSS fallback loop was slowed so the longer band keeps the same pace.
+
 ## Critic loop
 | Axis | Round 1 | Reason | Fix | Round 2 |
 |---|---|---|---|---|

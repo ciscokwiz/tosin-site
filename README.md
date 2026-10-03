@@ -48,7 +48,18 @@ The hero photo currently on the site (`hero1.jpg`) is only 1280px wide, so a lar
 The "On stage" gallery (`data/gallery.ts`) stays hidden until you add photos to it.
 
 ### Video testimonials
-`data/videos.ts` holds three **sample** cards, labelled "Sample" on the site. For each real testimonial, add either a YouTube id or an MP4 placed in `public/videos/`, a poster photo, and the client's name and role. Then delete `sample: true`. Get the client's permission before publishing their name or video.
+`data/videos.ts` holds the two real clips (`public/videos/testimony-1.mp4` and `testimony-2.mp4`). Their captions are placeholders ("From the guest list", "From the stage"): add each guest's name, role and a one-line quote once they have given permission.
+
+To add another clip, convert it to a web MP4 first. Phone `.mov` files are large and often use a variable frame rate that stutters on the web. This is the treatment used for the current two (it needs ffmpeg):
+
+```bash
+ffmpeg -i input.mov \
+  -vf "fps=30,hqdn3d=1.5:1.5:4:4,scale=-2:960:flags=lanczos,cas=0.45,eq=contrast=1.03:saturation=1.06,format=yuv420p" \
+  -af "highpass=f=80,lowpass=f=14000,afftdn=nf=-38:nr=10:tn=1,acompressor=threshold=-22dB:ratio=2.5:attack=8:release=220:makeup=2,loudnorm=I=-16:TP=-1.5:LRA=9" \
+  -c:v libx264 -preset slower -crf 23 -c:a aac -b:a 112k -movflags +faststart public/videos/name.mp4
+```
+
+Then save a still as `assets/name.jpg`, run `npm run images`, and add an entry with `file`, `poster`, `ratio` (the width / height) and `duration`. The page loads no video until someone presses play.
 
 ---
 
@@ -98,8 +109,8 @@ The site handles the technical side: page titles written the way people search (
 
 - **Photos**: none yet. The gallery stays hidden until `data/gallery.ts` has entries.
 - **Prices and booking terms**: these are samples, flagged by a single notice on the Rates page.
-- **Client names, stats (500+ events, 3+ countries, 98%), bio and contact details**: taken from public search listings of thecorporatemcee.com. The original site couldn't be opened from the build environment, so please confirm every client name before launch.
-- **Video testimonials**: the three cards are samples until real videos are added in `data/videos.ts`.
+- **Client names**: the newer names came from Tosin's team, and the first ten came from public listings. **Stats (500+ events, 3+ countries, 98%), bio and contact details**: taken from public search listings of thecorporatemcee.com. The original site couldn't be opened from the build environment, so please confirm every client name before launch.
+- **Video testimonials**: the two clips are real, but the guests' names, roles and quotes still need to be added in `data/videos.ts`.
 - **Copy** (headlines, section text): drafted from Tosin's own bio. Edit freely.
 
 ## Tech notes for a developer

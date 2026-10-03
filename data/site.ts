@@ -57,19 +57,39 @@ export const site = {
     { value: 98, suffix: "%", label: "Client satisfaction" },
   ],
 
-  // Brands listed on thecorporatemcee.com as clients. ONLY list brands
-  // Tosin confirms he has hosted for — a wrong name is a legal problem.
+  // Brands Tosin has hosted for. ONLY list brands he confirms — a wrong
+  // name is a legal problem. The band scrolls in this order; well-known
+  // names are spread out so each pass of the marquee carries a few.
   clients: [
+    "McLaren",
     "Coca-Cola",
+    "Glovo",
     "MTN",
+    "Shell",
+    "Monster Energy",
+    "Cadbury",
     "Guinness",
     "KPMG",
+    "BBA Motors",
+    "Alat by WEMA",
     "USAID",
+    "The Omuti Club",
     "First Bank",
+    "Prestmit",
+    "JCI",
     "Cowrywise",
+    "TSL Logistics",
     "Seven-Up",
+    "SI-UK",
+    "NFS",
     "Chapel Hill Denham",
+    "Terra Developers",
+    "The Zone",
     "Oraimo",
+    "Redwire",
+    "First Ally",
+    "Aniwe",
+    "Creative Bloc",
   ],
 } as const;
 
