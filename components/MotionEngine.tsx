@@ -264,7 +264,7 @@ function countUp(el: HTMLElement) {
   const start = performance.now();
   const step = (now: number) => {
     const t = Math.min(1, (now - start) / 1400);
-    el.textContent = String(Math.round(target * (1 - Math.pow(1 - t, 3))));
+    el.textContent = Math.round(target * (1 - Math.pow(1 - t, 3))).toLocaleString("en-NG");
     if (t < 1) requestAnimationFrame(step);
   };
   requestAnimationFrame(step);

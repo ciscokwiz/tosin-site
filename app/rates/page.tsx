@@ -140,7 +140,6 @@ export default function RatesPage() {
           <div className="section-head">
             <p className="eyebrow">Good to know</p>
             <h2 id="terms-title" className="h2">Booking <em>terms.</em></h2>
-            {ratesAreSamples && <p className="small muted">Sample terms, to be confirmed by Tosin.</p>}
           </div>
           <div style={{ display: "grid", gap: 28 }}>
             <ol className="terms">
