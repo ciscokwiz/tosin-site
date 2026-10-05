@@ -3,7 +3,7 @@ import { site } from "@/data/site";
 import { heroPhoto } from "@/data/photos";
 import { Photo } from "./Photo";
 
-/* The hero is the photo: Tosin facing a full hall. Exactly one screen tall. */
+/* The hero is the photo: Oluwatosin facing a full hall. Exactly one screen tall. */
 export function Hero() {
   return (
     <section className="hero stage" aria-labelledby="hero-title" data-hero>
@@ -33,7 +33,7 @@ export function Hero() {
           {site.stats.map((s) => (
             <div key={s.label}>
               <dt>{s.label}</dt>
-              <dd className="num"><span data-count={s.value}>{s.value}</span><span className="suffix">{s.suffix}</span></dd>
+              <dd className="num"><span data-count={s.value}>{s.value.toLocaleString("en-NG")}</span><span className="suffix">{s.suffix}</span></dd>
             </div>
           ))}
         </dl>

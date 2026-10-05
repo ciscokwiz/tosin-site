@@ -59,7 +59,7 @@ export function Nav() {
                 ))}
               </ul>
             </nav>
-            <Link href="/booking/" className="btn btn--sm nav__book" aria-current={isCurrent(pathname, "/booking/") ? "page" : undefined}>Book Tosin</Link>
+            <Link href="/booking/" className="btn btn--sm nav__book" aria-current={isCurrent(pathname, "/booking/") ? "page" : undefined}>Book Oluwatosin</Link>
             <button
               type="button"
               className="nav__menu"

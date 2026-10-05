@@ -11,7 +11,7 @@ export default function NotFound() {
         <p className="lead">The page you were looking for has left the hall. The programme continues on the home page.</p>
         <div className="btn-row" style={{ justifyContent: "center" }}>
           <Link className="btn" href="/">Back to the programme</Link>
-          <Link className="btn btn--ghost" href="/booking/">Book Tosin</Link>
+          <Link className="btn btn--ghost" href="/booking/">Book Oluwatosin</Link>
         </div>
       </div>
     </section>

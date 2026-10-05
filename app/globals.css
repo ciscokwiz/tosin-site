@@ -3,7 +3,7 @@
    Tokens mirror DESIGN.md. Two layers:
      reading  (--canvas, --ink …)    flips light/dark
      stage    (--stage-* …)          always purple, deeper in dark mode
-   The signature is Tosin's fila & tuxedo (components/Mark.tsx).
+   The signature is Oluwatosin's fila & tuxedo (components/Mark.tsx).
    ===================================================================== */
 
 /* Two typefaces, site-wide:
@@ -351,7 +351,7 @@ button, input, select, textarea { font: inherit; color: inherit; }
 
 /* =====================================================================
    CURTAIN — first-visit intro + page transitions
-   The panels are Tosin's lapels at screen scale (same coordinates as the
+   The panels are Oluwatosin's lapels at screen scale (same coordinates as the
    artwork); the fila, bow tie and studs sit on top. Driven by data-state
    from components/Curtain.tsx; the first-visit intro is pure CSS.
    ===================================================================== */

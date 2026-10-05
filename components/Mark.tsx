@@ -1,4 +1,4 @@
-/* <Mark/> — every placement of Tosin's fila & tuxedo goes through here.
+/* <Mark/> — every placement of Oluwatosin's fila & tuxedo goes through here.
    The artwork itself lives once in <MarkSprite/> (components/MarkSprite.tsx).
 
    Variants (each is a crop of the same artwork, same coordinates):

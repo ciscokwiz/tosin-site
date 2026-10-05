@@ -28,9 +28,9 @@ export default function BookingPage() {
         title={<>Let&rsquo;s hold <em>your date.</em></>}
         lede="Tell me about your event. The form writes the message for you; send it on WhatsApp or email and I’ll reply with availability."
         photo={meetPhotos[2]}
-        chips={["500+ events hosted", "Lagos & worldwide", "WhatsApp first"]}
+        chips={["1,500+ events hosted", "Lagos & worldwide", "WhatsApp first"]}
       >
-        <ul className="contact-pills" aria-label="Other ways to reach Tosin">
+        <ul className="contact-pills" aria-label="Other ways to reach Oluwatosin">
           <li>
             <a href={whatsappLink(`Hello ${site.brand}, I'd like to check your availability.`)} target="_blank" rel="noopener">
               <WhatsAppIcon /> WhatsApp

@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { callTimeClause, extraHostClause, packages, rateCategories } from "@/data/rates";
+import { callTimeClause, messageTerms, packages, rateCategories } from "@/data/rates";
 import { site } from "@/data/site";
 import { formatNaira, mailtoLink, whatsappLink } from "@/lib/format";
 import { Mark } from "./Mark";
@@ -110,7 +110,7 @@ export function BookingForm() {
       opt(form.notes, ""),
       opt(form.notes, `Notes: ${form.notes}`),
       "",
-      `Noted: ${callTimeClause} ${extraHostClause}`,
+      messageTerms,
       "",
       "Is this date available?",
     ];
@@ -192,7 +192,7 @@ export function BookingForm() {
           }}
           aria-labelledby="form-title"
         >
-          <h2 id="form-title" className="h3">Tell Tosin about your event</h2>
+          <h2 id="form-title" className="h3">Tell Oluwatosin about your event</h2>
           <p className="small muted">Fields marked <span className="req">*</span> are required. Nothing is stored on this website &mdash; your details go straight into a WhatsApp or email message you send yourself.</p>
 
           <div className="form__row">

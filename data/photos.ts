@@ -16,7 +16,7 @@ export type Photo = { src: string; alt: string; focus: string };
 /* Full-screen hero. Best as a wide shot with the subject off-centre. */
 export const heroPhoto: Photo = {
   src: "/images/hero1",
-  alt: "Tosin on stage in agbada and fila, microphone in hand, facing a full banquet hall",
+  alt: "Oluwatosin on stage in agbada and fila, microphone in hand, facing a full banquet hall",
   focus: "68% 45%",
 };
 
@@ -27,17 +27,17 @@ export const heroPhoto: Photo = {
 export const meetPhotos: [Photo, Photo, Photo] = [
   {
     src: "/images/meet-host1",
-    alt: "Tosin in a cream suit hosting The Naked Truth talk show, TNT 2024",
+    alt: "Oluwatosin in a cream suit hosting The Naked Truth talk show, TNT 2024",
     focus: "50% 40%",
   },
   {
     src: "/images/meet-host2",
-    alt: "Tosin in a pinstripe suit and beaded fila speaking at Omoi's Neuroscience & Giggles",
+    alt: "Oluwatosin in a pinstripe suit and beaded fila speaking at Omoi's Neuroscience & Giggles",
     focus: "32% 40%",
   },
   {
     src: "/images/meet-host3",
-    alt: "Tosin interviewing a laughing guest on stage at TNT 2024",
+    alt: "Oluwatosin interviewing a laughing guest on stage at TNT 2024",
     focus: "45% 45%",
   },
 ];

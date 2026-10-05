@@ -109,7 +109,7 @@ export function Curtain() {
   return (
     <div className="curtain" data-state={state} aria-hidden="true">
       <div className="curtain__shirt" />
-      {/* The two halves of the curtain are Tosin's lapels at screen scale.
+      {/* The two halves of the curtain are Oluwatosin's lapels at screen scale.
           Both use the artwork's own coordinates, centred on the seam (x = 82).
           Texture: a fine twill on the cloth, light falling off toward the
           outer edges, satin sheen and a stitched edge on the lapels. */}
