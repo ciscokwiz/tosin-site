@@ -50,7 +50,7 @@ export default function Home() {
           <div className="section-head">
             <p className="eyebrow">FAQ</p>
             <h2 id="faq-title" className="h2">Quick <em>answers.</em></h2>
-            <p>Anything else? <Link href="/booking/">Send a message</Link> and Tosin will reply.</p>
+            <p>Anything else? <Link href="/booking/">Send a message</Link> and Oluwatosin will reply.</p>
           </div>
           <Faq items={homeFaq} />
         </div>

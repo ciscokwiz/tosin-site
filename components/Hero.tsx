@@ -3,7 +3,7 @@ import { site } from "@/data/site";
 import { heroPhoto } from "@/data/photos";
 import { Photo } from "./Photo";
 
-/* The hero is the photo: Tosin facing a full hall. Exactly one screen tall. */
+/* The hero is the photo: Oluwatosin facing a full hall. Exactly one screen tall. */
 export function Hero() {
   return (
     <section className="hero stage" aria-labelledby="hero-title" data-hero>

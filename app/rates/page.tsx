@@ -38,9 +38,9 @@ export default function RatesPage() {
       >
         <div className="btn-row">
           <a href="#estimate" className="btn btn--sm" data-magnetic>Build an estimate</a>
-          <Link href="/booking/" className="btn btn--sm btn--ghost">Book Tosin</Link>
+          <Link href="/booking/" className="btn btn--sm btn--ghost">Book Oluwatosin</Link>
         </div>
-        {ratesAreSamples && <p className="phero__note">Sample prices until Tosin confirms his rate card.</p>}
+        {ratesAreSamples && <p className="phero__note">Sample prices until Oluwatosin confirms his rate card.</p>}
       </PageHero>
 
       <section className="section rates" aria-label="Packages">
@@ -129,7 +129,7 @@ export default function RatesPage() {
               <p className="eyebrow">Estimate builder</p>
               <h2 id="estimate-title" className="h2">Build your <em>quote.</em></h2>
             </div>
-            <p className="lead">Pick a package and extras, then send the estimate on WhatsApp. Tosin confirms availability and the final price.</p>
+            <p className="lead">Pick a package and extras, then send the estimate on WhatsApp. Oluwatosin confirms availability and the final price.</p>
           </div>
           <Estimator />
         </div>

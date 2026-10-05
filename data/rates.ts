@@ -2,7 +2,7 @@
    RATE CARD — prices and packages.
    ---------------------------------------------------------------------
    ⚠  The prices below are SAMPLE numbers so the page can be designed.
-      Replace them with Tosin's real rates, then set
+      Replace them with Oluwatosin's real rates, then set
       `ratesAreSamples` to false — that removes the "Sample rate"
       badges from the website.
 
@@ -146,7 +146,7 @@ export const packages: RatePackage[] = [
 ];
 
 /* Optional extras. Same rules as above — price in Naira, or null.
-   A rehearsal or walk-through means Tosin is physically at the venue on
+   A rehearsal or walk-through means Oluwatosin is physically at the venue on
    another day, so it costs more than script writing, which is desk work.
    There is deliberately no co-host extra: packages cover one host, and any
    additional MC is quoted separately (see `extraHostClause`). Red carpet and
@@ -161,9 +161,11 @@ export const addOns: { id: string; name: string; price: number | null; note: str
 
 /* Clauses that also travel inside every estimate and booking message sent
    from the site (and the PDF rate card), so they are written once here. */
-export const paymentClause = "Full payment upfront validates a booking.";
-export const callTimeClause = "Call time up to 1 hour before start is included; earlier is billed per extra hour.";
-export const extraHostClause = "Packages cover one host; any extra MC is quoted separately.";
+export const paymentClause = "Full payment upfront secures the date; dates are not held without it.";
+export const callTimeClause =
+  "Call time up to 1 hour before the event starts is included. An earlier call time is billed separately, per extra hour.";
+export const extraHostClause =
+  "Every package covers one host. A co-host or any additional MC is quoted and billed separately.";
 /* Added to the end of every WhatsApp / email message the site writes. */
 export const messageTerms = `Noted: ${paymentClause} ${callTimeClause} ${extraHostClause}`;
 /* Short versions for the estimate panel. */
@@ -173,13 +175,14 @@ export const clauseNotes = [
   "One host per package; extra MCs quoted separately",
 ];
 
-/* Booking terms, from Tosin, shown on the Rates page and the PDF rate card. */
+/* Booking terms shown on the Rates page and the PDF rate card. Keep to 8 or
+   fewer, one or two short lines each. */
 export const terms = [
   paymentClause,
-  "Postponing? Tell us right away so Tosin can confirm the new date. Under a month to the original date adds 30%. If he isn't free on the new date, payment isn't refunded.",
-  "Cancellations aren't refunded, except on the death of a major stakeholder, when part of the fee is returned.",
-  "The fee covers the agreed hours. Tosin arrives on time and leaves on time; staying longer adds 20%, if he has no other booking.",
+  "Prices cover hosting in Lagos. Other states and countries add travel and accommodation.",
+  "Overtime beyond the agreed hours adds 20%, if Oluwatosin has no other booking.",
   callTimeClause,
   extraHostClause,
-  "Prices cover Lagos. Other states and countries add travel and accommodation.",
+  "Postponing? Tell us at once to confirm the new date. Within a month of the original date, add 30%; if Oluwatosin isn't free, payment isn't refunded.",
+  "Cancellations aren't refunded, except on the death of a major stakeholder, when part of the fee is returned.",
 ];

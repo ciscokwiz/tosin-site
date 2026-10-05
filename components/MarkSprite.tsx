@@ -1,5 +1,5 @@
 /* =====================================================================
-   THE MARK — Tosin's fila & tuxedo, from brand/thecorporatemc-tux-mark.svg
+   THE MARK — Oluwatosin's fila & tuxedo, from brand/thecorporatemc-tux-mark.svg
    ---------------------------------------------------------------------
    GENERATED from the client's SVG. The artwork is defined ONCE as an
    inline sprite (<MarkSprite/> in app/layout.tsx) and every placement

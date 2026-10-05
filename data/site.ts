@@ -25,7 +25,7 @@ export const site = {
     "Oluwatosin Aina, The Corporate Emcee: a versatile Master of Ceremonies in Lagos for conferences, galas, product launches, award nights, weddings and campus events across Nigeria and beyond.",
 
   // His own words, from thecorporatemcee.com. Shown in the home hero.
-  bio: "A master communicator, event host and convener of unforgettable moments. With a degree in Psychology from OAU and training in emotional intelligence and product management, Tosin brings more than charisma — he delivers impact.",
+  bio: "A master communicator, event host and convener of unforgettable moments. With a degree in Psychology from OAU and training in emotional intelligence and product management, Oluwatosin brings more than charisma — he delivers impact.",
 
   city: "Lagos",
   country: "Nigeria",
@@ -51,7 +51,7 @@ export const site = {
   },
 
   // Headline numbers in the hero. Keep them true:
-  // - events hosted: from Tosin (October 2026)
+  // - events hosted: from Oluwatosin (October 2026)
   // - brands: the number of names in `clients` below, rounded down to a ten
   // - event formats: the cards in "The Range Master" (data/range.ts)
   stats: [
@@ -60,7 +60,7 @@ export const site = {
     { value: 6, suffix: "", label: "Event formats, one host" },
   ],
 
-  // Brands Tosin has hosted for. ONLY list brands he confirms — a wrong
+  // Brands Oluwatosin has hosted for. ONLY list brands he confirms — a wrong
   // name is a legal problem. The band scrolls in this order; well-known
   // names are spread out so each pass of the marquee carries a few.
   clients: [

@@ -49,8 +49,8 @@ export function VideoTestimonials() {
               <div className="vnext stage">
                 <Mark variant="full" className="vnext__mark" />
                 <p className="vnext__title">Your guests could be <em>next.</em></p>
-                <p className="vnext__body">Tell Tosin about the room and he will hold the date.</p>
-                <Link href="/booking/" className="btn btn--sm">Book Tosin</Link>
+                <p className="vnext__body">Tell Oluwatosin about the room and he will hold the date.</p>
+                <Link href="/booking/" className="btn btn--sm">Book Oluwatosin</Link>
               </div>
             </li>
           )}

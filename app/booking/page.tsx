@@ -30,7 +30,7 @@ export default function BookingPage() {
         photo={meetPhotos[2]}
         chips={["1,500+ events hosted", "Lagos & worldwide", "WhatsApp first"]}
       >
-        <ul className="contact-pills" aria-label="Other ways to reach Tosin">
+        <ul className="contact-pills" aria-label="Other ways to reach Oluwatosin">
           <li>
             <a href={whatsappLink(`Hello ${site.brand}, I'd like to check your availability.`)} target="_blank" rel="noopener">
               <WhatsAppIcon /> WhatsApp

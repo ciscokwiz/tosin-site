@@ -14,8 +14,8 @@ export const faq: { q: string; a: string; home?: boolean; rates?: boolean }[] = 
     home: true,
   },
   {
-    q: "Where is Tosin based? Does he travel?",
-    a: "Tosin is based in Lagos and hosts across Nigeria and internationally. Travel outside Lagos is quoted separately.",
+    q: "Where is Oluwatosin based? Does he travel?",
+    a: "Oluwatosin is based in Lagos and hosts across Nigeria and internationally. Travel outside Lagos is quoted separately.",
     home: true,
     rates: true,
   },
@@ -32,16 +32,16 @@ export const faq: { q: string; a: string; home?: boolean; rates?: boolean }[] = 
   },
   {
     q: "Is a co-host included in the packages?",
-    a: "No. Every package covers Tosin as your one host. If you need a co-host or another MC, that is quoted and billed separately.",
+    a: "No. Every package covers Oluwatosin as your one host. If you need a co-host or another MC, that is quoted and billed separately.",
     rates: true,
   },
   {
     q: "What is call time, and when is it billed?",
-    a: "Call time is when Tosin arrives for the sound check and final brief. Up to 1 hour before the event starts is included; an earlier call time is billed separately, per extra hour.",
+    a: "Call time is when Oluwatosin arrives for the sound check and final brief. Up to 1 hour before the event starts is included; an earlier call time is billed separately, per extra hour.",
     rates: true,
   },
   {
-    q: "Will Tosin work with our planner's run-of-show?",
-    a: "Yes. Every booking includes a brief call, and Tosin returns his notes and transitions before the event.",
+    q: "Will Oluwatosin work with our planner's run-of-show?",
+    a: "Yes. Every booking includes a brief call, and Oluwatosin returns his notes and transitions before the event.",
   },
 ];
