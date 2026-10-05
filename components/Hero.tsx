@@ -16,7 +16,7 @@ export function Hero() {
       <div className="hero__shade" aria-hidden="true" />
       <div className="wrap hero__inner">
         <div className="hero__copy hero-in">
-          <p className="hero__kicker"><span className="hero__kicker-brand">{site.brand} &middot; </span>Corporate MC &amp; Event Host in {site.city}</p>
+          <p className="hero__kicker"><span className="hero__kicker-brand">{site.brand} &middot; </span>Master of Ceremonies &middot; {site.city}</p>
           <h1 id="hero-title" className="hero__title">
             Every room has a rhythm. <em>I know how to lead it.</em>
           </h1>

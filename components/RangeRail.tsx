@@ -17,7 +17,7 @@ export function RangeRail() {
             <h2 id="range-title" className="h2">From the summit stage to the <em>dance floor.</em></h2>
           </div>
           <p className="lead">
-            One host for every room: conferences, galas, product launches, award nights and weddings in Lagos and beyond.
+            One MC, six kinds of room. The same preparation every time, and a different gear for each: conferences, galas, launches, award nights, weddings and campus stages.
           </p>
         </div>
         <div className="rail__viewport" data-rail-viewport tabIndex={0} aria-label="Event formats, scroll sideways">

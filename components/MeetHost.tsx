@@ -24,7 +24,7 @@ export function MeetHost() {
             <h2 id="meet-title" className="eyebrow">Meet the host</h2>
             <Words
               className="meet__text"
-              text={`${site.person} is a master communicator, event host and convener of | *unforgettable moments.* A psychologist by training, | he reads a room before he speaks to it, and brings more than charisma. He delivers *impact.*`}
+              text={`${site.person} is a Master of Ceremonies for every kind of room: the boardroom, | the ballroom, *the main stage.* A psychologist by training, | he reads each crowd before he speaks to it and changes gear without missing a beat. One host, *any room.*`}
             />
           </div>
         </div>

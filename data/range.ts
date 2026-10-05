@@ -44,7 +44,7 @@ export const range: {
     label: "Award ceremonies",
     title: "Every name, said right.",
     body: "Long category lists, live cues and nominees who deserve their moment on the biggest night of the year.",
-    points: ["Name checks", "Stage cues", "Rehearsal"],
+    points: ["Name checks", "Stage cues", "Live broadcast cues"],
     rates: "launches",
   },
   {

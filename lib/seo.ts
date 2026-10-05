@@ -13,7 +13,7 @@ export const personLd = {
   email: site.contact.email,
   telephone: site.contact.phone,
   alumniOf: { "@type": "CollegeOrUniversity", name: "Obafemi Awolowo University" },
-  knowsAbout: ["Event hosting", "Master of ceremonies", "Corporate events", "Conference moderation", "Weddings", "Product launches", "Award ceremonies"],
+  knowsAbout: ["Event hosting", "Master of ceremonies", "Corporate events", "Conference moderation", "Weddings", "Product launches", "Award ceremonies", "Campus events"],
   address: { "@type": "PostalAddress", addressLocality: site.city, addressCountry: "NG" },
   sameAs: Object.values(site.social).filter(Boolean),
 };

@@ -20,7 +20,7 @@ export function Footer() {
     <footer className="footer stage" aria-labelledby="footer-title">
       <div className="wrap footer__cta" data-depth>
         <h2 id="footer-title" className="footer__title">
-          Let&rsquo;s make your event <em>one to remember.</em>
+          Whatever the room, let&rsquo;s make it <em>one to remember.</em>
         </h2>
         <Link href="/booking/" className="btn" data-magnetic>Book Tosin</Link>
       </div>
@@ -31,7 +31,7 @@ export function Footer() {
             <Mark className="footer__mark" />
             <span>
               <strong>{site.brand}</strong>
-              <small>MC &amp; event host, {site.city}</small>
+              <small>Master of Ceremonies, {site.city}</small>
             </span>
           </Link>
           <nav aria-label="Footer" className="footer__links">

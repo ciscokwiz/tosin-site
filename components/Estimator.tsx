@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useMemo, useState } from "react";
-import { addOns, packages, rateCategories, ratesAreSamples } from "@/data/rates";
+import { addOns, callTimeClause, clauseNotes, extraHostClause, packages, rateCategories, ratesAreSamples } from "@/data/rates";
 import { site } from "@/data/site";
 import { formatNaira, formatNumber, whatsappLink } from "@/lib/format";
 import { WhatsAppIcon } from "./Icons";
@@ -34,6 +34,8 @@ export function Estimator() {
     ``,
     `Event date: `,
     `Venue / city: `,
+    ``,
+    `Noted: ${callTimeClause} ${extraHostClause}`,
   ].join("\n");
 
   return (
@@ -88,6 +90,9 @@ export function Estimator() {
           ))}
         </dl>
         {onRequest && <p className="small muted">Some items are quoted on request and are not in the total.</p>}
+        <ul className="total__notes">
+          {clauseNotes.map((n) => <li key={n}>{n}</li>)}
+        </ul>
         <div className="btn-row">
           <a className="btn" href={whatsappLink(message)} target="_blank" rel="noopener">
             <WhatsAppIcon /> Send this estimate

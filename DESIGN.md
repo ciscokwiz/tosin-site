@@ -212,6 +212,24 @@ Kept as they were: the Run of Show section, the word-by-word reveal and the Rang
   - JSON-LD output escapes `<`.
   - `npm audit` reports 0 vulnerabilities.
 
+## Revision 9: versatility, rate card and terms
+
+- **Versatility is the message.**
+  - Hero label: "Master of Ceremonies · Lagos".
+  - "Meet the host": the boardroom, the ballroom, the main stage. One host, any room.
+  - Range intro: "One MC, six kinds of room."
+  - The footer, FAQ answers and Google descriptions say "Master of Ceremonies".
+  - The hero headline and intro are the client's own words and stay.
+- **Stats** are numbers the site can back up: 500+ events hosted, 30+ brands (the client list), and 6 event formats (the Range cards). "3+ countries" and "98% satisfaction" are gone until there is a source for them.
+- **Rate card.**
+  - A dry run or venue walk-through needs Tosin on site, so it now costs ₦250,000.
+  - Script and run-sheet writing is now ₦150,000.
+  - The co-host extra is removed, because additional hosts are quoted separately.
+  - The award package's in-person rehearsal became a cue run-through on a call.
+- **Terms.** Two new clauses, call time and one host per package, live in `data/rates.ts`. They show in the terms list, the Rates FAQ, the estimate panel (short form), and every WhatsApp or email message the site writes.
+- **Guest tiers** on the booking form: under 50, 50–100, 100–300, 300–600, 600–1,000, 1,000+.
+- **Trusted by** adds Lafarge, for 30 names.
+
 ## Critic loop
 | Axis | Round 1 | Reason | Fix | Round 2 |
 |---|---|---|---|---|
