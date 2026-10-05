@@ -5,6 +5,9 @@
 // always matches the Rates page. Needs Playwright's Chromium
 // (once: npx playwright install chromium), or point CHROMIUM_PATH at any
 // Chrome / Chromium already on the machine.
+// It never grows past two A4 pages: categories that don't fit on page 1 move
+// to the top of page 2, then the type steps down (to 80% at most). If it
+// still can't fit, the script stops with an error rather than add a page.
 import fs from "node:fs";
 import path from "node:path";
 import { createRequire } from "node:module";
@@ -64,29 +67,30 @@ const html = `<!doctype html><html lang="en-NG"><head><meta charset="utf-8"><tit
 @page { size: A4; margin: 0; }
 * { box-sizing: border-box; margin: 0; padding: 0; }
 html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+:root { --s: 1; }
 body { font-family: "Inter", sans-serif; color: #3d3350; background: #fbf9fd; }
 .page { width: 210mm; height: 297mm; padding: 10mm; page-break-after: always; background: #fbf9fd; }
 .page:last-child { page-break-after: auto; }
 /* the programme card's gold rule, doubled for print */
-.frame { position: relative; height: 100%; border: 1px solid rgba(201,160,74,.75); outline: 1px solid rgba(201,160,74,.35); outline-offset: 3px; padding: 14mm 15mm 12mm; display: flex; flex-direction: column; }
-.head { display: grid; justify-items: center; text-align: center; gap: 2.2mm; margin-bottom: 8mm; }
-.head svg { height: 30mm; width: auto; }
+.frame { position: relative; height: 100%; overflow: hidden; border: 1px solid rgba(201,160,74,.75); outline: 1px solid rgba(201,160,74,.35); outline-offset: 3px; padding: 14mm 15mm 12mm; display: flex; flex-direction: column; }
+.head { display: grid; justify-items: center; text-align: center; gap: calc(2.2mm * var(--s)); margin-bottom: calc(7mm * var(--s)); }
+.head svg { height: calc(26mm * var(--s)); width: auto; }
 .kicker { font-size: 8.5pt; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: #7a5a14; }
-h1 { font-family: "Jakarta"; font-weight: 800; font-size: 34pt; letter-spacing: -.04em; line-height: 1; color: #1a1226; }
+h1 { font-family: "Jakarta"; font-weight: 800; font-size: calc(32pt * var(--s)); letter-spacing: -.04em; line-height: 1; color: #1a1226; }
 .byline { font-size: 9.5pt; color: #6a5f7c; }
-.cat { margin-top: 5.5mm; }
-.cat:first-of-type { margin-top: 0; }
-h2 { font-size: 8.5pt; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: #7a5a14; padding-bottom: 1.6mm; margin-bottom: 2mm; border-bottom: .6pt solid rgba(201,160,74,.55); }
-ul, ol { list-style: none; display: grid; gap: 2.6mm; }
+.cat { margin-top: calc(5mm * var(--s)); }
+#p1 > .cat:first-child, #p2 > .cat:first-child { margin-top: 0; }
+h2 { font-size: 8.5pt; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: #7a5a14; padding-bottom: calc(1.4mm * var(--s)); margin-bottom: calc(2mm * var(--s)); border-bottom: .6pt solid rgba(201,160,74,.55); }
+ul, ol { list-style: none; display: grid; gap: calc(2.4mm * var(--s)); }
 .row { display: flex; align-items: baseline; gap: 2.5mm; }
-.item { font-family: "Jakarta"; font-weight: 700; font-size: 11.5pt; letter-spacing: -.015em; color: #1a1226; }
+.item { font-family: "Jakarta"; font-weight: 700; font-size: calc(11.5pt * var(--s)); letter-spacing: -.015em; color: #1a1226; }
 .leader { flex: 1; min-width: 8mm; border-bottom: 1.2pt dotted #3d3350; opacity: .4; transform: translateY(-1mm); }
-.price { font-family: "Jakarta"; font-weight: 800; font-size: 11.5pt; color: #412d63; white-space: nowrap; font-variant-numeric: tabular-nums; }
-li p { font-size: 8.8pt; line-height: 1.45; color: #5a4f6c; margin-top: .6mm; }
-ol { counter-reset: t; gap: 2.4mm; }
-ol li { display: grid; grid-template-columns: 8mm 1fr; font-size: 9.6pt; line-height: 1.5; color: #3d3350; }
+.price { font-family: "Jakarta"; font-weight: 800; font-size: calc(11.5pt * var(--s)); color: #412d63; white-space: nowrap; font-variant-numeric: tabular-nums; }
+li p { font-size: calc(8.8pt * var(--s)); line-height: 1.4; color: #5a4f6c; margin-top: .6mm; }
+ol { counter-reset: t; gap: calc(2.2mm * var(--s)); }
+ol li { display: grid; grid-template-columns: 8mm 1fr; font-size: calc(9.6pt * var(--s)); line-height: 1.45; color: #3d3350; }
 ol li::before { counter-increment: t; content: counter(t, decimal-leading-zero); color: #7a5a14; font-weight: 700; }
-.spacer { flex: 1; }
+.spacer { flex: 1; min-height: 6mm; } /* breathing room the fit check must keep */
 .contact { display: grid; justify-items: center; gap: 2mm; text-align: center; padding-top: 6mm; border-top: .6pt solid rgba(201,160,74,.55); }
 .contact .cta { font-family: "Jakarta"; font-weight: 800; font-size: 15pt; letter-spacing: -.03em; color: #1a1226; }
 .contact .cta em { font-style: italic; font-weight: 700; color: #7a5a14; margin-left: .14em; }
@@ -103,16 +107,17 @@ ${page(`
     <h1>Rate Card</h1>
     <p class="byline">${esc(site.person)} · Master of Ceremonies · ${esc(site.city)} · ${esc(site.bookingSeason.replace(/^Now booking\s*/i, ""))}</p>
   </header>
-  ${categories}
+  <div id="p1">${categories}</div>
   <div class="spacer"></div>
   <p class="foot">Starting prices for hosting in ${esc(site.city)}.${ratesAreSamples ? " Sample rates, to be confirmed." : ""} Your quote is confirmed on WhatsApp.</p>
 `, 1)}
 ${page(`
+  <div id="p2"></div>
   <section class="cat">
     <h2>Extras</h2>
     <ul>${addOns.map((a) => row(a.name, a.price === null ? "At cost" : `+${naira(a.price)}`, a.note)).join("")}</ul>
   </section>
-  <section class="cat" style="margin-top:9mm">
+  <section class="cat" style="margin-top:calc(8mm * var(--s))">
     <h2>Booking terms</h2>
     <ol>${terms.map((t) => `<li>${esc(t)}</li>`).join("")}</ol>
   </section>
@@ -133,13 +138,30 @@ try {
   const p = await browser.newPage();
   await p.goto(pathToFileURL(tmp).href);
   await p.evaluate(() => document.fonts.ready);
+  // fit to two pages: flow whole categories from page 1 to page 2, then
+  // step the type down; fail loudly rather than print a third page
+  const fit = await p.evaluate(() => {
+    const frames = [...document.querySelectorAll(".frame")];
+    const over = (f) => f.scrollHeight > f.clientHeight + 1;
+    const p1 = document.getElementById("p1");
+    const p2 = document.getElementById("p2");
+    for (let s = 1; s >= 0.8; s = Math.round((s - 0.02) * 100) / 100) {
+      document.documentElement.style.setProperty("--s", String(s));
+      // start with every category on page 1, then move the last ones over
+      while (p2.firstElementChild) p1.appendChild(p2.firstElementChild);
+      while (over(frames[0]) && p1.children.length > 1) p2.prepend(p1.lastElementChild);
+      if (!frames.some(over)) return { s, moved: p2.children.length };
+    }
+    return null;
+  });
+  if (!fit) throw new Error("The rate card no longer fits on two pages. Shorten summaries or terms in data/rates.ts.");
   const out = path.join(ROOT, "public/rate-card.pdf");
   await p.pdf({ path: out, format: "A4", printBackground: true, preferCSSPageSize: true });
   if (process.argv.includes("--png")) {
     await p.setViewportSize({ width: 794, height: 1123 });
     await p.screenshot({ path: path.join(ROOT, ".rate-card.png"), fullPage: true });
   }
-  console.log(`${path.relative(ROOT, out)}  ${(fs.statSync(out).size / 1024).toFixed(0)}KB`);
+  console.log(`${path.relative(ROOT, out)}  ${(fs.statSync(out).size / 1024).toFixed(0)}KB · 2 pages · type at ${Math.round(fit.s * 100)}% · ${fit.moved} categor${fit.moved === 1 ? "y" : "ies"} on page 2`);
 } finally {
   await browser.close();
   fs.rmSync(tmp, { force: true });

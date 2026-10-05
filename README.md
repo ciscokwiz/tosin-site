@@ -33,7 +33,7 @@ In `data/rates.ts`, write prices as plain numbers with no commas: `price: 150000
 Three clauses are written once in `data/rates.ts`: payment upfront, call time and extra hosts (`paymentClause`, `callTimeClause`, `extraHostClause`). They appear in the booking terms and inside every estimate and booking message sent from the site, so editing them there updates every copy. There is deliberately no co-host extra, because additional hosts are always quoted separately.
 
 ### PDF rate card
-`public/rate-card.pdf` is a two-page A4 rate card in the style of the "Run of Show" card. It lists every package, the extras, the booking terms and the contact details, all taken from `data/rates.ts` and `data/site.ts`. After changing prices or terms, run `npm run ratecard` to rebuild it. This needs Playwright's Chromium (`npx playwright install chromium` once), or set `CHROMIUM_PATH` to an installed Chrome.
+`public/rate-card.pdf` is a two-page A4 rate card in the style of the "Run of Show" card. It lists every package, the extras, the booking terms and the contact details, all taken from `data/rates.ts` and `data/site.ts`. After changing prices or terms, run `npm run ratecard` to rebuild it. It always fits on two pages: categories flow onto page 2 and the type shrinks a little if needed. If it ever can't fit, the command stops and says which text to shorten. This needs Playwright's Chromium (`npx playwright install chromium` once), or set `CHROMIUM_PATH` to an installed Chrome.
 
 ### The fila & tuxedo mark
 Tosin's mark lives in `brand/thecorporatemc-tux-mark.svg`. The site uses it in eleven places: logo, loader, page transitions, hero, client band, Range rail, programme card, booking invitation, theme toggle, footer and favicon. `DESIGN.md` lists them all.
