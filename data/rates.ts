@@ -129,7 +129,7 @@ export const packages: RatePackage[] = [
     price: 2000000,
     per: "per ceremony",
     summary: "Long category lists, live broadcast cues and nominees who must hear their names right.",
-    includes: ["Name pronunciation check", "Category & cue scripting", "Rehearsal walk-through"],
+    includes: ["Name pronunciation check", "Category & cue scripting", "Cue run-through on a call"],
     featured: true,
   },
 
@@ -145,14 +145,26 @@ export const packages: RatePackage[] = [
   },
 ];
 
-/* Optional extras. Same rules as above — price in Naira, or null. */
+/* Optional extras. Same rules as above — price in Naira, or null.
+   A rehearsal or walk-through means Tosin is physically at the venue on
+   another day, so it costs more than script writing, which is desk work.
+   There is deliberately no co-host extra: packages cover one host, and any
+   additional MC is quoted separately (see `extraHostClause`). */
 export const addOns: { id: string; name: string; price: number | null; note: string }[] = [
-  { id: "rehearsal", name: "Rehearsal or venue walk-through", price: 150000, note: "Recommended for awards and launches" },
-  { id: "script", name: "Full script & run-sheet writing", price: 250000, note: "Delivered 72 hours before the event" },
-  { id: "cohost", name: "Co-host (second MC)", price: 500000, note: "For bilingual or very long programmes" },
+  { id: "rehearsal", name: "Dry run or venue walk-through", price: 250000, note: "In person, at the venue, before the event day" },
+  { id: "script", name: "Full script & run-sheet writing", price: 150000, note: "Delivered 72 hours before the event" },
   { id: "hybrid", name: "Virtual / hybrid audience hosting", price: 300000, note: "Engaging the online audience live" },
   { id: "travel", name: "Event outside Lagos", price: null, note: "Travel & accommodation at cost" },
 ];
+
+/* Two clauses that also travel inside every estimate and booking message
+   sent from the site, so they are written once here. */
+export const callTimeClause =
+  "Call time up to 1 hour before the event starts is included. An earlier call time is billed separately, per extra hour.";
+export const extraHostClause =
+  "Every package covers one host. A co-host or any additional MC is quoted and billed separately.";
+/* The same two clauses, short, for the estimate panel. */
+export const clauseNotes = ["Call time over 1 hour before start: billed per extra hour", "One host per package; a co-host is quoted separately"];
 
 /* Booking terms shown on the Rates page. SAMPLE — confirm with Tosin. */
 export const terms = [
@@ -160,4 +172,6 @@ export const terms = [
   "The balance is due before the event day.",
   "Prices cover hosting in Lagos. Other states and countries add travel and accommodation.",
   "Overtime beyond the package hours is billed per extra hour.",
+  callTimeClause,
+  extraHostClause,
 ];

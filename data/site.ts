@@ -22,7 +22,7 @@ export const site = {
 
   // One-line description used by Google and link previews.
   description:
-    "Lagos MC and event host Oluwatosin Aina, The Corporate Emcee, for conferences, corporate galas, product launches, award nights and weddings across Nigeria.",
+    "Oluwatosin Aina, The Corporate Emcee: a versatile Master of Ceremonies in Lagos for conferences, galas, product launches, award nights, weddings and campus events across Nigeria and beyond.",
 
   // His own words, from thecorporatemcee.com. Shown in the home hero.
   bio: "A master communicator, event host and convener of unforgettable moments. With a degree in Psychology from OAU and training in emotional intelligence and product management, Tosin brings more than charisma — he delivers impact.",
@@ -50,11 +50,14 @@ export const site = {
     tiktok: "",
   },
 
-  // Headline numbers, from thecorporatemcee.com. Keep them true.
+  // Headline numbers in the hero. Keep them true:
+  // - events hosted: from thecorporatemcee.com
+  // - brands: the number of names in `clients` below, rounded down to a ten
+  // - event formats: the cards in "The Range Master" (data/range.ts)
   stats: [
     { value: 500, suffix: "+", label: "Events hosted" },
-    { value: 3, suffix: "+", label: "Countries on the mic" },
-    { value: 98, suffix: "%", label: "Client satisfaction" },
+    { value: 30, suffix: "+", label: "Brands on the mic" },
+    { value: 6, suffix: "", label: "Event formats, one host" },
   ],
 
   // Brands Tosin has hosted for. ONLY list brands he confirms — a wrong
@@ -69,6 +72,7 @@ export const site = {
     "Monster Energy",
     "Cadbury",
     "Guinness",
+    "Lafarge",
     "KPMG",
     "BBA Motors",
     "Alat by WEMA",

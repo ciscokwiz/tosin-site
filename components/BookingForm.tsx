@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { packages, rateCategories } from "@/data/rates";
+import { callTimeClause, extraHostClause, packages, rateCategories } from "@/data/rates";
 import { site } from "@/data/site";
 import { formatNaira, mailtoLink, whatsappLink } from "@/lib/format";
 import { Mark } from "./Mark";
@@ -11,7 +11,7 @@ import { WhatsAppIcon } from "./Icons";
    opens WhatsApp (or email) with it, ready to send. The invitation card
    on the right fills in live as the visitor types. */
 
-const GUESTS = ["Under 100", "100–300", "300–600", "600+"] as const;
+const GUESTS = ["Under 50", "50–100", "100–300", "300–600", "600–1,000", "1,000+"] as const;
 
 type Form = {
   name: string;
@@ -109,6 +109,8 @@ export function BookingForm() {
       opt(form.email, `• Email: ${form.email}`),
       opt(form.notes, ""),
       opt(form.notes, `Notes: ${form.notes}`),
+      "",
+      `Noted: ${callTimeClause} ${extraHostClause}`,
       "",
       "Is this date available?",
     ];
@@ -247,9 +249,10 @@ export function BookingForm() {
             </div>
             <div className="field">
               <label htmlFor="f-time">Start time <span className="hint">(optional)</span></label>
-              <input className="input" type="time" value={form.time} onChange={update("time")} {...a11y("time")} />
+              <input className="input" type="time" value={form.time} onChange={update("time")} {...a11y("time")} aria-describedby="f-calltime" />
             </div>
           </div>
+          <p className="small muted" id="f-calltime">{callTimeClause}</p>
 
           <div className="field">
             <label htmlFor="f-venue">Venue or city <span className="req">*</span></label>

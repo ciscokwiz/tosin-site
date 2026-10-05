@@ -13,7 +13,7 @@ import { personLd, serviceLd } from "@/lib/seo";
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: {
-    default: `Corporate MC & Event Host in Lagos, Nigeria | ${site.brand}`,
+    default: `Master of Ceremonies & Event Host in Lagos, Nigeria | ${site.brand}`,
     template: `%s | ${site.brand}`,
   },
   description: site.description,
@@ -26,11 +26,11 @@ export const metadata: Metadata = {
     locale: "en_NG",
     url: "/",
     siteName: site.brand,
-    title: `${site.brand} — Event Host & MC, Lagos`,
+    title: `${site.brand} — Master of Ceremonies, Lagos`,
     description: site.description,
     images: [{ url: "/og.png", width: 1200, height: 630, alt: site.brand }],
   },
-  twitter: { card: "summary_large_image", title: `${site.brand} — Event Host & MC`, description: site.description, images: ["/og.png"] },
+  twitter: { card: "summary_large_image", title: `${site.brand} — Master of Ceremonies`, description: site.description, images: ["/og.png"] },
   robots: { index: true, follow: true, googleBot: { "max-image-preview": "large", "max-snippet": -1 } },
   verification: {
     google: process.env.NEXT_PUBLIC_GOOGLE_VERIFICATION || undefined,

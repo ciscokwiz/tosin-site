@@ -973,6 +973,9 @@ button, input, select, textarea { font: inherit; color: inherit; }
 .total dl div { display: flex; justify-content: space-between; gap: 16px; }
 .total dt { color: var(--stage-muted); }
 .total dd { margin: 0; color: var(--stage-head); }
+.total__notes { list-style: none; margin: 0; padding: 0; display: grid; gap: 4px; font-size: 13px; line-height: 1.45; color: var(--stage-muted); }
+.total__notes li { position: relative; padding-left: 14px; }
+.total__notes li::before { content: ""; position: absolute; left: 0; top: 0.6em; width: 5px; height: 5px; border-radius: 50%; background: var(--gold-stage); }
 
 .terms { list-style: none; padding: 0; margin: 0; display: grid; gap: 12px; counter-reset: t; font-size: 15px; }
 .terms li { display: grid; grid-template-columns: 32px 1fr; gap: 10px; color: var(--body); }

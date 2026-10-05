@@ -32,7 +32,7 @@ export default function RatesPage() {
         id="rates-title"
         eyebrow="Rate card · 2026 / 27"
         title={<>Rates for <em>every room.</em></>}
-        lede={<>Starting prices for conferences, galas, launches and weddings in {site.city}. Build an estimate, then send it on WhatsApp for a confirmed quote.</>}
+        lede={<>One host, priced for every room: conferences, galas, launches, award nights and weddings in {site.city}. Build an estimate, then send it on WhatsApp for a confirmed quote.</>}
         photo={meetPhotos[1]}
         chips={["Conferences", "Galas & awards", "Weddings"]}
       >
