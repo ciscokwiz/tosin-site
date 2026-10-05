@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useMemo, useState } from "react";
-import { addOns, callTimeClause, clauseNotes, extraHostClause, packages, rateCategories, ratesAreSamples } from "@/data/rates";
+import { addOns, clauseNotes, messageTerms, packages, rateCategories, ratesAreSamples } from "@/data/rates";
 import { site } from "@/data/site";
 import { formatNaira, formatNumber, whatsappLink } from "@/lib/format";
 import { WhatsAppIcon } from "./Icons";
@@ -35,7 +35,7 @@ export function Estimator() {
     `Event date: `,
     `Venue / city: `,
     ``,
-    `Noted: ${callTimeClause} ${extraHostClause}`,
+    messageTerms,
   ].join("\n");
 
   return (

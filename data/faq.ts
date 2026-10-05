@@ -10,7 +10,7 @@
 export const faq: { q: string; a: string; home?: boolean; rates?: boolean }[] = [
   {
     q: "What events does The Corporate Emcee host?",
-    a: "Every kind: conferences and summits, galas, product launches, award ceremonies, retreats, weddings and campus events. Over 500 so far, each prepared for its own audience.",
+    a: "Every kind: conferences and summits, galas, product launches, award ceremonies, retreats, weddings and campus events. Over 1,500 so far, each prepared for its own audience.",
     home: true,
   },
   {

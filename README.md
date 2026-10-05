@@ -30,7 +30,10 @@ Everything you'd normally change lives in the **`data/`** folder. Open a file, c
 In `data/rates.ts`, write prices as plain numbers with no commas: `price: 1500000` shows as **₦1,500,000**. For "price on request" write `price: null`.
 **The current prices are samples.** When the real ones are in, set `ratesAreSamples = false` at the top of the file. That removes every "Sample rate" badge.
 
-Two clauses, call time and extra hosts, are written once in `data/rates.ts` (`callTimeClause`, `extraHostClause`). They appear in the booking terms and the Rates FAQ, and inside every estimate and booking message sent from the site. Edit them there and every copy updates. There is deliberately no co-host extra, because additional hosts are always quoted separately.
+Three clauses are written once in `data/rates.ts`: payment upfront, call time and extra hosts (`paymentClause`, `callTimeClause`, `extraHostClause`). They appear in the booking terms and inside every estimate and booking message sent from the site, so editing them there updates every copy. There is deliberately no co-host extra, because additional hosts are always quoted separately.
+
+### PDF rate card
+`public/rate-card.pdf` is a two-page A4 rate card in the style of the "Run of Show" card. It lists every package, the extras, the booking terms and the contact details, all taken from `data/rates.ts` and `data/site.ts`. After changing prices or terms, run `npm run ratecard` to rebuild it. This needs Playwright's Chromium (`npx playwright install chromium` once), or set `CHROMIUM_PATH` to an installed Chrome.
 
 ### The fila & tuxedo mark
 Tosin's mark lives in `brand/thecorporatemc-tux-mark.svg`. The site uses it in eleven places: logo, loader, page transitions, hero, client band, Range rail, programme card, booking invitation, theme toggle, footer and favicon. `DESIGN.md` lists them all.
@@ -120,7 +123,7 @@ The site handles the technical side: page titles written the way people search (
 
 - **Photos**: none yet. The gallery stays hidden until `data/gallery.ts` has entries.
 - **Prices and booking terms**: these are samples, flagged by a single notice on the Rates page.
-- **Client names**: the newer names came from Tosin's team, and the first ten came from public listings. **Stats**: 500+ events comes from thecorporatemcee.com. "30+ brands" counts the client list and "6 event formats" counts the Range cards, so update them if those lists change. **Bio and contact details**: taken from public search listings of thecorporatemcee.com. The original site couldn't be opened from the build environment, so please confirm every client name before launch.
+- **Client names**: the newer names came from Tosin's team, and the first ten came from public listings. **Stats**: 1,500+ events comes from Tosin. "30+ brands" counts the client list and "6 event formats" counts the Range cards, so update them if those lists change. **Bio and contact details**: taken from public search listings of thecorporatemcee.com. The original site couldn't be opened from the build environment, so please confirm every client name before launch.
 - **Video testimonials**: the two clips are real, but the guests' names, roles and quotes still need to be added in `data/videos.ts`.
 - **Copy** (headlines, section text): drafted from Tosin's own bio. Edit freely.
 

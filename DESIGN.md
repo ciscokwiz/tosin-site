@@ -229,6 +229,11 @@ Kept as they were: the Run of Show section, the word-by-word reveal and the Rang
 - **Terms.** Two new clauses, call time and one host per package, live in `data/rates.ts`. They show in the terms list, the Rates FAQ, the estimate panel (short form), and every WhatsApp or email message the site writes.
 - **Guest tiers** on the booking form: under 50, 50–100, 100–300, 300–600, 600–1,000, 1,000+.
 - **Trusted by** adds Lafarge, for 30 names.
+- **Follow-up.**
+  - Red carpet or podcast hosting (₦500,000) takes the co-host's place among the extras.
+  - Tosin's own booking terms replace the sample ones, shortened to one or two lines each: payment upfront, postponement (+30% if under a month away; not refunded if he isn't free), cancellation (not refunded, except on the death of a major stakeholder), and agreed hours (+20% to stay longer, if he's free).
+  - The hero now reads 1,500+ events hosted.
+- **PDF rate card** (`npm run ratecard` writes `public/rate-card.pdf`). It uses the Run of Show card's look: paper, a gold double rule, the mark, a gold kicker, dotted leaders and a tabular ₦ column. Page 1 has the packages; page 2 has the extras, terms and contacts.
 
 ## Critic loop
 | Axis | Round 1 | Reason | Fix | Round 2 |

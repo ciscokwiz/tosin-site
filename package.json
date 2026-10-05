@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "npx serve@latest out",
     "typecheck": "tsc --noEmit",
-    "images": "node scripts/optimize-images.mjs"
+    "images": "node scripts/optimize-images.mjs",
+    "ratecard": "node scripts/rate-card-pdf.mjs"
   },
   "dependencies": {
     "@fontsource-variable/grenze-gotisch": "^5.3.0",

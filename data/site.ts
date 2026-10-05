@@ -51,11 +51,11 @@ export const site = {
   },
 
   // Headline numbers in the hero. Keep them true:
-  // - events hosted: from thecorporatemcee.com
+  // - events hosted: from Tosin (October 2026)
   // - brands: the number of names in `clients` below, rounded down to a ten
   // - event formats: the cards in "The Range Master" (data/range.ts)
   stats: [
-    { value: 500, suffix: "+", label: "Events hosted" },
+    { value: 1500, suffix: "+", label: "Events hosted" },
     { value: 30, suffix: "+", label: "Brands on the mic" },
     { value: 6, suffix: "", label: "Event formats, one host" },
   ],

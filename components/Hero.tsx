@@ -33,7 +33,7 @@ export function Hero() {
           {site.stats.map((s) => (
             <div key={s.label}>
               <dt>{s.label}</dt>
-              <dd className="num"><span data-count={s.value}>{s.value}</span><span className="suffix">{s.suffix}</span></dd>
+              <dd className="num"><span data-count={s.value}>{s.value.toLocaleString("en-NG")}</span><span className="suffix">{s.suffix}</span></dd>
             </div>
           ))}
         </dl>

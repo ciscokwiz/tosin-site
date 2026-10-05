@@ -7,3 +7,5 @@ qa-shots/
 .DS_Store
 .env*.local
 .DS_Store
+.rate-card.html
+.rate-card.png

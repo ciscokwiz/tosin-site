@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { callTimeClause, extraHostClause, packages, rateCategories } from "@/data/rates";
+import { callTimeClause, messageTerms, packages, rateCategories } from "@/data/rates";
 import { site } from "@/data/site";
 import { formatNaira, mailtoLink, whatsappLink } from "@/lib/format";
 import { Mark } from "./Mark";
@@ -110,7 +110,7 @@ export function BookingForm() {
       opt(form.notes, ""),
       opt(form.notes, `Notes: ${form.notes}`),
       "",
-      `Noted: ${callTimeClause} ${extraHostClause}`,
+      messageTerms,
       "",
       "Is this date available?",
     ];

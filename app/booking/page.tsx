@@ -28,7 +28,7 @@ export default function BookingPage() {
         title={<>Let&rsquo;s hold <em>your date.</em></>}
         lede="Tell me about your event. The form writes the message for you; send it on WhatsApp or email and I’ll reply with availability."
         photo={meetPhotos[2]}
-        chips={["500+ events hosted", "Lagos & worldwide", "WhatsApp first"]}
+        chips={["1,500+ events hosted", "Lagos & worldwide", "WhatsApp first"]}
       >
         <ul className="contact-pills" aria-label="Other ways to reach Tosin">
           <li>
