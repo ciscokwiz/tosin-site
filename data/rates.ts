@@ -23,7 +23,8 @@ export const ratesAreSamples = true;
 export const rateCategories = [
   { id: "corporate", label: "Corporate", blurb: "Conferences, summits, galas, retreats and AGMs." },
   { id: "weddings", label: "Weddings", blurb: "Traditional, engagement and white-wedding receptions." },
-  { id: "launches", label: "Launches & Awards", blurb: "Product launches, brand activations and award nights." },
+  { id: "celebrations", label: "Celebrations", blurb: "Birthdays, after parties and in-house celebrations." },
+  { id: "launches", label: "Launches & Live", blurb: "Product launches, award nights, concerts, fairs and book launches." },
   { id: "international", label: "International", blurb: "Events outside Nigeria, quoted per brief." },
 ] as const;
 
@@ -112,7 +113,55 @@ export const packages: RatePackage[] = [
     includes: ["Everything in both packages", "One planning session for both days", "Priority date hold"],
   },
 
-  // ---------------- LAUNCHES & AWARDS ----------------
+  {
+    id: "wedding-after-party",
+    category: "weddings",
+    name: "Wedding + after party",
+    price: 2000000,
+    per: "reception and after party",
+    summary: "The reception, then the after party: one host keeps the energy going all night.",
+    includes: ["Planning call with the couple", "Reception programme", "After-party hype & games"],
+  },
+
+  // ---------------- CELEBRATIONS ----------------
+  {
+    id: "birthday",
+    category: "celebrations",
+    name: "Birthday",
+    price: 1000000,
+    per: "per celebration",
+    summary: "Milestone birthdays hosted with warmth, the right toasts and games that land.",
+    includes: ["Planning call", "Toasts & tributes", "Games & audience moments"],
+  },
+  {
+    id: "birthday-after-party",
+    category: "celebrations",
+    name: "Birthday + after party",
+    price: 1500000,
+    per: "party and after party",
+    summary: "From the cake to the last song, with one voice across the night.",
+    includes: ["Everything in Birthday", "After-party hype & games"],
+  },
+  {
+    id: "after-party",
+    category: "celebrations",
+    name: "After party (stand-alone)",
+    price: 500000,
+    per: "per after party",
+    summary: "Keeping the dance floor alive after the main event.",
+    includes: ["Crowd hype & games", "DJ coordination"],
+  },
+  {
+    id: "in-house",
+    category: "celebrations",
+    name: "In-house celebration",
+    price: 700000,
+    per: "per celebration",
+    summary: "Office parties, staff milestones and celebrations at home.",
+    includes: ["Planning call", "Games & awards", "Short programme"],
+  },
+
+  // ---------------- LAUNCHES & LIVE ----------------
   {
     id: "product-launch",
     category: "launches",
@@ -131,6 +180,25 @@ export const packages: RatePackage[] = [
     summary: "Long category lists, live broadcast cues and nominees who must hear their names right.",
     includes: ["Name pronunciation check", "Category & cue scripting", "Cue run-through on a call"],
     featured: true,
+  },
+
+  {
+    id: "concert-fair",
+    category: "launches",
+    name: "Concert, fair or open-air carnival",
+    price: 1500000,
+    per: "per event",
+    summary: "Big crowds, outdoor stages and long line-ups, held together from the mic.",
+    includes: ["Line-up & stage cues", "Crowd engagement", "Sponsor mentions"],
+  },
+  {
+    id: "seminar-book-launch",
+    category: "launches",
+    name: "Seminar or book launch",
+    price: 1000000,
+    per: "per event",
+    summary: "Talks and launches that keep the speaker, the author and the ideas at the centre.",
+    includes: ["Speaker & author intros", "Q&A moderation", "Reading & signing cues"],
   },
 
   // ---------------- INTERNATIONAL ----------------
@@ -154,7 +222,7 @@ export const packages: RatePackage[] = [
 export const addOns: { id: string; name: string; price: number | null; note: string }[] = [
   { id: "rehearsal", name: "Dry run or venue walk-through", price: 250000, note: "In person, at the venue, before the event day" },
   { id: "script", name: "Full script & run-sheet writing", price: 150000, note: "Delivered 72 hours before the event" },
-  { id: "redcarpet", name: "Red carpet or podcast host", price: 500000, note: "Arrival interviews, or a recorded podcast episode" },
+  { id: "redcarpet", name: "Red carpet, vox-pop or podcast host", price: 500000, note: "Arrival interviews, street-style vox-pops or a podcast episode" },
   { id: "hybrid", name: "Virtual / hybrid audience hosting", price: 300000, note: "Engaging the online audience live" },
   { id: "travel", name: "Event outside Lagos", price: null, note: "Travel & accommodation at cost" },
 ];

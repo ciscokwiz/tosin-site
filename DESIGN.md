@@ -239,6 +239,18 @@ Kept as they were: the Run of Show section, the word-by-word reveal and the Rang
   - The hero now reads 1,500+ events hosted.
 - **PDF rate card** (`npm run ratecard` writes `public/rate-card.pdf`). It uses the Run of Show card's look: paper, a gold double rule, the mark, a gold kicker, dotted leaders and a tabular ₦ column. Page 1 has the packages; page 2 has the extras, terms and contacts.
 
+## Revision 10: the full rate card
+
+- **New packages:**
+  - Weddings: Wedding + after party, ₦2m.
+  - Celebrations, a new category: Birthday ₦1m, Birthday + after party ₦1.5m, After party (stand-alone) ₦500k, In-house celebration ₦700k.
+  - Launches & Live (renamed from "Launches & Awards"): Concert, fair or open-air carnival ₦1.5m, and Seminar or book launch ₦1m.
+- **Vox-pop** joins the red carpet / podcast extra (₦500k) rather than being listed twice.
+- **The PDF rate card never exceeds two A4 pages.**
+  - Whole categories flow from page 1 to page 2.
+  - If needed, the type steps down, to 80% at most, keeping a minimum gap above the contact block.
+  - If it still can't fit, `npm run ratecard` fails with a message instead of adding a third page.
+
 ## Critic loop
 | Axis | Round 1 | Reason | Fix | Round 2 |
 |---|---|---|---|---|
