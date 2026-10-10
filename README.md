@@ -1,6 +1,6 @@
-# The Corporate Emcee — website
+# The Corporate MC — website
 
-The website for **Oluwatosin Aina, The Corporate Emcee**: three pages (Home, Rates, Booking), built to turn visitors into WhatsApp enquiries.
+The website for **Oluwatosin Aina, The Corporate MC**: three pages (Home, Rates, Booking), built to turn visitors into WhatsApp enquiries.
 
 - **Home** — hero, client names, stats, "The Range Master" event formats, why a psychologist holds the mic, how a booking runs, FAQ
 - **Rates** — rate card by category, extras, an estimate builder that sends the quote to WhatsApp, booking terms
@@ -31,6 +31,9 @@ In `data/rates.ts`, write prices as plain numbers with no commas: `price: 150000
 **The current prices are samples.** When the real ones are in, set `ratesAreSamples = false` at the top of the file. That removes every "Sample rate" badge.
 
 Three clauses are written once in `data/rates.ts`: payment upfront, call time and extra hosts (`paymentClause`, `callTimeClause`, `extraHostClause`). They appear in the booking terms and inside every estimate and booking message sent from the site, so editing them there updates every copy. There is deliberately no co-host extra, because additional hosts are always quoted separately.
+
+### Link-preview image
+`public/og.png` is the picture WhatsApp, LinkedIn and X show when someone shares the site. After changing the name, city, stats or web address in `data/site.ts`, run `npm run og` to redraw it. Like the rate card, it needs Playwright's Chromium, or `CHROMIUM_PATH` set to an installed Chrome.
 
 ### PDF rate card
 `public/rate-card.pdf` is a two-page A4 rate card in the style of the "Run of Show" card. It lists every package, the extras, the booking terms and the contact details, all taken from `data/rates.ts` and `data/site.ts`. After changing prices or terms, run `npm run ratecard` to rebuild it. It always fits on two pages: categories flow onto page 2 and the type shrinks a little if needed. If it ever can't fit, the command stops and says which text to shorten. This needs Playwright's Chromium (`npx playwright install chromium` once), or set `CHROMIUM_PATH` to an installed Chrome.
@@ -112,7 +115,7 @@ If the domain ever changes, update `url` in `data/site.ts` so Google and link pr
 The site handles the technical side: page titles written the way people search ("MC in Lagos"), descriptions, a sitemap, FAQ data, and person and service data for Google. Nobody can guarantee a ranking. These steps help the most:
 
 1. **Google Search Console**: add the site and submit `https://thecorporatemcee.com/sitemap.xml`.
-2. **Google Business Profile**: create or claim "The Corporate Emcee" in Lagos and link it to the site.
+2. **Google Business Profile**: create or claim "The Corporate MC" in Lagos and link it to the site.
 3. Put the website link in the Instagram, LinkedIn and YouTube bios.
 4. Ask planners, venues and past clients to link to the site from their vendor pages.
 5. Ask happy clients for a short written testimonial, and add it to `data/testimonials.ts`.

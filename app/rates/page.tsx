@@ -3,7 +3,7 @@ import Link from "next/link";
 import { addOns, packages, rateCategories, ratesAreSamples, terms } from "@/data/rates";
 import { faq } from "@/data/faq";
 import { site } from "@/data/site";
-import { meetPhotos } from "@/data/photos";
+import { ratesPhoto } from "@/data/photos";
 import { formatNumber, whatsappLink } from "@/lib/format";
 import { breadcrumbLd } from "@/lib/seo";
 import { Estimator } from "@/components/Estimator";
@@ -16,7 +16,7 @@ import { PageHero } from "@/components/PageHero";
 export const metadata: Metadata = {
   title: "MC Rates & Packages in Lagos — Corporate, Wedding & Launch Hosting",
   description:
-    "Rate card for The Corporate Emcee: conferences, galas, retreats, weddings, product launches and award ceremonies in Lagos and across Nigeria. Build an estimate and send it on WhatsApp.",
+    "Rate card for The Corporate MC: conferences, galas, retreats, weddings, product launches and award ceremonies in Lagos and across Nigeria. Build an estimate and send it on WhatsApp.",
   alternates: { canonical: "/rates/" },
   keywords: ["MC rates Lagos", "how much does an MC cost in Nigeria", "wedding MC price Lagos", "corporate event host rates"],
 };
@@ -33,7 +33,7 @@ export default function RatesPage() {
         eyebrow="Rate card · 2026 / 27"
         title={<>Rates for <em>every room.</em></>}
         lede={<>One host, priced for every room: conferences, galas, launches, award nights and weddings in {site.city}. Build an estimate, then send it on WhatsApp for a confirmed quote.</>}
-        photo={meetPhotos[1]}
+        photo={ratesPhoto}
         chips={["Conferences", "Galas & awards", "Weddings"]}
       >
         <div className="btn-row">

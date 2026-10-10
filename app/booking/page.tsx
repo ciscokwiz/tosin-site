@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import "@fontsource-variable/grenze-gotisch/wght.css";
 import { site } from "@/data/site";
-import { meetPhotos } from "@/data/photos";
+import { bookingPhoto } from "@/data/photos";
 import { mailtoLink, telLink, whatsappLink } from "@/lib/format";
 import { faq } from "@/data/faq";
 import { breadcrumbLd, faqLd } from "@/lib/seo";
@@ -12,9 +12,9 @@ import { PageHero } from "@/components/PageHero";
 import { WhatsAppIcon } from "@/components/Icons";
 
 export const metadata: Metadata = {
-  title: "Book an MC in Lagos — Check The Corporate Emcee's Availability",
+  title: "Book an MC in Lagos — Check The Corporate MC's Availability",
   description:
-    "Book Oluwatosin Aina, The Corporate Emcee, for your conference, gala, product launch, award ceremony or wedding. Send your date and venue on WhatsApp in under a minute.",
+    "Book Oluwatosin Aina, The Corporate MC, for your conference, gala, product launch, award ceremony or wedding. Send your date and venue on WhatsApp in under a minute.",
   alternates: { canonical: "/booking/" },
   keywords: ["book an MC Lagos", "hire event host Nigeria", "wedding MC booking Lagos", "corporate MC availability"],
 };
@@ -32,7 +32,7 @@ export default function BookingPage() {
         eyebrow="Booking"
         title={<>Let&rsquo;s hold <em>your date.</em></>}
         lede="Tell me about your event. The form writes the message for you; send it on WhatsApp or email and I’ll reply with availability."
-        photo={meetPhotos[2]}
+        photo={bookingPhoto}
         chips={["1,500+ events hosted", "Lagos & worldwide", "WhatsApp first"]}
       >
         <ul className="contact-pills" aria-label="Other ways to reach Oluwatosin">

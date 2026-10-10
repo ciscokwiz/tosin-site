@@ -12,7 +12,7 @@ export const site = {
   url: "https://thecorporatemcee.com",
 
   // Brand name as it appears in the logo and page titles.
-  brand: "The Corporate Emcee",
+  brand: "The Corporate MC",
   // Short handle used in small places (social, footer credit).
   shortBrand: "TheCorporateMC",
   // His full name.
@@ -22,7 +22,7 @@ export const site = {
 
   // One-line description used by Google and link previews.
   description:
-    "Oluwatosin Aina, The Corporate Emcee: a versatile Master of Ceremonies in Lagos for conferences, galas, product launches, award nights, weddings and campus events across Nigeria and beyond.",
+    "Oluwatosin Aina, The Corporate MC: a versatile Master of Ceremonies in Lagos for conferences, galas, product launches, award nights, weddings and campus events across Nigeria and beyond.",
 
   // His own words, from thecorporatemcee.com. Shown in the home hero.
   bio: "A master communicator, event host and convener of unforgettable moments. With a degree in Psychology from OAU and training in emotional intelligence and product management, Oluwatosin brings more than charisma — he delivers impact.",

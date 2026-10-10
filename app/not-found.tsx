@@ -5,7 +5,7 @@ export default function NotFound() {
   return (
     <section className="stage not-found">
       <div className="wrap" style={{ display: "grid", gap: 24, justifyItems: "center" }}>
-        <Mark title="The Corporate Emcee" />
+        <Mark title="The Corporate MC" />
         <p className="eyebrow">Error 404</p>
         <h1 className="h2">This seat isn&rsquo;t on the <em>seating chart.</em></h1>
         <p className="lead">The page you were looking for has left the hall. The programme continues on the home page.</p>

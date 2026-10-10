@@ -9,7 +9,7 @@
 
 export const faq: { q: string; a: string; home?: boolean; rates?: boolean; booking?: boolean }[] = [
   {
-    q: "What events does The Corporate Emcee host?",
+    q: "What events does The Corporate MC host?",
     a: "Every kind: conferences and summits, galas, product launches, award ceremonies, retreats, weddings and campus events. Over 1,500 so far, each prepared for its own audience.",
     home: true,
   },
@@ -31,13 +31,13 @@ export const faq: { q: string; a: string; home?: boolean; rates?: boolean; booki
     home: true,
   },
   {
-    q: "Does The Corporate Emcee speak more than one language?",
-    a: "Absolutely! The Corporate Emcee speaks four languages: English, Yoruba, Pidgin, and, when the occasion calls for it, speaking in tongues! Whatever the audience, he knows how to connect, communicate, and keep the energy flowing.",
+    q: "Does The Corporate MC speak more than one language?",
+    a: "Absolutely! The Corporate MC speaks four languages: English, Yoruba, Pidgin, and, when the occasion calls for it, speaking in tongues! Whatever the audience, he knows how to connect, communicate, and keep the energy flowing.",
     home: true,
   },
   {
-    q: "Can The Corporate Emcee recommend other event vendors or service providers?",
-    a: "Absolutely! Upon request, The Corporate Emcee can recommend trusted DJs, event planners, fellow MCs, and other event professionals from his network to help bring your event together. Recommendations are a courtesy on request, not a vendor service included in your booking.",
+    q: "Can The Corporate MC recommend other event vendors or service providers?",
+    a: "Absolutely! Upon request, The Corporate MC can recommend trusted DJs, event planners, fellow MCs, and other event professionals from his network to help bring your event together. Recommendations are a courtesy on request, not a vendor service included in your booking.",
     booking: true,
   },
   {

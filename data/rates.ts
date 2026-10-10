@@ -251,7 +251,7 @@ export const terms = [
   "Overtime beyond the agreed hours adds 20%, if Oluwatosin has no other booking.",
   callTimeClause,
   extraHostClause,
-  "Rescheduling & additional fees: if you need to postpone your event, please notify us immediately so we can confirm availability for your preferred new date. If the postponement is requested within one month of your originally scheduled event date, an additional fee of 30% of the agreed booking rate will apply to secure the new date, provided The Corporate Emcee is available.",
-  "Availability & refunds: all postponements are subject to The Corporate Emcee's availability on the proposed new date. If The Corporate Emcee is unavailable on that date, payments already made are non-refundable.",
+  "Rescheduling & additional fees: if you need to postpone your event, please notify us immediately so we can confirm availability for your preferred new date. If the postponement is requested within 30 days of your originally scheduled event date, an additional fee of 30% of the original full package price will apply to secure the new date, provided The Corporate MC is available.",
+  "Availability & refunds: all postponements are subject to The Corporate MC's availability on the proposed new date. If The Corporate MC is unavailable on that date, payments already made are non-refundable.",
   "Cancellations aren't refunded, except on the death of a major stakeholder, when part of the fee is returned.",
 ];

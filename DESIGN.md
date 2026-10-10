@@ -262,9 +262,13 @@ Kept as they were: the Run of Show section, the word-by-word reveal and the Rang
 - **Terms.** "70% payment upfront…" replaces full payment, in the terms, the estimate panel and every message. Postponement is now two statements: Rescheduling & additional fees, and Availability & refunds. That makes 8 terms.
 - **FAQs:** the language FAQ goes on Home. The vendor FAQ goes in a new "Before you book" FAQ on Booking, with a note that recommendations are a courtesy on request.
 - **PDF.** The contact block is a little tighter so the longer terms fit on two pages. The fit step can also drop the package one-liners before giving up.
+- **Follow-up.**
+  - The stage name is **The Corporate MC** (`site.brand`) everywhere: logo, titles, curtain, Run of Show, invitation, FAQs, terms, PDF and share image. The domain and email are unchanged.
+  - Postponement wording as confirmed: a request within 30 days of the original date adds 30% of the original full package price, if he is available.
+  - Photos: "Meet the host" photo 3 is the Berger red carpet shot with a guest (`meet-host4`, converted from HEIC). Rates uses `rates-hero` and Booking uses `booking-hero`, so no page repeats a home-page photo.
+  - `npm run og` redraws `public/og.png` from `data/site.ts`, in the current Jakarta and purple style.
 - **Not done yet:**
   - Notion booking integration: it needs a server, which the static export doesn't have, so it is awaiting a decision.
-  - Replacement photos for Rates and Booking: awaiting the files.
   - Two more video testimonials: awaiting the files.
 
 ## Critic loop
