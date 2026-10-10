@@ -6,8 +6,10 @@
 // (once: npx playwright install chromium), or point CHROMIUM_PATH at any
 // Chrome / Chromium already on the machine.
 // It never grows past two A4 pages: categories that don't fit on page 1 move
-// to the top of page 2, then the type steps down (to 80% at most). If it
-// still can't fit, the script stops with an error rather than add a page.
+// to the top of page 2, then the type steps down (to 84%); next the package
+// one-liners are dropped (durations stay; the website has the detail) and the
+// type may go to 80%. If it still can't fit, the script stops with an error
+// rather than add a page.
 import fs from "node:fs";
 import path from "node:path";
 import { createRequire } from "node:module";
@@ -34,10 +36,10 @@ const naira = (n) => (n === null ? "On request" : `₦${new Intl.NumberFormat("e
 const font = (p) => pathToFileURL(path.join(ROOT, "node_modules/@fontsource-variable", p)).href;
 const mark = fs.readFileSync(path.join(ROOT, "public/mark.svg"), "utf8").replace(/<title>[\s\S]*?<\/title>/, "");
 
-const row = (name, price, sub) => `
+const row = (name, price, sub, extra) => `
   <li>
     <div class="row"><span class="item">${esc(name)}</span><span class="leader"></span><span class="price">${esc(price)}</span></div>
-    ${sub ? `<p>${esc(sub)}</p>` : ""}
+    ${sub ? `<p>${esc(sub)}${extra ? `<span class="sum"> · ${esc(extra)}</span>` : ""}</p>` : ""}
   </li>`;
 
 const categories = rateCategories
@@ -46,7 +48,7 @@ const categories = rateCategories
     if (!list.length) return "";
     return `<section class="cat">
       <h2>${esc(c.label)}</h2>
-      <ul>${list.map((p) => row(p.name, p.price === null ? "On request" : naira(p.price), `${p.per} · ${p.summary}`)).join("")}</ul>
+      <ul>${list.map((p) => row(p.name, p.price === null ? "On request" : naira(p.price), p.per, p.summary)).join("")}</ul>
     </section>`;
   })
   .join("");
@@ -90,14 +92,15 @@ li p { font-size: calc(8.8pt * var(--s)); line-height: 1.4; color: #5a4f6c; marg
 ol { counter-reset: t; gap: calc(2.2mm * var(--s)); }
 ol li { display: grid; grid-template-columns: 8mm 1fr; font-size: calc(9.6pt * var(--s)); line-height: 1.45; color: #3d3350; }
 ol li::before { counter-increment: t; content: counter(t, decimal-leading-zero); color: #7a5a14; font-weight: 700; }
+.compact .sum { display: none; }
 .spacer { flex: 1; min-height: 6mm; } /* breathing room the fit check must keep */
-.contact { display: grid; justify-items: center; gap: 2mm; text-align: center; padding-top: 6mm; border-top: .6pt solid rgba(201,160,74,.55); }
-.contact .cta { font-family: "Jakarta"; font-weight: 800; font-size: 15pt; letter-spacing: -.03em; color: #1a1226; }
+.contact { display: grid; justify-items: center; gap: calc(1.6mm * var(--s)); text-align: center; padding-top: calc(5mm * var(--s)); border-top: .6pt solid rgba(201,160,74,.55); }
+.contact .cta { font-family: "Jakarta"; font-weight: 800; font-size: calc(14pt * var(--s)); letter-spacing: -.03em; color: #1a1226; }
 .contact .cta em { font-style: italic; font-weight: 700; color: #7a5a14; margin-left: .14em; }
 .contact p { font-size: 9.5pt; color: #3d3350; }
 .contact p span { white-space: nowrap; }
 .contact p span + span::before { content: "·"; margin: 0 2.4mm; color: #c9a04a; }
-.foot { margin-top: 4mm; text-align: center; font-style: italic; font-size: 8.5pt; color: #6a5f7c; }
+.foot { margin-top: calc(3mm * var(--s)); text-align: center; font-style: italic; font-size: 8.5pt; color: #6a5f7c; }
 .folio { position: absolute; right: 6mm; bottom: 4mm; font-size: 7.5pt; color: #9a90aa; }
 </style></head><body>
 ${page(`
@@ -123,7 +126,7 @@ ${page(`
   </section>
   <div class="spacer"></div>
   <footer class="contact">
-    ${mark.replace("<svg ", '<svg style="height:16mm;width:auto" ')}
+    ${mark.replace("<svg ", '<svg style="height:calc(13mm * var(--s));width:auto" ')}
     <p class="cta">Let&rsquo;s hold <em>your date.</em></p>
     ${contactLines.map((l) => `<p>${l.map((c) => `<span>${c}</span>`).join("")}</p>`).join("")}
   </footer>
@@ -145,23 +148,27 @@ try {
     const over = (f) => f.scrollHeight > f.clientHeight + 1;
     const p1 = document.getElementById("p1");
     const p2 = document.getElementById("p2");
-    for (let s = 1; s >= 0.8; s = Math.round((s - 0.02) * 100) / 100) {
+    const steps = [];
+    for (let s = 1; s >= 0.84; s = Math.round((s - 0.02) * 100) / 100) steps.push([s, false]);
+    for (let s = 1; s >= 0.8; s = Math.round((s - 0.02) * 100) / 100) steps.push([s, true]);
+    for (const [s, compact] of steps) {
       document.documentElement.style.setProperty("--s", String(s));
+      document.body.classList.toggle("compact", compact);
       // start with every category on page 1, then move the last ones over
       while (p2.firstElementChild) p1.appendChild(p2.firstElementChild);
       while (over(frames[0]) && p1.children.length > 1) p2.prepend(p1.lastElementChild);
-      if (!frames.some(over)) return { s, moved: p2.children.length };
+      if (!frames.some(over)) return { s, compact, moved: p2.children.length };
     }
-    return null;
+    return { failed: frames.map((f) => Math.round((f.scrollHeight - f.clientHeight) / 3.78)) };
   });
-  if (!fit) throw new Error("The rate card no longer fits on two pages. Shorten summaries or terms in data/rates.ts.");
+  if (fit.failed) throw new Error(`The rate card no longer fits on two pages (over by ${fit.failed.map((mm, i) => `page ${i + 1}: ${Math.max(0, mm)}mm`).join(", ")}). Shorten summaries or terms in data/rates.ts.`);
   const out = path.join(ROOT, "public/rate-card.pdf");
   await p.pdf({ path: out, format: "A4", printBackground: true, preferCSSPageSize: true });
   if (process.argv.includes("--png")) {
     await p.setViewportSize({ width: 794, height: 1123 });
     await p.screenshot({ path: path.join(ROOT, ".rate-card.png"), fullPage: true });
   }
-  console.log(`${path.relative(ROOT, out)}  ${(fs.statSync(out).size / 1024).toFixed(0)}KB · 2 pages · type at ${Math.round(fit.s * 100)}% · ${fit.moved} categor${fit.moved === 1 ? "y" : "ies"} on page 2`);
+  console.log(`${path.relative(ROOT, out)}  ${(fs.statSync(out).size / 1024).toFixed(0)}KB · 2 pages · type at ${Math.round(fit.s * 100)}% · ${fit.moved} categor${fit.moved === 1 ? "y" : "ies"} on page 2${fit.compact ? " · package one-liners left out to fit" : ""}`);
 } finally {
   await browser.close();
   fs.rmSync(tmp, { force: true });

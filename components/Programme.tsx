@@ -1,8 +1,8 @@
 import { process as steps } from "@/data/process";
 import { Mark } from "./Mark";
 
-/* How a booking runs, printed as a real event programme: item, dotted
-   leader, time. */
+/* How a booking runs, printed as a real event programme: each step and
+   what happens at it (no dates, so the steps read as a sequence). */
 export function Programme() {
   return (
     <article className="programme-card" aria-labelledby="programme-title">
@@ -12,11 +12,7 @@ export function Programme() {
       <ol className="programme-card__list">
         {steps.map((s) => (
           <li key={s.title}>
-            <div className="programme-card__row">
-              <span className="programme-card__item">{s.title}</span>
-              <span className="leader" aria-hidden="true" />
-              <time>{s.time}</time>
-            </div>
+            <p className="programme-card__item">{s.title}</p>
             <p>{s.body}</p>
           </li>
         ))}

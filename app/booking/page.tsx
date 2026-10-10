@@ -3,8 +3,10 @@ import "@fontsource-variable/grenze-gotisch/wght.css";
 import { site } from "@/data/site";
 import { meetPhotos } from "@/data/photos";
 import { mailtoLink, telLink, whatsappLink } from "@/lib/format";
-import { breadcrumbLd } from "@/lib/seo";
+import { faq } from "@/data/faq";
+import { breadcrumbLd, faqLd } from "@/lib/seo";
 import { BookingForm } from "@/components/BookingForm";
+import { Faq } from "@/components/Faq";
 import { JsonLd } from "@/components/JsonLd";
 import { PageHero } from "@/components/PageHero";
 import { WhatsAppIcon } from "@/components/Icons";
@@ -18,9 +20,12 @@ export const metadata: Metadata = {
 };
 
 export default function BookingPage() {
+  const bookingFaq = faq.filter((f) => f.booking);
+
   return (
     <>
       <JsonLd data={breadcrumbLd("Booking", "/booking/")} />
+      <JsonLd data={faqLd(bookingFaq)} />
 
       <PageHero
         id="booking-title"
@@ -54,6 +59,16 @@ export default function BookingPage() {
       <section className="section booking-section" aria-label="Booking form">
         <div className="wrap">
           <BookingForm />
+        </div>
+      </section>
+
+      <section className="section booking-faq" aria-labelledby="booking-faq-title">
+        <div className="wrap faq-layout">
+          <div className="section-head">
+            <p className="eyebrow">Good to know</p>
+            <h2 id="booking-faq-title" className="h2">Before you <em>book.</em></h2>
+          </div>
+          <Faq items={bookingFaq} />
         </div>
       </section>
     </>

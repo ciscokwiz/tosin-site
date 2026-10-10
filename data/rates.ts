@@ -50,18 +50,18 @@ export const packages: RatePackage[] = [
     category: "corporate",
     name: "Conference — half day",
     price: 1500000,
-    per: "up to 5 hours",
+    per: "5 hours",
     summary: "Summits, town halls, panels and AGMs that need to run on time.",
-    includes: ["Pre-event brief call", "Script & transition notes", "Panel moderation", "Speaker introductions"],
+    includes: ["Pre-event briefing calls", "No-script transitions & transition notes", "Panel moderation", "Speaker introductions", "Run of Show review with planners", "Audience engagement and Q&A management"],
   },
   {
     id: "conference-full-day",
     category: "corporate",
     name: "Conference — full day",
     price: 2500000,
-    per: "up to 10 hours",
+    per: "10 hours",
     summary: "Multi-session programmes where energy has to survive the 3 pm slump.",
-    includes: ["Everything in half day", "Run-of-show review with your planner", "Audience engagement segments", "Q&A management"],
+    includes: ["Pre-event briefing calls", "No-script transitions & transition notes", "Panel moderation", "Speaker introductions", "Run of Show review with planners", "Audience engagement and Q&A management"],
     featured: true,
   },
   {
@@ -71,7 +71,7 @@ export const packages: RatePackage[] = [
     price: 2000000,
     per: "per evening",
     summary: "Black-tie evenings, awards within the dinner, staff celebrations.",
-    includes: ["Pre-event brief call", "Custom script", "Award & raffle segments", "Coordination with DJ/band"],
+    includes: ["Pre-event brief call", "Custom script", "Coordination with DJ/band"],
   },
   {
     id: "retreat",
@@ -87,8 +87,8 @@ export const packages: RatePackage[] = [
   {
     id: "wedding-traditional",
     category: "weddings",
-    name: "Traditional / engagement",
-    price: 1200000,
+    name: "Traditional / engagement reception",
+    price: 1500000,
     per: "per ceremony",
     summary: "Working alongside the families' alaga for a seamless day.",
     includes: ["Planning call with the couple", "Family & guest protocol", "Coordination with alaga and planner"],
@@ -157,7 +157,7 @@ export const packages: RatePackage[] = [
     name: "In-house celebration",
     price: 700000,
     per: "per celebration",
-    summary: "Office parties, staff milestones and celebrations at home.",
+    summary: "Staff milestones, celebrations at home, and get-togethers.",
     includes: ["Planning call", "Games & awards", "Short programme"],
   },
 
@@ -229,7 +229,7 @@ export const addOns: { id: string; name: string; price: number | null; note: str
 
 /* Clauses that also travel inside every estimate and booking message sent
    from the site (and the PDF rate card), so they are written once here. */
-export const paymentClause = "Full payment upfront secures the date; dates are not held without it.";
+export const paymentClause = "70% payment upfront secures your event date. Dates are not reserved or held without this payment.";
 export const callTimeClause =
   "Call time up to 1 hour before the event starts is included. An earlier call time is billed separately, per extra hour.";
 export const extraHostClause =
@@ -238,7 +238,7 @@ export const extraHostClause =
 export const messageTerms = `Noted: ${paymentClause} ${callTimeClause} ${extraHostClause}`;
 /* Short versions for the estimate panel. */
 export const clauseNotes = [
-  "Full payment upfront secures your date",
+  "70% payment upfront secures your date",
   "Call time over 1 hour before start: billed per hour",
   "One host per package; extra MCs quoted separately",
 ];
@@ -251,6 +251,7 @@ export const terms = [
   "Overtime beyond the agreed hours adds 20%, if Oluwatosin has no other booking.",
   callTimeClause,
   extraHostClause,
-  "Postponing? Tell us at once to confirm the new date. Within a month of the original date, add 30%; if Oluwatosin isn't free, payment isn't refunded.",
+  "Rescheduling & additional fees: if you need to postpone your event, please notify us immediately so we can confirm availability for your preferred new date. If the postponement is requested within one month of your originally scheduled event date, an additional fee of 30% of the agreed booking rate will apply to secure the new date, provided The Corporate Emcee is available.",
+  "Availability & refunds: all postponements are subject to The Corporate Emcee's availability on the proposed new date. If The Corporate Emcee is unavailable on that date, payments already made are non-refundable.",
   "Cancellations aren't refunded, except on the death of a major stakeholder, when part of the fee is returned.",
 ];
