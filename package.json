@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "npx serve@latest out",
+    "start": "next start",
     "typecheck": "tsc --noEmit",
     "images": "node scripts/optimize-images.mjs",
     "ratecard": "node scripts/rate-card-pdf.mjs",

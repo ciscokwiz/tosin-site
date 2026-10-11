@@ -7,9 +7,10 @@ import { formatNaira, mailtoLink, whatsappLink } from "@/lib/format";
 import { Mark } from "./Mark";
 import { WhatsAppIcon } from "./Icons";
 
-/* Booking enquiry. Nothing is stored: the form writes a tidy message and
-   opens WhatsApp (or email) with it, ready to send. The invitation card
-   on the right fills in live as the visitor types. */
+/* Booking enquiry. The form writes a tidy message and opens WhatsApp (or
+   email) with it, ready to send, and quietly adds the same details to
+   Tosin's Notion booking log (app/api/booking). The invitation card on the
+   right fills in live as the visitor types. */
 
 const GUESTS = ["Under 50", "50–100", "100–300", "300–600", "600–1,000", "1,000+"] as const;
 
@@ -71,6 +72,8 @@ export function BookingForm() {
   const [minDate, setMinDate] = useState<string>();
   const formRef = useRef<HTMLFormElement>(null);
   const sentRef = useRef<HTMLDivElement>(null);
+  const loggedRef = useRef("");
+  const [website, setWebsite] = useState("");
 
   // Pre-select a package from ?package=… (links on the Rates page).
   useEffect(() => {
@@ -128,8 +131,21 @@ export function BookingForm() {
     return !first;
   }
 
+  /* Add the enquiry to the booking log. Fire-and-forget: the visitor's own
+     WhatsApp or email message is the enquiry, so a failure here must never
+     stop it. `keepalive` lets the request finish while the page navigates
+     to the mail app. The same details are only logged once. */
+  function log(channel: "whatsapp" | "email") {
+    const body = JSON.stringify({ ...form, channel, website });
+    const key = JSON.stringify(form);
+    if (loggedRef.current === key) return;
+    loggedRef.current = key;
+    fetch("/api/booking/", { method: "POST", headers: { "Content-Type": "application/json" }, body, keepalive: true }).catch(() => {});
+  }
+
   function send(channel: "whatsapp" | "email") {
     if (!validate()) return;
+    log(channel);
     if (channel === "whatsapp") {
       const url = whatsappLink(message());
       // No "noopener" feature here: with it, window.open always returns null
@@ -193,7 +209,12 @@ export function BookingForm() {
           aria-labelledby="form-title"
         >
           <h2 id="form-title" className="h3">Tell Oluwatosin about your event</h2>
-          <p className="small muted">Fields marked <span className="req">*</span> are required. Nothing is stored on this website &mdash; your details go straight into a WhatsApp or email message you send yourself.</p>
+          <p className="small muted">Fields marked <span className="req">*</span> are required. Your details go into a WhatsApp or email message you send yourself, and a copy is saved to Tosin&rsquo;s booking log so your enquiry isn&rsquo;t missed.</p>
+
+          {/* Left empty by people; bots that fill every field get ignored. */}
+          <div aria-hidden="true" style={{ position: "absolute", left: "-10000px", width: 1, height: 1, overflow: "hidden" }}>
+            <label>Website <input type="text" name="website" tabIndex={-1} autoComplete="off" value={website} onChange={(e) => setWebsite(e.target.value)} /></label>
+          </div>
 
           <div className="form__row">
             <div className="field">
