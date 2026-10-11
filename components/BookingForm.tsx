@@ -289,7 +289,7 @@ export function BookingForm() {
         <div className="invite">
           <Mark className="invite__seal" />
           <p className="invite__small">The pleasure of the company of</p>
-          <p className="invite__name">The Corporate <em>Emcee</em></p>
+          <p className="invite__name">The Corporate <em>MC</em></p>
           <p className="invite__small">is requested to host</p>
           <p className="invite__field" data-empty={!(form.eventName || form.pkg)}>
             {form.eventName || pkgLabel(form.pkg) || "your event"}

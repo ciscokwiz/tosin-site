@@ -36,8 +36,21 @@ export const meetPhotos: [Photo, Photo, Photo] = [
     focus: "32% 40%",
   },
   {
-    src: "/images/meet-host3",
-    alt: "Oluwatosin interviewing a laughing guest on stage at TNT 2024",
-    focus: "45% 45%",
+    src: "/images/meet-host4",
+    alt: "Oluwatosin, microphone in hand, with a guest on the red carpet at a Berger Paints event",
+    focus: "50% 46%",
   },
 ];
+
+/* Page headers on Rates and Booking. Each uses its own photo, so no page
+   repeats an image from the home page. Shape: 4:5 portrait. */
+export const ratesPhoto: Photo = {
+  src: "/images/rates-hero",
+  alt: "Oluwatosin smiling on the red carpet in a black textured suit, in front of a Berger Paints backdrop",
+  focus: "50% 35%",
+};
+export const bookingPhoto: Photo = {
+  src: "/images/booking-hero",
+  alt: "Oluwatosin laughing in a tuxedo and bow tie, seated on a wooden chair in a studio portrait",
+  focus: "45% 40%",
+};

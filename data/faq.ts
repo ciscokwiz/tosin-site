@@ -3,13 +3,13 @@
    ---------------------------------------------------------------------
    Shown on the home page and sent to Google as FAQ data. Answer the
    questions people actually ask on WhatsApp. Keep answers factual.
-   `home: true` shows it on the home page (keep it to about four);
-   `rates: true` shows it on the Rates page.
+   `home: true` shows it on the home page (keep it to about five);
+   `rates: true` shows it on the Rates page; `booking: true` on Booking.
    ===================================================================== */
 
-export const faq: { q: string; a: string; home?: boolean; rates?: boolean }[] = [
+export const faq: { q: string; a: string; home?: boolean; rates?: boolean; booking?: boolean }[] = [
   {
-    q: "What events does The Corporate Emcee host?",
+    q: "What events does The Corporate MC host?",
     a: "Every kind: conferences and summits, galas, product launches, award ceremonies, retreats, weddings and campus events. Over 1,500 so far, each prepared for its own audience.",
     home: true,
   },
@@ -29,6 +29,16 @@ export const faq: { q: string; a: string; home?: boolean; rates?: boolean }[] = 
     q: "How do I check if my date is available?",
     a: "Send your date, venue and event type on WhatsApp or through the booking form. You get a quick reply.",
     home: true,
+  },
+  {
+    q: "Does The Corporate MC speak more than one language?",
+    a: "Absolutely! The Corporate MC speaks four languages: English, Yoruba, Pidgin, and, when the occasion calls for it, speaking in tongues! Whatever the audience, he knows how to connect, communicate, and keep the energy flowing.",
+    home: true,
+  },
+  {
+    q: "Can The Corporate MC recommend other event vendors or service providers?",
+    a: "Absolutely! Upon request, The Corporate MC can recommend trusted DJs, event planners, fellow MCs, and other event professionals from his network to help bring your event together. Recommendations are a courtesy on request, not a vendor service included in your booking.",
+    booking: true,
   },
   {
     q: "Is a co-host included in the packages?",

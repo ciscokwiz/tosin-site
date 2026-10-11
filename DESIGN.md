@@ -251,6 +251,26 @@ Kept as they were: the Run of Show section, the word-by-word reveal and the Rang
   - If needed, the type steps down, to 80% at most, keeping a minimum gap above the contact block.
   - If it still can't fit, `npm run ratecard` fails with a message instead of adding a third page.
 
+## Revision 11: 8 Oct 2026 checklist (content tasks)
+
+- **Run of Show** has no dates. The steps read as a sequence, with title over description and a dotted rule between steps.
+- **Conferences:** half day 5 hours, full day 10 hours. Both have the same six inclusions, and prices are unchanged.
+- **Other packages:**
+  - Gala loses "Award & raffle segments".
+  - "Traditional / engagement reception" is now ₦1.5m.
+  - The in-house celebration has new copy.
+- **Terms.** "70% payment upfront…" replaces full payment, in the terms, the estimate panel and every message. Postponement is now two statements: Rescheduling & additional fees, and Availability & refunds. That makes 8 terms.
+- **FAQs:** the language FAQ goes on Home. The vendor FAQ goes in a new "Before you book" FAQ on Booking, with a note that recommendations are a courtesy on request.
+- **PDF.** The contact block is a little tighter so the longer terms fit on two pages. The fit step can also drop the package one-liners before giving up.
+- **Follow-up.**
+  - The stage name is **The Corporate MC** (`site.brand`) everywhere: logo, titles, curtain, Run of Show, invitation, FAQs, terms, PDF and share image. The domain and email are unchanged.
+  - Postponement wording as confirmed: a request within 30 days of the original date adds 30% of the original full package price, if he is available.
+  - Photos: "Meet the host" photo 3 is the Berger red carpet shot with a guest (`meet-host4`, converted from HEIC). Rates uses `rates-hero` and Booking uses `booking-hero`, so no page repeats a home-page photo.
+  - `npm run og` redraws `public/og.png` from `data/site.ts`, in the current Jakarta and purple style.
+- **Not done yet:**
+  - Notion booking integration: it needs a server, which the static export doesn't have, so it is awaiting a decision.
+  - Two more video testimonials: awaiting the files.
+
 ## Critic loop
 | Axis | Round 1 | Reason | Fix | Round 2 |
 |---|---|---|---|---|
