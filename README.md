@@ -82,14 +82,22 @@ npm run dev        # opens a live preview at http://localhost:3000
 
 ## Publishing it
 
-The site builds to plain files with no server, so hosting is free.
+The site is hosted on Vercel (the free Hobby plan is enough). Every page is pre-rendered; the only server code is the booking log (`app/api/booking`), which needs Vercel or another host that runs Next.js, so a plain file upload to cPanel no longer works.
 
-**Vercel (recommended):**
 1. Push this repository to GitHub.
 2. Go to [vercel.com](https://vercel.com), choose **Add New → Project**, and import the repository. Accept the defaults and click **Deploy**.
 3. Under **Settings → Domains**, add `thecorporatemcee.com` and follow the DNS instructions.
+4. Under **Settings → Environment Variables**, add the two Notion values below, then redeploy.
 
-**Anywhere else (Netlify, cPanel, etc.):** run `npm run build` and upload the contents of the `out/` folder.
+### Booking log in Notion
+Every enquiry sent from the booking page is also added as a row in a Notion database, so none get lost in WhatsApp. The visitor's WhatsApp or email message still goes out exactly as before, and if Notion is unreachable or not set up the form works as normal.
+
+1. In Notion, open **Settings → Connections → Develop or manage integrations**, create an internal integration for the workspace, and copy its secret.
+2. Open the bookings database, choose **⋯ → Connections**, and add that integration.
+3. Copy the database ID: the 32-character code in the database's link, before `?v=`.
+4. Add both to Vercel (step 4 above) as `NOTION_API_KEY` and `NOTION_BOOKINGS_DATABASE_ID`.
+
+The visitor's name goes in the database's title column. Other details go into any column with a matching name and type: Phone, Email, Package (or Event type), Event, Date, Venue, Guests, Notes, Price and Channel; the full list of accepted names is `COLUMNS` in `app/api/booking/route.ts`. Missing columns are fine, because every detail is also written into the page itself.
 
 **Security headers.** These are set by `vercel.json` (Vercel) and `public/_headers` (Netlify and Cloudflare Pages); keep the two in step:
 - a Content Security Policy that allows only the site's own files plus the YouTube player
@@ -107,6 +115,8 @@ If the domain ever changes, update `url` in `data/site.ts` so Google and link pr
 |---|---|
 | `NEXT_PUBLIC_GOOGLE_VERIFICATION` | Google Search Console verification code |
 | `NEXT_PUBLIC_BING_VERIFICATION` | Bing Webmaster verification code |
+| `NOTION_API_KEY` | Notion integration secret for the booking log |
+| `NOTION_BOOKINGS_DATABASE_ID` | The Notion bookings database the integration can write to |
 
 ---
 
@@ -132,4 +142,4 @@ The site handles the technical side: page titles written the way people search (
 
 ## Tech notes for a developer
 
-Next.js 16 (App Router), TypeScript and plain CSS custom properties, exported as a static site (`output: "export"`). Fonts are self-hosted through Fontsource: Plus Jakarta Sans for headings and Inter for body text. The booking invitation also uses Grenze Gotisch, a legible Old English blackletter that loads on that page only. The site opens in light mode, and dark mode appears only when a visitor chooses it. Motion comes from Lenis (smooth scrolling) and three.js (the home page "stage dust", loaded lazily), with the framework-free motion code in `lib/motion/`. The site has no backend and no third-party scripts. Design tokens are in `app/globals.css`, and the two theme layers (reading and stage) are explained in `DESIGN.md`.
+Next.js 16 (App Router), TypeScript and plain CSS custom properties, hosted on Vercel with every page pre-rendered. Fonts are self-hosted through Fontsource: Plus Jakarta Sans for headings and Inter for body text. The booking invitation also uses Grenze Gotisch, a legible Old English blackletter that loads on that page only. The site opens in light mode, and dark mode appears only when a visitor chooses it. Motion comes from Lenis (smooth scrolling) and three.js (the home page "stage dust", loaded lazily), with the framework-free motion code in `lib/motion/`. The only server code is the Notion booking log, and there are no third-party scripts. Design tokens are in `app/globals.css`, and the two theme layers (reading and stage) are explained in `DESIGN.md`.

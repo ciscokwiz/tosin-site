@@ -1,9 +1,8 @@
 import type { NextConfig } from "next";
 
-// Static export: `npm run build` writes a plain website to /out that can be
-// hosted anywhere (Vercel, Netlify, cPanel, GitHub Pages) with no server.
+// Hosted on Vercel. Every page is still pre-rendered as static HTML; the
+// one server route is app/api/booking, which logs enquiries to Notion.
 const nextConfig: NextConfig = {
-  output: "export",
   trailingSlash: true,
   images: { unoptimized: true },
   reactStrictMode: true,
