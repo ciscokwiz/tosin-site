@@ -11,9 +11,12 @@ import { packages } from "@/data/rates";
    Column names don't have to match exactly: each detail goes into the first
    column whose name appears in COLUMNS below and whose type fits. Every
    detail is also written into the page body, so nothing is lost if a column
-   is missing. */
+   is missing. A "Status" column (status or select) is set to NEW_STATUS. */
 
 const NOTION_VERSION = "2022-06-28";
+
+/* Every new enquiry starts here; must match an option in the Status column. */
+const NEW_STATUS = "New Inquiry";
 
 type Booking = {
   name: string;
@@ -26,6 +29,7 @@ type Booking = {
   time: string;
   venue: string;
   guests: string;
+  budget: string;
   notes: string;
   channel: string;
 };
@@ -33,7 +37,7 @@ type Booking = {
 /* Longest answer each field accepts, matching the form's own limits. */
 const LIMITS: Record<keyof Booking, number> = {
   name: 80, org: 120, phone: 24, email: 120, pkg: 60, eventName: 120,
-  date: 10, time: 5, venue: 160, guests: 20, notes: 1000, channel: 10,
+  date: 10, time: 5, venue: 160, guests: 20, budget: 40, notes: 1000, channel: 10,
 };
 
 /* Candidate column names for each detail, compared case-insensitively. */
@@ -47,7 +51,8 @@ const COLUMNS: Record<string, string[]> = {
   venue: ["venue", "venue or city", "location", "city"],
   guests: ["guests", "expected guests", "guest count"],
   notes: ["notes", "anything else", "details"],
-  price: ["price", "from price", "rate", "budget"],
+  price: ["price", "from price", "rate"],
+  budget: ["budget", "client budget"],
   channel: ["channel", "sent via", "source"],
 };
 
@@ -86,6 +91,13 @@ const text = (content: string) => [{ type: "text", text: { content } }];
    column's type can't hold it. */
 function cell(type: string, value: string | number, kind: string) {
   if (typeof value === "number") return type === "number" ? { number: value } : null;
+  if (kind === "budget" && type === "number") {
+    // "₦2.5m" or "2,500,000" → 2500000; anything vaguer stays in the page body
+    const m = value.replace(/[,\s₦]/g, "").match(/^(\d+(?:\.\d+)?)(k|m)?$/i);
+    if (!m) return null;
+    const mult = { k: 1e3, m: 1e6 }[m[2]?.toLowerCase() as "k" | "m"] ?? 1;
+    return { number: Math.round(Number(m[1]) * mult) };
+  }
   switch (type) {
     case "rich_text": return { rich_text: text(value) };
     case "phone_number": return kind === "phone" ? { phone_number: value } : null;
@@ -136,6 +148,7 @@ export async function POST(request: Request) {
     date: b.time ? `${b.date}T${b.time}:00+01:00` : b.date,
     venue: b.venue,
     guests: b.guests,
+    budget: b.budget,
     notes: b.notes,
     price: p && p.price !== null ? p.price : "",
     channel: b.channel === "email" ? "Email" : b.channel === "whatsapp" ? "WhatsApp" : "",
@@ -144,6 +157,9 @@ export async function POST(request: Request) {
   try {
     const s = await loadSchema(databaseId);
     const properties: Record<string, unknown> = { [s.title]: { title: text(b.name) } };
+    const status = s.props["status"];
+    if (status?.type === "status") properties[status.name] = { status: { name: NEW_STATUS } };
+    else if (status?.type === "select") properties[status.name] = { select: { name: NEW_STATUS } };
     for (const [kind, names] of Object.entries(COLUMNS)) {
       const value = values[kind];
       if (value === "" || value === undefined) continue;
@@ -166,6 +182,7 @@ export async function POST(request: Request) {
       `Date: ${b.date}${b.time ? ` ${b.time}` : ""}`,
       `Venue / city: ${b.venue}`,
       b.guests && `Guests: ${b.guests}`,
+      b.budget && `Budget: ${b.budget}`,
       `Phone: ${b.phone}`,
       b.email && `Email: ${b.email}`,
       b.notes && `Notes: ${b.notes}`,

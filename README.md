@@ -97,7 +97,7 @@ Every enquiry sent from the booking page is also added as a row in a Notion data
 3. Copy the database ID: the 32-character code in the database's link, before `?v=`.
 4. Add both to Vercel (step 4 above) as `NOTION_API_KEY` and `NOTION_BOOKINGS_DATABASE_ID`.
 
-The visitor's name goes in the database's title column. Other details go into any column with a matching name and type: Phone, Email, Package (or Event type), Event, Date, Venue, Guests, Notes, Price and Channel; the full list of accepted names is `COLUMNS` in `app/api/booking/route.ts`. Missing columns are fine, because every detail is also written into the page itself.
+The visitor's name goes in the database's title column. Other details go into any column with a matching name and type: Phone, Email, Package (or Event type), Event, Date, Venue, Guests, Budget, Notes, Price and Channel; the full list of accepted names is `COLUMNS` in `app/api/booking/route.ts`. Missing columns are fine, because every detail is also written into the page itself. If the database has a **Status** column (status or select type), every new enquiry is set to **New Inquiry**, so that option must exist with exactly that spelling (it is `NEW_STATUS` in the same file).
 
 **Security headers.** These are set by `vercel.json` (Vercel) and `public/_headers` (Netlify and Cloudflare Pages); keep the two in step:
 - a Content Security Policy that allows only the site's own files plus the YouTube player
