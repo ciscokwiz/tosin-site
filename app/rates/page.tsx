@@ -16,7 +16,7 @@ import { PageHero } from "@/components/PageHero";
 export const metadata: Metadata = {
   title: "MC Rates & Packages in Lagos — Corporate, Wedding & Launch Hosting",
   description:
-    "Rate card for The Corporate MC: conferences, galas, retreats, weddings, product launches and award ceremonies in Lagos and across Nigeria. Build an estimate and send it on WhatsApp.",
+    "Rate card for The Corporate Emcee: conferences, galas, retreats, weddings, product launches and award ceremonies in Lagos and across Nigeria. Build an estimate and send it on WhatsApp.",
   alternates: { canonical: "/rates/" },
   keywords: ["MC rates Lagos", "how much does an MC cost in Nigeria", "wedding MC price Lagos", "corporate event host rates"],
 };
@@ -38,9 +38,9 @@ export default function RatesPage() {
       >
         <div className="btn-row">
           <a href="#estimate" className="btn btn--sm" data-magnetic>Build an estimate</a>
-          <Link href="/booking/" className="btn btn--sm btn--ghost">Book Oluwatosin</Link>
+          <Link href="/booking/" className="btn btn--sm btn--ghost">Book The Corporate Emcee</Link>
         </div>
-        {ratesAreSamples && <p className="phero__note">Sample prices until Oluwatosin confirms his rate card.</p>}
+        {ratesAreSamples && <p className="phero__note">Sample prices until The Corporate Emcee confirms his rate card.</p>}
       </PageHero>
 
       <section className="section rates" aria-label="Packages">
@@ -129,7 +129,7 @@ export default function RatesPage() {
               <p className="eyebrow">Estimate builder</p>
               <h2 id="estimate-title" className="h2">Build your <em>quote.</em></h2>
             </div>
-            <p className="lead">Pick a package and extras, then send the estimate on WhatsApp. Oluwatosin confirms availability and the final price.</p>
+            <p className="lead">Pick a package and extras, then send the estimate on WhatsApp. The Corporate Emcee confirms availability and the final price.</p>
           </div>
           <Estimator />
         </div>

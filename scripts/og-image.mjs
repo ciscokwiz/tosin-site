@@ -24,7 +24,7 @@ const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&l
 const font = (p) => pathToFileURL(path.join(ROOT, "node_modules/@fontsource-variable", p)).href;
 const mark = fs.readFileSync(path.join(ROOT, "public/mark.svg"), "utf8").replace(/<title>[\s\S]*?<\/title>/, "");
 
-// "The Corporate MC" → "The Corporate" + gold italic "MC"
+// "The Corporate Emcee" → "The Corporate" + gold italic "Emcee"
 const words = site.brand.split(" ");
 const last = words.pop();
 const events = site.stats.find((s) => /event/i.test(s.label));
@@ -49,7 +49,7 @@ p { margin-top: 30px; font-size: 27px; line-height: 1.45; color: #d9cfe8; max-wi
 .m svg { height: 100%; width: auto; }
 </style></head><body>
 <div class="c">
-  <div class="k">${esc(site.person)} · Master of Ceremonies</div>
+  <div class="k">Master of Ceremonies · ${esc(site.city)}</div>
   <h1>${esc(words.join(" "))} <em>${esc(last)}</em></h1>
   <p>One host for every room: conferences, galas, launches, award nights, weddings and celebrations.</p>
   <div class="f">${footer.map((x) => `<span>${esc(x)}</span>`).join("")}</div>

@@ -20,7 +20,7 @@ export const range: {
     label: "Conferences & summits",
     title: "High-level rooms, held to time.",
     body: "Panels, keynotes and AGMs hosted with every name said right and every session on schedule.",
-    points: ["Panel moderation", "Speaker intros", "Time-keeping"],
+    points: ["Speaker intros", "Time-keeping", "Q&A management"],
     rates: "corporate",
   },
   {
@@ -54,13 +54,5 @@ export const range: {
     body: "Traditional and white weddings in Lagos, hosted alongside your alaga — on time and full of joy.",
     points: ["Family protocol", "Grand entrance", "Vendor cues"],
     rates: "weddings",
-  },
-  {
-    id: "students",
-    label: "Youth & campus",
-    title: "And the student crowd, too.",
-    body: "Convocations, campus festivals and youth summits. That range is where the nickname comes from.",
-    points: ["Convocations", "Festivals", "Youth summits"],
-    rates: "corporate",
   },
 ];

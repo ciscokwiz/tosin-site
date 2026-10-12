@@ -27,6 +27,10 @@ export function VideoTestimonials() {
   }, [open]);
 
   if (!videos.length) return null;
+  /* four clips sit in one row of four (two by two on smaller desktops);
+     otherwise rows of three, with the "Your guests could be next" card
+     filling a gap in the last row */
+  const four = videos.length % 4 === 0;
 
   return (
     <section className="section videos" aria-labelledby="videos-title" data-depth="x">
@@ -38,19 +42,19 @@ export function VideoTestimonials() {
           </div>
           <p className="lead">What planners, brands and couples say after the mic goes down.</p>
         </div>
-        <ul className="videos__grid">
+        <ul className={`videos__grid${four ? " videos__grid--4" : ""}`}>
           {videos.map((v, i) => (
             <li key={i}>
               <VideoCard video={v} onOpen={() => setOpen(v)} />
             </li>
           ))}
-          {videos.length % 3 !== 0 && (
+          {!four && videos.length % 3 !== 0 && (
             <li>
               <div className="vnext stage">
                 <Mark variant="full" className="vnext__mark" />
                 <p className="vnext__title">Your guests could be <em>next.</em></p>
-                <p className="vnext__body">Tell Oluwatosin about the room and he will hold the date.</p>
-                <Link href="/booking/" className="btn btn--sm">Book Oluwatosin</Link>
+                <p className="vnext__body">Tell The Corporate Emcee about the room and he will hold the date.</p>
+                <Link href="/booking/" className="btn btn--sm">Book now</Link>
               </div>
             </li>
           )}

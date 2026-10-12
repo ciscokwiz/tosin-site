@@ -1,6 +1,6 @@
-# The Corporate MC — website
+# The Corporate Emcee — website
 
-The website for **Oluwatosin Aina, The Corporate MC**: three pages (Home, Rates, Booking), built to turn visitors into WhatsApp enquiries.
+The website for **The Corporate Emcee**: three pages (Home, Rates, Booking), built to turn visitors into WhatsApp enquiries.
 
 - **Home** — hero, client names, stats, "The Range Master" event formats, why a psychologist holds the mic, how a booking runs, FAQ
 - **Rates** — rate card by category, extras, an estimate builder that sends the quote to WhatsApp, booking terms
@@ -125,7 +125,7 @@ If the domain ever changes, update `url` in `data/site.ts` so Google and link pr
 The site handles the technical side: page titles written the way people search ("MC in Lagos"), descriptions, a sitemap, FAQ data, and person and service data for Google. Nobody can guarantee a ranking. These steps help the most:
 
 1. **Google Search Console**: add the site and submit `https://thecorporatemcee.com/sitemap.xml`.
-2. **Google Business Profile**: create or claim "The Corporate MC" in Lagos and link it to the site.
+2. **Google Business Profile**: create or claim "The Corporate Emcee" in Lagos and link it to the site.
 3. Put the website link in the Instagram, LinkedIn and YouTube bios.
 4. Ask planners, venues and past clients to link to the site from their vendor pages.
 5. Ask happy clients for a short written testimonial, and add it to `data/testimonials.ts`.

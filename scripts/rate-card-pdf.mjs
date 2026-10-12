@@ -106,9 +106,9 @@ ol li::before { counter-increment: t; content: counter(t, decimal-leading-zero);
 ${page(`
   <header class="head">
     ${mark}
-    <p class="kicker">The Corporate MC presents</p>
+    <p class="kicker">${esc(site.brand)} presents</p>
     <h1>Rate Card</h1>
-    <p class="byline">${esc(site.person)} · Master of Ceremonies · ${esc(site.city)} · ${esc(site.bookingSeason.replace(/^Now booking\s*/i, ""))}</p>
+    <p class="byline">Master of Ceremonies · ${esc(site.city)} · ${esc(site.bookingSeason.replace(/^Now booking\s*/i, ""))}</p>
   </header>
   <div id="p1">${categories}</div>
   <div class="spacer"></div>

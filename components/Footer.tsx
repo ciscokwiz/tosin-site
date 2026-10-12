@@ -22,7 +22,7 @@ export function Footer() {
         <h2 id="footer-title" className="footer__title">
           Whatever the room, let&rsquo;s make it <em>one to remember.</em>
         </h2>
-        <Link href="/booking/" className="btn" data-magnetic>Book Oluwatosin</Link>
+        <Link href="/booking/" className="btn" data-magnetic>Book The Corporate Emcee</Link>
       </div>
 
       <div className="wrap">
@@ -52,7 +52,7 @@ export function Footer() {
           </div>
         </div>
         <div className="footer__base">
-          <span>&copy; {year} {site.brand} &middot; {site.person}</span>
+          <span>&copy; {year} {site.brand}</span>
           <LagosClock />
         </div>
       </div>

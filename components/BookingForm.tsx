@@ -9,7 +9,7 @@ import { WhatsAppIcon } from "./Icons";
 
 /* Booking enquiry. The form writes a tidy message and opens WhatsApp (or
    email) with it, ready to send, and quietly adds the same details to
-   Tosin's Notion booking log (app/api/booking). The invitation card on the
+   The Corporate Emcee's Notion booking log (app/api/booking). The invitation card on the
    right fills in live as the visitor types. */
 
 const GUESTS = ["Under 50", "50–100", "100–300", "300–600", "600–1,000", "1,000+"] as const;
@@ -210,8 +210,8 @@ export function BookingForm() {
           }}
           aria-labelledby="form-title"
         >
-          <h2 id="form-title" className="h3">Tell Oluwatosin about your event</h2>
-          <p className="small muted">Fields marked <span className="req">*</span> are required. Your details go into a WhatsApp or email message you send yourself, and a copy is saved to Tosin&rsquo;s booking log so your enquiry isn&rsquo;t missed.</p>
+          <h2 id="form-title" className="h3">Tell The Corporate Emcee about your event</h2>
+          <p className="small muted">Fields marked <span className="req">*</span> are required. Your details go into a WhatsApp or email message you send yourself, and a copy is saved to The Corporate Emcee&rsquo;s booking log so your enquiry isn&rsquo;t missed.</p>
 
           {/* Left empty by people; bots that fill every field get ignored. */}
           <div aria-hidden="true" style={{ position: "absolute", left: "-10000px", width: 1, height: 1, overflow: "hidden" }}>
@@ -317,7 +317,7 @@ export function BookingForm() {
         <div className="invite">
           <Mark className="invite__seal" />
           <p className="invite__small">The pleasure of the company of</p>
-          <p className="invite__name">The Corporate <em>MC</em></p>
+          <p className="invite__name">The Corporate <em>Emcee</em></p>
           <p className="invite__small">is requested to host</p>
           <p className="invite__field" data-empty={!(form.eventName || form.pkg)}>
             {form.eventName || pkgLabel(form.pkg) || "your event"}

@@ -11,7 +11,7 @@
    ratio:    the video's width / height, e.g. "696 / 960", so the player
              opens at the right shape (portrait phone clips are fine).
 
-   The two clips below were cleaned up for the web (denoised, sharpened,
+   The clips below were cleaned up for the web (denoised, sharpened,
    steady 30fps, levelled audio) and live in /public/videos. Fill in each
    guest's NAME, ROLE and a one-line QUOTE from what they say — only with
    their permission. Add `sample: true` to any card that is a placeholder.
@@ -45,5 +45,21 @@ export const videos: VideoTestimonial[] = [
     duration: "0:14",
     name: "From the stage",
     role: "Celebration",
+  },
+  {
+    file: "/videos/testimony-3.mp4",
+    poster: "/images/testimony-3",
+    ratio: "578 / 960",
+    duration: "0:28",
+    name: "Review o'clock",
+    role: "Guest review",
+  },
+  {
+    file: "/videos/testimony-4.mp4",
+    poster: "/images/testimony-4",
+    ratio: "578 / 960",
+    duration: "0:54",
+    name: "Unfiltered client feedback",
+    role: "40th birthday celebration",
   },
 ];

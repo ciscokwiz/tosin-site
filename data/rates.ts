@@ -2,7 +2,7 @@
    RATE CARD — prices and packages.
    ---------------------------------------------------------------------
    ⚠  The prices below are SAMPLE numbers so the page can be designed.
-      Replace them with Oluwatosin's real rates, then set
+      Replace them with The Corporate Emcee's real rates, then set
       `ratesAreSamples` to false — that removes the "Sample rate"
       badges from the website.
 
@@ -52,7 +52,7 @@ export const packages: RatePackage[] = [
     price: 1500000,
     per: "5 hours",
     summary: "Summits, town halls, panels and AGMs that need to run on time.",
-    includes: ["Pre-event briefing calls", "No-script transitions & transition notes", "Panel moderation", "Speaker introductions", "Run of Show review with planners", "Audience engagement and Q&A management"],
+    includes: ["Pre-event briefing calls", "Speaker introductions", "Run of Show review with planners", "Audience engagement and Q&A management"],
   },
   {
     id: "conference-full-day",
@@ -61,7 +61,7 @@ export const packages: RatePackage[] = [
     price: 2500000,
     per: "10 hours",
     summary: "Multi-session programmes where energy has to survive the 3 pm slump.",
-    includes: ["Pre-event briefing calls", "No-script transitions & transition notes", "Panel moderation", "Speaker introductions", "Run of Show review with planners", "Audience engagement and Q&A management"],
+    includes: ["Pre-event briefing calls", "Speaker introductions", "Run of Show review with planners", "Audience engagement and Q&A management"],
     featured: true,
   },
   {
@@ -91,7 +91,7 @@ export const packages: RatePackage[] = [
     price: 1500000,
     per: "per ceremony",
     summary: "Working alongside the families' alaga for a seamless day.",
-    includes: ["Planning call with the couple", "Family & guest protocol", "Coordination with alaga and planner"],
+    includes: ["Planning call with the couple", "Family & guest protocol", "Coordination with DJ and live band", "Games & audience moments"],
   },
   {
     id: "wedding-reception",
@@ -214,7 +214,7 @@ export const packages: RatePackage[] = [
 ];
 
 /* Optional extras. Same rules as above — price in Naira, or null.
-   A rehearsal or walk-through means Oluwatosin is physically at the venue on
+   A rehearsal or walk-through means The Corporate Emcee is physically at the venue on
    another day, so it costs more than script writing, which is desk work.
    There is deliberately no co-host extra: packages cover one host, and any
    additional MC is quoted separately (see `extraHostClause`). Red carpet and
@@ -248,10 +248,10 @@ export const clauseNotes = [
 export const terms = [
   paymentClause,
   "Prices cover hosting in Lagos. Other states and countries add travel and accommodation.",
-  "Overtime beyond the agreed hours adds 20%, if Oluwatosin has no other booking.",
+  "Overtime beyond the agreed hours adds 20%, if The Corporate Emcee has no other booking.",
   callTimeClause,
   extraHostClause,
-  "Rescheduling & additional fees: if you need to postpone your event, please notify us immediately so we can confirm availability for your preferred new date. If the postponement is requested within 30 days of your originally scheduled event date, an additional fee of 30% of the original full package price will apply to secure the new date, provided The Corporate MC is available.",
-  "Availability & refunds: all postponements are subject to The Corporate MC's availability on the proposed new date. If The Corporate MC is unavailable on that date, payments already made are non-refundable.",
+  "Rescheduling & additional fees: if you need to postpone your event, please notify us immediately so we can confirm availability for your preferred new date. If the postponement is requested within 30 days of your originally scheduled event date, an additional fee of 30% of the original full package price will apply to secure the new date, provided The Corporate Emcee is available.",
+  "Availability & refunds: all postponements are subject to The Corporate Emcee's availability on the proposed new date. If The Corporate Emcee is unavailable on that date, payments already made are non-refundable.",
   "Cancellations aren't refunded, except on the death of a major stakeholder, when part of the fee is returned.",
 ];

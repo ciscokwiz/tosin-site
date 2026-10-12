@@ -4,6 +4,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { nav, site } from "@/data/site";
 import { MARK_GEOMETRY } from "./MarkSprite";
+import { MEDIA_EVENT } from "@/lib/motion/stageDust";
 import { jumpTo } from "./SmoothScroll";
 
 type State = "idle" | "closing" | "closed" | "opening";
@@ -50,6 +51,7 @@ export function Curtain() {
     timers.current.forEach(clearTimeout);
     timers.current = [];
     set("opening");
+    window.dispatchEvent(new CustomEvent(MEDIA_EVENT, { detail: false }));
     later(() => set("idle"), OPEN_MS);
   };
 
@@ -78,6 +80,9 @@ export function Curtain() {
       e.preventDefault();
       setLabel({ kicker: "Up next", title: labelFor(url.pathname) });
       set("closing");
+      // the dust is about to be covered: stop drawing it so the lapels
+      // close smoothly on slower phones
+      window.dispatchEvent(new CustomEvent(MEDIA_EVENT, { detail: true }));
       later(() => {
         set("closed");
         closedAt.current = performance.now();
@@ -109,7 +114,7 @@ export function Curtain() {
   return (
     <div className="curtain" data-state={state} aria-hidden="true">
       <div className="curtain__shirt" />
-      {/* The two halves of the curtain are Oluwatosin's lapels at screen scale.
+      {/* The two halves of the curtain are The Corporate Emcee's lapels at screen scale.
           Both use the artwork's own coordinates, centred on the seam (x = 82).
           Texture: a fine twill on the cloth, light falling off toward the
           outer edges, satin sheen and a stitched edge on the lapels. */}

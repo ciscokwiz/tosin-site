@@ -1,4 +1,5 @@
 import { process as steps } from "@/data/process";
+import { site } from "@/data/site";
 import { Mark } from "./Mark";
 
 /* How a booking runs, printed as a real event programme: each step and
@@ -7,7 +8,7 @@ export function Programme() {
   return (
     <article className="programme-card" aria-labelledby="programme-title">
       <Mark className="programme-card__mark" />
-      <p className="programme-card__kicker">The Corporate MC presents</p>
+      <p className="programme-card__kicker">{site.brand} presents</p>
       <h3 id="programme-title" className="programme-card__title">Run of Show</h3>
       <ol className="programme-card__list">
         {steps.map((s) => (

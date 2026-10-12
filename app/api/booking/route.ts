@@ -2,7 +2,7 @@ import { packages } from "@/data/rates";
 
 /* Booking log. The booking form still opens WhatsApp or email for the
    visitor to send; alongside that it posts the same details here, and we
-   add them as a new row in Tosin's Notion bookings database.
+   add them as a new row in The Corporate Emcee's Notion bookings database.
 
    Needs two environment variables (set them in Vercel, never in the repo):
      NOTION_API_KEY               the integration's secret

@@ -19,7 +19,7 @@ export const metadata: Metadata = {
   description: site.description,
   applicationName: site.brand,
   authors: [{ name: site.person }],
-  keywords: ["MC in Lagos", "corporate MC Nigeria", "event host Lagos", "wedding MC Lagos", "conference moderator Nigeria", "The Corporate MC", "Oluwatosin Aina"],
+  keywords: ["MC in Lagos", "corporate MC Nigeria", "event host Lagos", "wedding MC Lagos", "conference moderator Nigeria", "The Corporate Emcee", "Oluwatosin Aina"],
   alternates: { canonical: "/" },
   openGraph: {
     type: "website",
