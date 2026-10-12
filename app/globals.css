@@ -788,10 +788,11 @@ button, input, select, textarea { font: inherit; color: inherit; }
    ===================================================================== */
 .gallery-layout { display: grid; gap: clamp(24px, 4vw, 48px); }
 .gallery-layout .section-head { margin-bottom: 0; }
-@media (min-width: 900px) { .gallery-layout { grid-template-columns: minmax(0, 1fr) minmax(0, 1.5fr); align-items: end; } }
-.gallery { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); }
+@media (min-width: 900px) { .gallery-layout { grid-template-columns: minmax(0, 1fr) auto; align-items: end; } }
+.gallery { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; grid-template-columns: repeat(2, minmax(0, 260px)); }
+@media (min-width: 900px) { .gallery { justify-content: end; } }
 .gallery figure { margin: 0; display: grid; gap: 8px; }
-.gallery img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; border-radius: var(--r-card); }
+.gallery img { width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; border-radius: var(--r-card); }
 .gallery figcaption { font-size: 14px; color: var(--muted); }
 .quotes { display: grid; gap: 16px; }
 .quote { margin: 0; padding: clamp(24px, 3vw, 40px); border-top: 1px solid var(--line-strong); display: grid; gap: 20px; }

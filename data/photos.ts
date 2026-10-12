@@ -31,7 +31,7 @@ export const meetPhotos: [Photo, Photo, Photo] = [
     focus: "50% 40%",
   },
   {
-    src: "/images/meet-host2",
+    src: "/images/meet-host-crowd",
     alt: "The Corporate Emcee in a pinstripe suit, microphone in hand, dancing with a cheering crowd at World Class Nigeria 2026",
     focus: "30% 35%",
   },
