@@ -279,7 +279,7 @@ button, input, select, textarea { font: inherit; color: inherit; }
   --m-line: #2b1d44;
   --m-tux: #0b0b10;
 }
-.brand { justify-self: start; display: inline-flex; align-items: center; gap: 10px; color: inherit; text-decoration: none; min-height: 44px; min-width: 0; }
+.brand { justify-self: start; display: inline-flex; align-items: center; gap: 10px; color: inherit; text-decoration: none; min-height: 44px; min-width: 44px; }
 .brand .mark { height: 34px; width: auto; flex: none; }
 .brand:hover .mark__fila { animation: fila-tip 0.9s var(--ease); }
 .brand__name { font-family: var(--font-display); font-size: 16px; font-weight: 700; letter-spacing: -0.02em; line-height: 1.1; white-space: nowrap; }
@@ -789,7 +789,7 @@ button, input, select, textarea { font: inherit; color: inherit; }
 /* "On stage": a fanned spread of photo cards. --h is the card height;
    cards overlap by --ov of it and tilt by --off steps from the centre. */
 .gallery-section { padding-bottom: 0; overflow-x: clip; }
-.gallery-section + .faq-section { padding-top: clamp(40px, 6vw, 88px); }
+.gallery-section + .faq-section { padding-top: clamp(56px, 8vw, 120px); }
 .spread {
   --h: clamp(150px, 30vw, 340px); --ov: 0.3;
   list-style: none; margin: 0; padding: calc(var(--h) * 0.04) 0 calc(var(--h) * 0.1);
@@ -797,25 +797,45 @@ button, input, select, textarea { font: inherit; color: inherit; }
 }
 @media (min-width: 600px) { .spread { --ov: 0.22; } }
 @media (min-width: 900px) { .spread { --ov: 0.14; } }
+/* The <li> holds the card's place in the fan and never moves on hover, so
+   the hover area stays put (no flicker at the edges); only the <figure>
+   inside lifts. On first view the cards deal out from a stack. */
 .spread__card {
+  --deck: cubic-bezier(0.22, 1, 0.36, 1);
   flex: none; position: relative; z-index: var(--z); height: var(--h); aspect-ratio: 4 / 5;
   margin-inline: calc(var(--h) * var(--ov) * -1);
   transform: translateY(calc(var(--h) * 0.05 * var(--off) * var(--off))) rotate(calc(var(--off) * 7deg));
-  transition: transform 0.5s var(--ease), z-index 0s 0.2s;
+  transition: transform 1.1s var(--deck) var(--delay, 0s), z-index 0s 0.35s;
 }
+:root.js .spread[data-reveal] { transform: none; }
+:root.js .spread[data-reveal]:not(.is-in) .spread__card { transform: translateX(calc(var(--h) * var(--off) * -0.55)) rotate(0deg); }
 .spread__card--wide { aspect-ratio: 5 / 4; }
 .spread__card figure {
-  margin: 0; height: 100%; display: grid; grid-template-rows: minmax(0, 1fr) auto; gap: 6px;
+  position: relative; margin: 0; height: 100%; display: grid; grid-template-rows: minmax(0, 1fr) auto; gap: 6px;
   padding: 6px 6px 8px; border-radius: 14px; background: var(--surface, #fff);
   box-shadow: 0 1px 2px rgba(17, 11, 26, 0.12), 0 14px 34px -12px rgba(17, 11, 26, 0.35);
+  transition: transform 0.7s var(--deck), translate 0.7s var(--deck);
+  backface-visibility: hidden;
+}
+/* deeper shadow fades in on lift (opacity is cheaper to animate than box-shadow) */
+.spread__card figure::after {
+  content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none; opacity: 0;
+  box-shadow: 0 30px 60px -18px rgba(17, 11, 26, 0.5); transition: opacity 0.7s var(--deck);
 }
 .spread__card img { width: 100%; height: 100%; object-fit: cover; border-radius: 9px; display: block; }
 .spread__card figcaption { font-size: 12px; line-height: 1.2; color: var(--muted); text-align: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 @media (hover: hover) and (pointer: fine) {
-  .spread__card:hover { z-index: 20; transform: translateY(calc(var(--h) * -0.06)) rotate(0deg) scale(1.06); transition: transform 0.5s var(--ease), z-index 0s; }
+  .spread__card figure { will-change: transform; }
+  .spread__card:hover { z-index: 20; transition: transform 1.1s var(--deck) var(--delay, 0s), z-index 0s; }
+  /* straighten (undo the fan tilt), rise and grow a little */
+  .spread__card:hover figure { transform: translateY(calc(var(--h) * -0.07)) rotate(calc(var(--off) * -7deg)) scale(1.07); }
+  .spread__card:hover figure::after { opacity: 1; }
+  /* the neighbours ease aside to make room */
+  .spread__card:hover ~ .spread__card figure { translate: calc(var(--h) * 0.07) 0; }
+  .spread__card:has(~ .spread__card:hover) figure { translate: calc(var(--h) * -0.07) 0; }
 }
 @media (max-width: 599px) { .spread__card figcaption { display: none; } .spread__card figure { padding: 4px; gap: 0; border-radius: 10px; } }
-@media (prefers-reduced-motion: reduce) { .spread__card { transition: none; } }
+@media (prefers-reduced-motion: reduce) { .spread__card, .spread__card figure, .spread__card figure::after { transition: none; } }
 .quotes { display: grid; gap: 16px; }
 .quote { margin: 0; padding: clamp(24px, 3vw, 40px); border-top: 1px solid var(--line-strong); display: grid; gap: 20px; }
 .quote blockquote { margin: 0; font-family: var(--font-display); font-size: var(--step-3); line-height: 1.3; color: var(--ink); }
@@ -1125,7 +1145,8 @@ fieldset { border: 0; margin: 0; padding: 0; min-width: 0; }
 .footer__brand strong { display: block; font-family: var(--font-display); font-size: 16px; font-weight: 700; letter-spacing: -0.02em; line-height: 1.2; }
 .footer__brand small { display: block; font-size: 12px; color: var(--stage-muted); }
 .footer__links, .footer__contact { display: flex; flex-wrap: wrap; gap: 6px 20px; font-size: 14px; }
-.footer__links a, .footer__contact a { color: var(--stage-text); text-decoration: none; }
+.footer__links a, .footer__contact a { color: var(--stage-text); text-decoration: none; display: inline-block; padding-block: 10px; margin-block: -10px; }
+@media (pointer: coarse) { .footer__links, .footer__contact { row-gap: 20px; } }
 .footer__links a:hover, .footer__contact a:hover { color: var(--stage-head); text-decoration: underline; text-decoration-color: var(--gold-stage); }
 .footer__contact a { overflow-wrap: anywhere; }
 .footer__base {
