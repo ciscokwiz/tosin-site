@@ -789,7 +789,7 @@ button, input, select, textarea { font: inherit; color: inherit; }
 /* "On stage": a fanned spread of photo cards. --h is the card height;
    cards overlap by --ov of it and tilt by --off steps from the centre. */
 .gallery-section { padding-bottom: 0; overflow-x: clip; }
-.gallery-section + .faq-section { padding-top: clamp(56px, 8vw, 120px); }
+.gallery-section + .faq-section { padding-top: clamp(72px, 11vw, 150px); }
 .spread {
   --h: clamp(150px, 30vw, 340px); --ov: 0.3;
   list-style: none; margin: 0; padding: calc(var(--h) * 0.04) 0 calc(var(--h) * 0.1);
