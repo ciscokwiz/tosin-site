@@ -25,15 +25,16 @@ type Form = {
   time: string;
   venue: string;
   guests: string;
+  budget: string;
   notes: string;
 };
 
 /* Longest answer each field accepts (characters). */
 const LIMITS: Partial<Record<keyof Form, number>> = {
-  name: 80, org: 120, phone: 24, email: 120, eventName: 120, venue: 160, notes: 1000,
+  name: 80, org: 120, phone: 24, email: 120, eventName: 120, venue: 160, budget: 40, notes: 1000,
 };
 
-const EMPTY: Form = { name: "", org: "", phone: "", email: "", pkg: "", eventName: "", date: "", time: "", venue: "", guests: "", notes: "" };
+const EMPTY: Form = { name: "", org: "", phone: "", email: "", pkg: "", eventName: "", date: "", time: "", venue: "", guests: "", budget: "", notes: "" };
 
 const REQUIRED: { key: keyof Form; message: string }[] = [
   { key: "name", message: "Please add your name." },
@@ -108,6 +109,7 @@ export function BookingForm() {
       `• Date: ${prettyDate(form.date)}${form.time ? `, ${prettyTime(form.time)}` : ""}`,
       `• Venue / city: ${form.venue}`,
       opt(form.guests, `• Guests: ${form.guests}`),
+      opt(form.budget, `• Budget: ${form.budget}`),
       `• Phone: ${form.phone}`,
       opt(form.email, `• Email: ${form.email}`),
       opt(form.notes, ""),
@@ -292,6 +294,11 @@ export function BookingForm() {
               ))}
             </div>
           </fieldset>
+
+          <div className="field">
+            <label htmlFor="f-budget">Budget <span className="hint">(optional)</span></label>
+            <input className="input" type="text" inputMode="text" placeholder="e.g. ₦2,000,000" maxLength={LIMITS.budget} value={form.budget} onChange={update("budget")} {...a11y("budget")} />
+          </div>
 
           <div className="field">
             <label htmlFor="f-notes">Anything else? <span className="hint">(optional — audience, dress code, VIPs, languages)</span></label>
