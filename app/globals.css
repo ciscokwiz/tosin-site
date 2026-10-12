@@ -786,14 +786,36 @@ button, input, select, textarea { font: inherit; color: inherit; }
 /* =====================================================================
    GALLERY, TESTIMONIALS
    ===================================================================== */
-.gallery-layout { display: grid; gap: clamp(24px, 4vw, 48px); }
-.gallery-layout .section-head { margin-bottom: 0; }
-@media (min-width: 900px) { .gallery-layout { grid-template-columns: minmax(0, 1fr) auto; align-items: end; } }
-.gallery { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; grid-template-columns: repeat(2, minmax(0, 260px)); }
-@media (min-width: 900px) { .gallery { justify-content: end; } }
-.gallery figure { margin: 0; display: grid; gap: 8px; }
-.gallery img { width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; border-radius: var(--r-card); }
-.gallery figcaption { font-size: 14px; color: var(--muted); }
+/* "On stage": a fanned spread of photo cards. --h is the card height;
+   cards overlap by --ov of it and tilt by --off steps from the centre. */
+.gallery-section { padding-bottom: 0; overflow-x: clip; }
+.gallery-section + .faq-section { padding-top: clamp(40px, 6vw, 88px); }
+.spread {
+  --h: clamp(150px, 30vw, 340px); --ov: 0.3;
+  list-style: none; margin: 0; padding: calc(var(--h) * 0.04) 0 calc(var(--h) * 0.1);
+  display: flex; justify-content: center; align-items: center;
+}
+@media (min-width: 600px) { .spread { --ov: 0.22; } }
+@media (min-width: 900px) { .spread { --ov: 0.14; } }
+.spread__card {
+  flex: none; position: relative; z-index: var(--z); height: var(--h); aspect-ratio: 4 / 5;
+  margin-inline: calc(var(--h) * var(--ov) * -1);
+  transform: translateY(calc(var(--h) * 0.05 * var(--off) * var(--off))) rotate(calc(var(--off) * 7deg));
+  transition: transform 0.5s var(--ease), z-index 0s 0.2s;
+}
+.spread__card--wide { aspect-ratio: 5 / 4; }
+.spread__card figure {
+  margin: 0; height: 100%; display: grid; grid-template-rows: minmax(0, 1fr) auto; gap: 6px;
+  padding: 6px 6px 8px; border-radius: 14px; background: var(--surface, #fff);
+  box-shadow: 0 1px 2px rgba(17, 11, 26, 0.12), 0 14px 34px -12px rgba(17, 11, 26, 0.35);
+}
+.spread__card img { width: 100%; height: 100%; object-fit: cover; border-radius: 9px; display: block; }
+.spread__card figcaption { font-size: 12px; line-height: 1.2; color: var(--muted); text-align: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+@media (hover: hover) and (pointer: fine) {
+  .spread__card:hover { z-index: 20; transform: translateY(calc(var(--h) * -0.06)) rotate(0deg) scale(1.06); transition: transform 0.5s var(--ease), z-index 0s; }
+}
+@media (max-width: 599px) { .spread__card figcaption { display: none; } .spread__card figure { padding: 4px; gap: 0; border-radius: 10px; } }
+@media (prefers-reduced-motion: reduce) { .spread__card { transition: none; } }
 .quotes { display: grid; gap: 16px; }
 .quote { margin: 0; padding: clamp(24px, 3vw, 40px); border-top: 1px solid var(--line-strong); display: grid; gap: 20px; }
 .quote blockquote { margin: 0; font-family: var(--font-display); font-size: var(--step-3); line-height: 1.3; color: var(--ink); }
