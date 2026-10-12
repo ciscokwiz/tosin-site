@@ -5,10 +5,11 @@ export function Gallery() {
   if (!gallery.length) return null;
   return (
     <section className="section" aria-labelledby="gallery-title">
-      <div className="wrap">
+      <div className="wrap gallery-layout">
         <div className="section-head">
           <p className="eyebrow">On stage</p>
           <h2 id="gallery-title" className="h2">Rooms he has <em>held.</em></h2>
+          <p className="lead">A few moments from recent events.</p>
         </div>
         <ul className="gallery">
           {gallery.map((g) => (

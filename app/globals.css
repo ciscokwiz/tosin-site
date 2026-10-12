@@ -671,6 +671,8 @@ button, input, select, textarea { font: inherit; color: inherit; }
    ===================================================================== */
 .videos { background: var(--surface-2); }
 .videos__grid { list-style: none; margin: 0; padding: 0; display: grid; gap: 16px; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.videos__grid--4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+@media (min-width: 1200px) { .videos__grid--4 { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
 @media (max-width: 899px) {
   .videos__grid {
     grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: min(78vw, 340px);
@@ -784,7 +786,10 @@ button, input, select, textarea { font: inherit; color: inherit; }
 /* =====================================================================
    GALLERY, TESTIMONIALS
    ===================================================================== */
-.gallery { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); }
+.gallery-layout { display: grid; gap: clamp(24px, 4vw, 48px); }
+.gallery-layout .section-head { margin-bottom: 0; }
+@media (min-width: 900px) { .gallery-layout { grid-template-columns: minmax(0, 1fr) minmax(0, 1.5fr); align-items: end; } }
+.gallery { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); }
 .gallery figure { margin: 0; display: grid; gap: 8px; }
 .gallery img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; border-radius: var(--r-card); }
 .gallery figcaption { font-size: 14px; color: var(--muted); }

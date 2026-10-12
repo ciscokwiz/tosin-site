@@ -12,20 +12,21 @@ export const site = {
   url: "https://thecorporatemcee.com",
 
   // Brand name as it appears in the logo and page titles.
-  brand: "The Corporate MC",
+  brand: "The Corporate Emcee",
   // Short handle used in small places (social, footer credit).
-  shortBrand: "TheCorporateMC",
-  // His full name.
+  shortBrand: "TheCorporateEmcee",
+  // His full name. Kept for search engines only; the site itself always
+  // says "The Corporate Emcee" (kosi, 12 Oct 2026).
   person: "Oluwatosin Aina",
   // The nickname people use for him. Shown in the "Range" section.
   nickname: "The Range Master",
 
   // One-line description used by Google and link previews.
   description:
-    "Oluwatosin Aina, The Corporate MC: a versatile Master of Ceremonies in Lagos for conferences, galas, product launches, award nights, weddings and campus events across Nigeria and beyond.",
+    "The Corporate Emcee: a versatile Master of Ceremonies in Lagos for conferences, galas, product launches, award nights, weddings and celebrations across Nigeria and beyond.",
 
   // His own words, from thecorporatemcee.com. Shown in the home hero.
-  bio: "A master communicator, event host and convener of unforgettable moments. With a degree in Psychology from OAU and training in emotional intelligence and product management, Oluwatosin brings more than charisma — he delivers impact.",
+  bio: "A master communicator, event host and convener of unforgettable moments. With a degree in Psychology from OAU and training in emotional intelligence and product management, The Corporate Emcee brings more than charisma — he delivers impact.",
 
   city: "Lagos",
   country: "Nigeria",
@@ -51,16 +52,16 @@ export const site = {
   },
 
   // Headline numbers in the hero. Keep them true:
-  // - events hosted: from Oluwatosin (October 2026)
+  // - events hosted: from The Corporate Emcee (October 2026)
   // - brands: the number of names in `clients` below, rounded down to a ten
-  // - event formats: the cards in "The Range Master" (data/range.ts)
+  // - "All" formats: a word, not a count, so it never goes out of date
   stats: [
     { value: 1500, suffix: "+", label: "Events hosted" },
     { value: 30, suffix: "+", label: "Brands on the mic" },
-    { value: 6, suffix: "", label: "Event formats, one host" },
+    { value: "All", suffix: "", label: "Formats, one host" },
   ],
 
-  // Brands Oluwatosin has hosted for. ONLY list brands he confirms — a wrong
+  // Brands The Corporate Emcee has hosted for. ONLY list brands he confirms — a wrong
   // name is a legal problem. The band scrolls in this order; well-known
   // names are spread out so each pass of the marquee carries a few.
   clients: [

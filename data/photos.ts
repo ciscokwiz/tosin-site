@@ -16,7 +16,7 @@ export type Photo = { src: string; alt: string; focus: string };
 /* Full-screen hero. Best as a wide shot with the subject off-centre. */
 export const heroPhoto: Photo = {
   src: "/images/hero1",
-  alt: "Oluwatosin on stage in agbada and fila, microphone in hand, facing a full banquet hall",
+  alt: "The Corporate Emcee on stage in agbada and fila, microphone in hand, facing a full banquet hall",
   focus: "68% 45%",
 };
 
@@ -27,17 +27,17 @@ export const heroPhoto: Photo = {
 export const meetPhotos: [Photo, Photo, Photo] = [
   {
     src: "/images/meet-host1",
-    alt: "Oluwatosin in a cream suit hosting The Naked Truth talk show, TNT 2024",
+    alt: "The Corporate Emcee in a cream suit hosting The Naked Truth talk show, TNT 2024",
     focus: "50% 40%",
   },
   {
     src: "/images/meet-host2",
-    alt: "Oluwatosin in a pinstripe suit and beaded fila speaking at Omoi's Neuroscience & Giggles",
-    focus: "32% 40%",
+    alt: "The Corporate Emcee in a pinstripe suit, microphone in hand, dancing with a cheering crowd at World Class Nigeria 2026",
+    focus: "30% 35%",
   },
   {
     src: "/images/meet-host4",
-    alt: "Oluwatosin, microphone in hand, with a guest on the red carpet at a Berger Paints event",
+    alt: "The Corporate Emcee, microphone in hand, with a guest on the red carpet at a Berger Paints event",
     focus: "50% 46%",
   },
 ];
@@ -46,11 +46,11 @@ export const meetPhotos: [Photo, Photo, Photo] = [
    repeats an image from the home page. Shape: 4:5 portrait. */
 export const ratesPhoto: Photo = {
   src: "/images/rates-hero",
-  alt: "Oluwatosin smiling on the red carpet in a black textured suit, in front of a Berger Paints backdrop",
+  alt: "The Corporate Emcee smiling on the red carpet in a black textured suit, in front of a Berger Paints backdrop",
   focus: "50% 35%",
 };
 export const bookingPhoto: Photo = {
   src: "/images/booking-hero",
-  alt: "Oluwatosin laughing in a tuxedo and bow tie, seated on a wooden chair in a studio portrait",
+  alt: "The Corporate Emcee laughing in a tuxedo and bow tie, seated on a wooden chair in a studio portrait",
   focus: "45% 40%",
 };

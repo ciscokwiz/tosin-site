@@ -210,7 +210,7 @@ export function BookingForm() {
           }}
           aria-labelledby="form-title"
         >
-          <h2 id="form-title" className="h3">Tell Oluwatosin about your event</h2>
+          <h2 id="form-title" className="h3">Tell The Corporate Emcee about your event</h2>
           <p className="small muted">Fields marked <span className="req">*</span> are required. Your details go into a WhatsApp or email message you send yourself, and a copy is saved to Tosin&rsquo;s booking log so your enquiry isn&rsquo;t missed.</p>
 
           {/* Left empty by people; bots that fill every field get ignored. */}
@@ -317,7 +317,7 @@ export function BookingForm() {
         <div className="invite">
           <Mark className="invite__seal" />
           <p className="invite__small">The pleasure of the company of</p>
-          <p className="invite__name">The Corporate <em>MC</em></p>
+          <p className="invite__name">The Corporate <em>Emcee</em></p>
           <p className="invite__small">is requested to host</p>
           <p className="invite__field" data-empty={!(form.eventName || form.pkg)}>
             {form.eventName || pkgLabel(form.pkg) || "your event"}

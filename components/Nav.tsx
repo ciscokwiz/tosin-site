@@ -42,7 +42,7 @@ export function Nav() {
             <Mark className="brand__mark" />
             <span className="brand__name">
               {site.brand}
-              <small>{site.person}</small>
+              <small>Master of Ceremonies</small>
             </span>
           </Link>
           {/* House lights sit in the centre of the bar */}
@@ -59,7 +59,7 @@ export function Nav() {
                 ))}
               </ul>
             </nav>
-            <Link href="/booking/" className="btn btn--sm nav__book" aria-current={isCurrent(pathname, "/booking/") ? "page" : undefined}>Book Oluwatosin</Link>
+            <Link href="/booking/" className="btn btn--sm nav__book" aria-current={isCurrent(pathname, "/booking/") ? "page" : undefined}>Book</Link>
             <button
               type="button"
               className="nav__menu"

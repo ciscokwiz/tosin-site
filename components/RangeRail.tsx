@@ -17,7 +17,8 @@ export function RangeRail() {
             <h2 id="range-title" className="h2">From the summit stage to the <em>dance floor.</em></h2>
           </div>
           <p className="lead">
-            One MC, six kinds of room. The same preparation every time, and a different gear for each: conferences, galas, launches, award nights, weddings and campus stages.
+            One MC, every kind of room. The same preparation every time, and a different gear for each: conferences, galas, launches, award nights and weddings.
+            His range mastery is what earned him the nickname <em>&ldquo;the most versatile MC in the city of Lagos.&rdquo;</em>
           </p>
         </div>
         <div className="rail__viewport" data-rail-viewport tabIndex={0} aria-label="Event formats, scroll sideways">
