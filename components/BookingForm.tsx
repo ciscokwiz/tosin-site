@@ -14,6 +14,9 @@ import { WhatsAppIcon } from "./Icons";
 
 const GUESTS = ["Under 50", "50–100", "100–300", "300–600", "600–1,000", "1,000+"] as const;
 
+/* "How did you hear about us?" answers. "Other" opens a short text box. */
+const HEARD = ["Live event", "Instagram / Facebook", "Google", "Friend or referral", "Other"] as const;
+
 type Form = {
   name: string;
   org: string;
@@ -26,15 +29,17 @@ type Form = {
   venue: string;
   guests: string;
   budget: string;
+  heard: string;
+  heardOther: string;
   notes: string;
 };
 
 /* Longest answer each field accepts (characters). */
 const LIMITS: Partial<Record<keyof Form, number>> = {
-  name: 80, org: 120, phone: 24, email: 120, eventName: 120, venue: 160, budget: 40, notes: 1000,
+  name: 80, org: 120, phone: 24, email: 120, eventName: 120, venue: 160, budget: 40, heardOther: 60, notes: 1000,
 };
 
-const EMPTY: Form = { name: "", org: "", phone: "", email: "", pkg: "", eventName: "", date: "", time: "", venue: "", guests: "", budget: "", notes: "" };
+const EMPTY: Form = { name: "", org: "", phone: "", email: "", pkg: "", eventName: "", date: "", time: "", venue: "", guests: "", budget: "", heard: "", heardOther: "", notes: "" };
 
 const REQUIRED: { key: keyof Form; message: string }[] = [
   { key: "name", message: "Please add your name." },
@@ -88,6 +93,9 @@ export function BookingForm() {
     if (sent) sentRef.current?.focus();
   }, [sent]);
 
+  /* "Other" plus whatever the visitor typed, or just the chosen answer. */
+  const heard = form.heard === "Other" && form.heardOther.trim() ? `Other (${form.heardOther.trim()})` : form.heard;
+
   const update = (key: keyof Form) => (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     // keep every answer a sensible length (the whole message travels in a
     // WhatsApp or mailto link) and drop invisible control characters
@@ -112,6 +120,7 @@ export function BookingForm() {
       opt(form.budget, `• Budget: ${form.budget}`),
       `• Phone: ${form.phone}`,
       opt(form.email, `• Email: ${form.email}`),
+      opt(heard, `• Heard about you via: ${heard}`),
       opt(form.notes, ""),
       opt(form.notes, `Notes: ${form.notes}`),
       "",
@@ -138,7 +147,7 @@ export function BookingForm() {
      stop it. `keepalive` lets the request finish while the page navigates
      to the mail app. The same details are only logged once. */
   function log(channel: "whatsapp" | "email") {
-    const body = JSON.stringify({ ...form, channel, website });
+    const body = JSON.stringify({ ...form, heard, heardOther: undefined, channel, website });
     const key = JSON.stringify(form);
     if (loggedRef.current === key) return;
     loggedRef.current = key;
@@ -299,6 +308,30 @@ export function BookingForm() {
             <label htmlFor="f-budget">Budget <span className="hint">(optional)</span></label>
             <input className="input" type="text" inputMode="text" placeholder="e.g. ₦2,000,000" maxLength={LIMITS.budget} value={form.budget} onChange={update("budget")} {...a11y("budget")} />
           </div>
+
+          <fieldset className="field field--heard">
+            <legend>How did you hear about The Corporate Emcee? <span className="hint">(optional)</span></legend>
+            <div className="chips">
+              {HEARD.map((h) => (
+                <label className="chip" key={h}>
+                  <input type="radio" name="heard" value={h} checked={form.heard === h} onChange={update("heard")} />
+                  <span>{h}</span>
+                </label>
+              ))}
+            </div>
+            {form.heard === "Other" && (
+              <input
+                className="input"
+                type="text"
+                placeholder="Where did you hear about us?"
+                aria-label="Where did you hear about The Corporate Emcee?"
+                maxLength={LIMITS.heardOther}
+                value={form.heardOther}
+                onChange={update("heardOther")}
+                {...a11y("heardOther")}
+              />
+            )}
+          </fieldset>
 
           <div className="field">
             <label htmlFor="f-notes">Anything else? <span className="hint">(optional — audience, dress code, VIPs, languages)</span></label>
