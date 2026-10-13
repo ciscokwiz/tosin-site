@@ -30,6 +30,7 @@ type Booking = {
   venue: string;
   guests: string;
   budget: string;
+  heard: string;
   notes: string;
   channel: string;
 };
@@ -37,7 +38,7 @@ type Booking = {
 /* Longest answer each field accepts, matching the form's own limits. */
 const LIMITS: Record<keyof Booking, number> = {
   name: 80, org: 120, phone: 24, email: 120, pkg: 60, eventName: 120,
-  date: 10, time: 5, venue: 160, guests: 20, budget: 40, notes: 1000, channel: 10,
+  date: 10, time: 5, venue: 160, guests: 20, budget: 40, heard: 80, notes: 1000, channel: 10,
 };
 
 /* Candidate column names for each detail, compared case-insensitively. */
@@ -53,6 +54,7 @@ const COLUMNS: Record<string, string[]> = {
   notes: ["notes", "anything else", "details"],
   price: ["price", "from price", "rate"],
   budget: ["budget", "client budget"],
+  heard: ["how did you hear", "how did you hear about us", "heard about us", "heard via", "referral source", "lead source", "found us via"],
   channel: ["channel", "sent via", "source"],
 };
 
@@ -102,7 +104,8 @@ function cell(type: string, value: string | number, kind: string) {
     case "rich_text": return { rich_text: text(value) };
     case "phone_number": return kind === "phone" ? { phone_number: value } : null;
     case "email": return kind === "email" ? { email: value } : null;
-    case "select": return { select: { name: value.replace(/,/g, " ") } };
+    // a select keeps to its fixed answers: "Other (a podcast)" files under "Other"
+    case "select": return { select: { name: (kind === "heard" ? value.replace(/ \(.*\)$/, "") : value).replace(/,/g, " ") } };
     case "date": return kind === "date" ? { date: { start: value } } : null;
     default: return null;
   }
@@ -149,6 +152,7 @@ export async function POST(request: Request) {
     venue: b.venue,
     guests: b.guests,
     budget: b.budget,
+    heard: b.heard,
     notes: b.notes,
     price: p && p.price !== null ? p.price : "",
     channel: b.channel === "email" ? "Email" : b.channel === "whatsapp" ? "WhatsApp" : "",
@@ -185,6 +189,7 @@ export async function POST(request: Request) {
       b.budget && `Budget: ${b.budget}`,
       `Phone: ${b.phone}`,
       b.email && `Email: ${b.email}`,
+      b.heard && `Heard about us via: ${b.heard}`,
       b.notes && `Notes: ${b.notes}`,
       values.channel && `Sent via: ${values.channel}`,
     ].filter(Boolean) as string[];
