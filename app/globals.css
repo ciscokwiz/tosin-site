@@ -1088,16 +1088,20 @@ fieldset { border: 0; margin: 0; padding: 0; min-width: 0; }
 }
 .chip input:checked + span { background: var(--action); color: var(--on-action); border-color: transparent; }
 .chip input:focus-visible + span { outline: 2px solid var(--gold); outline-offset: 2px; }
-/* "How did you hear about us?": a small panel of its own, so the one
-   question that isn't about the event reads as a separate, quick aside */
+/* "How did you hear about us?": a small panel of its own, tinted with the
+   brand purple, so the one question that isn't about the event reads as a
+   separate, quick aside */
 .field--heard {
-  gap: 10px; padding: 16px; border-radius: 18px;
-  background: color-mix(in srgb, var(--gold) 9%, transparent);
-  border: 1px solid color-mix(in srgb, var(--gold) 28%, transparent);
+  --heard-tint: var(--purple); --heard-mix: 15%;
+  gap: 12px; padding: 16px; border-radius: 18px;
+  background: color-mix(in srgb, var(--heard-tint) var(--heard-mix), var(--surface));
+  border: 1px solid color-mix(in srgb, var(--heard-tint) 38%, transparent);
 }
-.field--heard legend { float: left; width: 100%; margin-bottom: 2px; }
-.field--heard legend + * { clear: both; }
-.field--heard .input { background: var(--canvas); }
+:root[data-theme="dark"] .field--heard, .stage .field--heard { --heard-tint: #a98ae0; --heard-mix: 22%; }
+.field__legend { margin: 0; font-size: 13px; font-weight: 600; color: var(--ink); letter-spacing: -0.005em; }
+.field--heard .chip span { background: var(--surface); }
+.field--heard .chip input:checked + span { background: var(--action); }
+.field--heard .input { background: var(--surface); }
 
 .booking { display: grid; gap: clamp(36px, 5vw, 72px); }
 @media (min-width: 1000px) { .booking { grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr); align-items: start; } }
