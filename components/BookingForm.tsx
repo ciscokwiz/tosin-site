@@ -309,8 +309,10 @@ export function BookingForm() {
             <input className="input" type="text" inputMode="text" placeholder="e.g. ₦2,000,000" maxLength={LIMITS.budget} value={form.budget} onChange={update("budget")} {...a11y("budget")} />
           </div>
 
-          <fieldset className="field field--heard">
-            <legend>How did you hear about The Corporate Emcee? <span className="hint">(optional)</span></legend>
+          {/* a labelled group rather than a fieldset: Safari draws a fieldset's
+              legend on its border, which pushed this one out of the panel */}
+          <div className="field field--heard" role="group" aria-labelledby="f-heard-label">
+            <p className="field__legend" id="f-heard-label">How did you hear about The Corporate Emcee? <span className="hint">(optional)</span></p>
             <div className="chips">
               {HEARD.map((h) => (
                 <label className="chip" key={h}>
@@ -331,7 +333,7 @@ export function BookingForm() {
                 {...a11y("heardOther")}
               />
             )}
-          </fieldset>
+          </div>
 
           <div className="field">
             <label htmlFor="f-notes">Anything else? <span className="hint">(optional — audience, dress code, VIPs, languages)</span></label>
