@@ -525,8 +525,11 @@ button, input, select, textarea { font: inherit; color: inherit; }
 .marquee:hover, .marquee:focus-within, .marquee:active { animation-play-state: paused; }
 .marquee ul { display: flex; align-items: center; margin: 0; padding: 0; list-style: none; }
 /* logo + name, then a generous gap to the next brand */
-.marquee li { display: inline-flex; align-items: center; gap: 10px; padding-right: clamp(32px, 4vw, 56px); }
+.marquee li { display: inline-flex; align-items: center; gap: 12px; padding-right: clamp(44px, 5.5vw, 80px); }
 .marquee li img { height: clamp(22px, 2vw, 28px); width: auto; max-width: 110px; flex: none; object-fit: contain; display: block; }
+/* reversed logo for the dark theme, when a brand has one */
+.marquee li .logo-dark, :root[data-theme="dark"] .marquee li .logo-light { display: none; }
+:root[data-theme="dark"] .marquee li .logo-dark { display: block; }
 .marquee li span {
   font-family: var(--font-display); font-weight: 700; font-size: clamp(16px, 1.4vw, 20px); letter-spacing: -0.02em;
   color: var(--ink); opacity: 0.72; white-space: nowrap;
