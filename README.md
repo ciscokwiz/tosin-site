@@ -50,11 +50,14 @@ If the artwork changes:
 Each brand in the band shows its logo in its own colours, with its name beside it. Brand names come from `clients` in `data/site.ts`. To add a logo:
 1. Save it in `public/logos/`, named after the brand in lowercase with dashes: "MTN" becomes `mtn.svg` and "Alat by WEMA" becomes `alat-by-wema.png`.
 2. SVG works best, though PNG and WebP also work. Use the colour version on a transparent background, roughly square or a short wordmark.
-3. That's it. The band picks it up on the next build.
+3. If the logo has dark ink that disappears on the dark theme, add a reversed copy beside it with `.dark` before the extension, e.g. `cadbury.dark.webp`. The band swaps it in when the site is in dark mode.
+4. That's it. The band picks it up on the next build.
 
 A brand with no file shows its name only, so no logo is ever made up. Only use logos the brand has approved for this.
 
-Logos already in place: McLaren, Coca-Cola, Glovo and Shell. These come from the open-source Simple Icons set (CC0), in each brand's own colour.
+Logos already in place:
+- McLaren, Coca-Cola, Glovo and Shell, from the open-source Simple Icons set (CC0), in each brand's own colour.
+- Cadbury, Lafarge, BBA Motors, Alat by WEMA and USAID, supplied by the client. Each was cleaned up: background removed, cropped to the mark, and exported as WebP at 96px tall. Cadbury and BBA Motors have reversed `.dark` copies.
 
 
 1. Put the original photo in `assets/`. Any size of JPG or PNG is fine.
