@@ -46,7 +46,17 @@ If the artwork changes:
 2. Regenerate `components/MarkSprite.tsx` from it, or ask a developer to. Each part (fila, lapels, bow tie, studs) is a separate group so it can be recoloured and animated.
 3. Update the browser-tab icons `app/icon.svg` and `app/apple-icon.png`, and the share image `public/og.png`.
 
-### Photos
+### Client logos ("Trusted by" band)
+Each brand in the band shows its logo in its own colours, with its name beside it. Brand names come from `clients` in `data/site.ts`. To add a logo:
+1. Save it in `public/logos/`, named after the brand in lowercase with dashes: "MTN" becomes `mtn.svg` and "Alat by WEMA" becomes `alat-by-wema.png`.
+2. SVG works best, though PNG and WebP also work. Use the colour version on a transparent background, roughly square or a short wordmark.
+3. That's it. The band picks it up on the next build.
+
+A brand with no file shows its name only, so no logo is ever made up. Only use logos the brand has approved for this.
+
+Logos already in place: McLaren, Coca-Cola, Glovo and Shell. These come from the open-source Simple Icons set (CC0), in each brand's own colour.
+
+
 1. Put the original photo in `assets/`. Any size of JPG or PNG is fine.
 2. Run `npm run images`. This writes web-sized copies to `public/images/` (`<name>-800.webp` and `<name>-1600.webp`, plus `-2400.webp` for the hero).
 3. In `data/photos.ts`, point the hero or a "Meet the host" slot at `"/images/<name>"`. Set `focus` to keep his face in frame when the photo is cropped.

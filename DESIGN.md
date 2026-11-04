@@ -127,7 +127,7 @@ Body text is 17px and does not shrink on phones. The scale is a major third (1.2
 
 ## Market layer
 - **Currency & numerals:** ₦ with comma thousands (`Intl.NumberFormat('en-NG')`), tabular lining figures; international = "On request" (quoted in USD/GBP on enquiry).
-- **Contact channels:** WhatsApp primary (+234 803 406 4395) surfaced in nav sheet, hero, every rate card, booking page and footer; phone and email (thecorporateemcee00@gmail.com) secondary. Booking form composes a WhatsApp message (or email fallback) — no backend.
+- **Contact channels:** WhatsApp primary (+234 803 406 4395) surfaced in nav sheet, hero, every rate card, booking page and footer; phone and email (Ask@thecorporatemcee.com) secondary. Booking form composes a WhatsApp message (or email fallback) — no backend.
 - **Trust signals:** named corporate clients directly under the hero; 500+ events / 3+ countries / 98% satisfaction; OAU Psychology degree + emotional-intelligence and product-management training; a clear process timeline (planners fear the MC who shows up without the run-sheet).
 - **Connectivity:** static export, ~2 font files, no third-party scripts, images lazy and sized, motion CSS-first. Works on throttled 3G; the loader runs once per session (about 2.7s) and is skipped after that.
 - **Wedding structure:** booking form distinguishes Traditional/Engagement vs. White Wedding reception vs. both days — these are different days in Nigeria.

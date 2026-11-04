@@ -40,7 +40,7 @@ export const site = {
     phoneDisplay: "+234 803 406 4395",
     // WhatsApp number: digits only, country code first, no "+" or spaces.
     whatsapp: "2348034064395",
-    email: "thecorporateemcee00@gmail.com",
+    email: "Ask@thecorporatemcee.com",
   },
 
   // Social profiles. Leave a value as "" to hide that icon everywhere.
