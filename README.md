@@ -57,7 +57,7 @@ A brand with no file shows its name only, so no logo is ever made up. Only use l
 
 Logos already in place:
 - McLaren, Coca-Cola, Glovo and Shell, from the open-source Simple Icons set (CC0), in each brand's own colour.
-- Cadbury, Lafarge, BBA Motors, Alat by WEMA, USAID, Guinness, Monster Energy, The Omuti Club, First Bank, Prestmit, Seven-Up, Cowrywise, SI-UK, JCI, TSL Logistics, Chapel Hill Denham, Oraimo, First Ally, Redwire and Creative Bloc, supplied by the client. Each was cleaned up: background removed, cropped to the mark, and exported as WebP at 96px tall. Cadbury, BBA Motors, The Omuti Club, SI-UK and JCI have reversed `.dark` copies.
+- Cadbury, Lafarge, BBA Motors, Alat by WEMA, USAID, Guinness, Monster Energy, The Omuti Club, First Bank, Prestmit, Seven-Up, Cowrywise, SI-UK, JCI, TSL Logistics, Chapel Hill Denham, Oraimo, First Ally, Redwire, Creative Bloc, Aniwe, KPMG and MTN, supplied by the client. Each was cleaned up: background removed, cropped to the mark, and exported as WebP at 96px tall. Cadbury, BBA Motors, The Omuti Club, SI-UK, JCI and Aniwe have reversed `.dark` copies.
 
 
 1. Put the original photo in `assets/`. Any size of JPG or PNG is fine.
