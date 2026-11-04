@@ -177,7 +177,7 @@ export const packages: RatePackage[] = [
     name: "Award ceremony",
     price: 2000000,
     per: "per ceremony",
-    summary: "Long category lists, live broadcast cues and nominees who must hear their names right.",
+    summary: "Long category lists, live broadcast cues and nominees who must hear their names pronounced right.",
     includes: ["Name pronunciation check", "Category & cue scripting", "Cue run-through on a call"],
     featured: true,
   },
